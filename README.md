@@ -7,11 +7,11 @@ We will study what makes games successful and create a dashboard to navigate thi
 1. clone out repository 
 2. set up the virtual environment or webserver by installing the dependencies 
 
-'''
+```
 $ conda create --prefix=./venv -y python=3.9
 $ conda activate ./venv
 $ pip install -r requirements.txt
-'''
+```
 > you do not have to use conda. It is preferred if you are using your local machine. 
 
 ## Setting up your environment 
