@@ -1,5 +1,11 @@
 # DS105SuperStar - Steam Player & Games Dashboards
 
+## Team members:
+* Simon Deshayes
+* Shuyu Cao
+* Sijia He
+* Yinyue Wang
+
 We will study what makes games successful and create a dashboard to navigate this information. 
 
 ## How to set up our environment 
