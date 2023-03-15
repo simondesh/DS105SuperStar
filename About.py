@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+from data.Games import games
 
 """
 # About :) 
@@ -17,9 +18,23 @@ Our aim is to study what makes a game successful on steam. We will be using the 
 We will then use this data to create a dashboard that will allow us to explore the data and answer our research questions.
 """
 
-df = pd.DataFrame({
-  'first column': [1, 2, 3, 4],
-  'second column': [10, 20, 30, 40]
-})
+x = games()
 
-df
+show_game_and_id = st.checkbox('show game name and id dataframe')
+if show_game_and_id:
+    st.dataframe(x.df_game_name_and_id, 700, 500)
+
+x.get_language_dataframes()
+
+show_game_by_language = st.checkbox('show game name and id dataframe by language')
+if show_game_by_language:
+    language = st.selectbox('select language', ('non_english', 'chinese', 'korean', 'japanese'))
+    if language == 'non_english':
+        st.dataframe(x.non_english_df, 700, 500)
+    elif language == 'chinese':
+        st.dataframe(x.chinese_df, 700, 500)
+    elif language == 'korean':
+        st.dataframe(x.korean_df, 700, 500)
+    elif language == 'japanese':
+        st.dataframe(x.japanese_df, 700, 500)
+        
