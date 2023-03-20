@@ -4,14 +4,14 @@ date: 20 March 2023
 date-meta: 20 March 2023
 ---
 
-# 🤖 Project Title
+# 🤖 STEAM-Dashboard: steam game data analysis
 
 **Team members:** 
 
-- [Member 1]()
-- [Member 2]()
-- [Member 3]()
-- [Member 4]()
+- Sijia He (BSc Politics and Data Science 1st)
+- Simon Deshayes (BSc Finance 2nd)
+- Shuyu Cao (General Course)
+- Yinyue Wang (BSc Mathematics, Statistics and Business 3rd)
 
 ## 📝 Project Description
 
