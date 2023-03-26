@@ -458,10 +458,51 @@
 </div>
 </div>
 </section>
+<section id="distribution-analysis" class="slide level2">
+<h2>Distribution Analysis</h2>
+<p>Hypothesis waiting to be proved in the analysis</p>
+<ul>
+<li>H1: Games with same publishers and developers could be more popular?</li>
+<li>H2: Developers that have created more top 100 games have higher ability to produce more top 100 games in the future (Individuals who would like to produce popular games could go to these developers)?</li>
+<li>H3:</li>
+</ul>
+</section>
+<section id="h1" class="slide level2">
+<h2>H1:</h2>
+<ul>
+<li>V1:</li>
+<li>V2:</li>
+<li>V3:</li>
+</ul>
+</section>
+<section id="h1v1" class="slide level2">
+<h2>H1/V1:</h2>
+<div class="sourceCode" id="cb1" data-code-line-numbers="|4-13|15-20"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div data-notebook="Linear_regression.ipynb" data-notebook-title="Implement Linear Regression">
+<div class="cell" data-execution_count="64">
+<div class="cell-output cell-output-display">
+<div id="fig-correlation-matrix" class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="Index_files/figure-revealjs/fig-correlation-matrix-output-1.png" class="quarto-discovered-preview-image"></p>
+<p></p><figcaption>Figure&nbsp;1: Correlation matrix of the steam games dataset</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="h2" class="slide level2">
+<h2>H2:</h2>
+<ul>
+<li>V1:</li>
+<li>V2:</li>
+<li>V3:</li>
+</ul>
+</section>
 <section id="linear-regression-for-genre" class="slide level2">
 <h2>Linear Regression for Genre</h2>
 <p>Linear Regression</p>
-<p>Ill show you how I gathered our current model :</p>
+<p>I’ll show you how I gathered our current model :</p>
 <ul>
 <li>Initial Data Correlation</li>
 <li>Genre dummies</li>
@@ -508,21 +549,21 @@
 <p>code to obtain the correlation matrix plot of the initial DF</p>
 <div class="columns">
 <div class="column" style="width:40%;">
-<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
-<span id="cb1-3"><a href="#cb1-3"></a></span>
-<span id="cb1-4"><a href="#cb1-4"></a><span class="co"># plot the correlation matrix</span></span>
-<span id="cb1-5"><a href="#cb1-5"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">12</span>,<span class="dv">10</span>), dpi<span class="op">=</span> <span class="dv">80</span>)</span>
-<span id="cb1-6"><a href="#cb1-6"></a>sns.heatmap(data.corr(), xticklabels<span class="op">=</span>data.corr().columns, </span>
-<span id="cb1-7"><a href="#cb1-7"></a>    yticklabels<span class="op">=</span>data.corr().columns, </span>
-<span id="cb1-8"><a href="#cb1-8"></a>    cmap<span class="op">=</span><span class="st">'RdYlGn'</span>, c</span>
-<span id="cb1-9"><a href="#cb1-9"></a>    enter<span class="op">=</span><span class="dv">0</span>, annot<span class="op">=</span><span class="va">True</span>, fmt<span class="op">=</span><span class="st">".2f"</span>)</span>
-<span id="cb1-10"><a href="#cb1-10"></a></span>
-<span id="cb1-11"><a href="#cb1-11"></a><span class="co"># decoration</span></span>
-<span id="cb1-12"><a href="#cb1-12"></a>plt.title(<span class="st">'Correlogram of Steam Games data'</span>, fontsize<span class="op">=</span><span class="dv">22</span>)</span>
-<span id="cb1-13"><a href="#cb1-13"></a>plt.xticks(fontsize<span class="op">=</span><span class="dv">12</span>)</span>
-<span id="cb1-14"><a href="#cb1-14"></a>plt.yticks(fontsize<span class="op">=</span><span class="dv">12</span>)</span>
-<span id="cb1-15"><a href="#cb1-15"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb2-3"><a href="#cb2-3"></a></span>
+<span id="cb2-4"><a href="#cb2-4"></a><span class="co"># plot the correlation matrix</span></span>
+<span id="cb2-5"><a href="#cb2-5"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">12</span>,<span class="dv">10</span>), dpi<span class="op">=</span> <span class="dv">80</span>)</span>
+<span id="cb2-6"><a href="#cb2-6"></a>sns.heatmap(data.corr(), xticklabels<span class="op">=</span>data.corr().columns, </span>
+<span id="cb2-7"><a href="#cb2-7"></a>    yticklabels<span class="op">=</span>data.corr().columns, </span>
+<span id="cb2-8"><a href="#cb2-8"></a>    cmap<span class="op">=</span><span class="st">'RdYlGn'</span>, c</span>
+<span id="cb2-9"><a href="#cb2-9"></a>    enter<span class="op">=</span><span class="dv">0</span>, annot<span class="op">=</span><span class="va">True</span>, fmt<span class="op">=</span><span class="st">".2f"</span>)</span>
+<span id="cb2-10"><a href="#cb2-10"></a></span>
+<span id="cb2-11"><a href="#cb2-11"></a><span class="co"># decoration</span></span>
+<span id="cb2-12"><a href="#cb2-12"></a>plt.title(<span class="st">'Correlogram of Steam Games data'</span>, fontsize<span class="op">=</span><span class="dv">22</span>)</span>
+<span id="cb2-13"><a href="#cb2-13"></a>plt.xticks(fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb2-14"><a href="#cb2-14"></a>plt.yticks(fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb2-15"><a href="#cb2-15"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column" style="width:60%;">
 <div data-notebook="Linear_regression.ipynb" data-notebook-title="Implement Linear Regression">
 <div class="cell" data-execution_count="64">
@@ -530,7 +571,7 @@
 <div id="fig-correlation-matrix" class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="Index_files/figure-revealjs/fig-correlation-matrix-output-1.png"></p>
-<p></p><figcaption>Figure&nbsp;1: Correlation matrix of the steam games dataset</figcaption><p></p>
+<p></p><figcaption>Figure&nbsp;2: Correlation matrix of the steam games dataset</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -800,55 +841,55 @@
 </section>
 <section id="tranforming-the-data" class="slide level2" data-transition="slide" data-auto-animate="true">
 <h2 data-id="quarto-animate-title">Tranforming the Data</h2>
-<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode python hljs"><span id="cb3-1" class="hljs-ln-code"><a href="#cb3-1"></a><span class="co"># clean </span></span>
-<span id="cb3-2" class="hljs-ln-code"><a href="#cb3-2"></a>df_genres <span class="op">=</span> data.copy()</span>
-<span id="cb3-3" class="hljs-ln-code"><a href="#cb3-3"></a>df_genres <span class="op">=</span> df_genres.drop([<span class="st">'score_rank'</span>,<span class="st">'initialprice'</span>,<span class="st">'discount'</span>,<span class="st">'userscore'</span>],axis<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb3-4" class="hljs-ln-code"><a href="#cb3-4"></a>df_genres[<span class="st">'appid'</span>] <span class="op">=</span> df_genres[<span class="st">'appid'</span>].astype(<span class="bu">int</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section>
-<section id="from-str-to-int-owners" class="slide level2" data-auto-animate="true">
-<h2 data-id="quarto-animate-title">From str to int : owners</h2>
 <div class="sourceCode" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode python hljs"><span id="cb4-1" class="hljs-ln-code"><a href="#cb4-1"></a><span class="co"># clean </span></span>
 <span id="cb4-2" class="hljs-ln-code"><a href="#cb4-2"></a>df_genres <span class="op">=</span> data.copy()</span>
 <span id="cb4-3" class="hljs-ln-code"><a href="#cb4-3"></a>df_genres <span class="op">=</span> df_genres.drop([<span class="st">'score_rank'</span>,<span class="st">'initialprice'</span>,<span class="st">'discount'</span>,<span class="st">'userscore'</span>],axis<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb4-4" class="hljs-ln-code"><a href="#cb4-4"></a>df_genres[<span class="st">'appid'</span>] <span class="op">=</span> df_genres[<span class="st">'appid'</span>].astype(<span class="bu">int</span>)</span>
-<span id="cb4-5" class="hljs-ln-code"><a href="#cb4-5"></a></span>
-<span id="cb4-6" class="hljs-ln-code"><a href="#cb4-6"></a><span class="co"># get the average of the owners</span></span>
-<span id="cb4-7" class="hljs-ln-code"><a href="#cb4-7"></a>owners <span class="op">=</span> pd.DataFrame(df_genres[<span class="st">'owners'</span>].<span class="bu">str</span>.replace(<span class="st">','</span>,<span class="st">''</span>).<span class="bu">str</span>.split(<span class="st">' .. '</span>).tolist(),columns <span class="op">=</span> [<span class="st">'min'</span>,<span class="st">'max'</span>])</span>
-<span id="cb4-8" class="hljs-ln-code"><a href="#cb4-8"></a>df_genres[<span class="st">'owners'</span>]<span class="op">=</span> owners.astype(<span class="bu">int</span>).<span class="bu">sum</span>(axis<span class="op">=</span><span class="dv">1</span>)<span class="op">/</span><span class="dv">2</span></span>
-<span id="cb4-9" class="hljs-ln-code"><a href="#cb4-9"></a>df_genres[<span class="st">'owners'</span>] <span class="op">=</span> df_genres[<span class="st">'owners'</span>].astype(<span class="bu">int</span>)</span>
-<span id="cb4-10" class="hljs-ln-code"><a href="#cb4-10"></a>df_genres.rename(columns<span class="op">=</span>{<span class="st">'owners'</span>:<span class="st">'avg_owners'</span>},inplace<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-4" class="hljs-ln-code"><a href="#cb4-4"></a>df_genres[<span class="st">'appid'</span>] <span class="op">=</span> df_genres[<span class="st">'appid'</span>].astype(<span class="bu">int</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="from-str-to-int-owners" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">From str to int : owners</h2>
+<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode python hljs"><span id="cb5-1" class="hljs-ln-code"><a href="#cb5-1"></a><span class="co"># clean </span></span>
+<span id="cb5-2" class="hljs-ln-code"><a href="#cb5-2"></a>df_genres <span class="op">=</span> data.copy()</span>
+<span id="cb5-3" class="hljs-ln-code"><a href="#cb5-3"></a>df_genres <span class="op">=</span> df_genres.drop([<span class="st">'score_rank'</span>,<span class="st">'initialprice'</span>,<span class="st">'discount'</span>,<span class="st">'userscore'</span>],axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb5-4" class="hljs-ln-code"><a href="#cb5-4"></a>df_genres[<span class="st">'appid'</span>] <span class="op">=</span> df_genres[<span class="st">'appid'</span>].astype(<span class="bu">int</span>)</span>
+<span id="cb5-5" class="hljs-ln-code"><a href="#cb5-5"></a></span>
+<span id="cb5-6" class="hljs-ln-code"><a href="#cb5-6"></a><span class="co"># get the average of the owners</span></span>
+<span id="cb5-7" class="hljs-ln-code"><a href="#cb5-7"></a>owners <span class="op">=</span> pd.DataFrame(df_genres[<span class="st">'owners'</span>].<span class="bu">str</span>.replace(<span class="st">','</span>,<span class="st">''</span>).<span class="bu">str</span>.split(<span class="st">' .. '</span>).tolist(),columns <span class="op">=</span> [<span class="st">'min'</span>,<span class="st">'max'</span>])</span>
+<span id="cb5-8" class="hljs-ln-code"><a href="#cb5-8"></a>df_genres[<span class="st">'owners'</span>]<span class="op">=</span> owners.astype(<span class="bu">int</span>).<span class="bu">sum</span>(axis<span class="op">=</span><span class="dv">1</span>)<span class="op">/</span><span class="dv">2</span></span>
+<span id="cb5-9" class="hljs-ln-code"><a href="#cb5-9"></a>df_genres[<span class="st">'owners'</span>] <span class="op">=</span> df_genres[<span class="st">'owners'</span>].astype(<span class="bu">int</span>)</span>
+<span id="cb5-10" class="hljs-ln-code"><a href="#cb5-10"></a>df_genres.rename(columns<span class="op">=</span>{<span class="st">'owners'</span>:<span class="st">'avg_owners'</span>},inplace<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="tweeking-and-made-usefull" class="slide level2" data-auto-animate="true">
 <h2 data-id="quarto-animate-title">Tweeking and Made Usefull</h2>
-<div class="sourceCode" id="annotated-cell-3"><pre class="sourceCode numberSource python code-annotation-code number-lines code-with-copy code-annotated" data-id="quarto-animate-code"><code class="sourceCode python hljs"><span id="annotated-cell-3-1" class="hljs-ln-code"><a href="#annotated-cell-3-1"></a><span class="co"># clean </span></span>
-<span id="annotated-cell-3-2" class="hljs-ln-code"><a href="#annotated-cell-3-2"></a>df_genres <span class="op">=</span> data.copy()</span>
-<a class="code-annotation-anchor hljs-ln-code" data-target-cell="annotated-cell-3" data-target-annotation="1" onclick="event.preventDefault();" href="">1</a><span id="annotated-cell-3-3" class="code-annotation-target hljs-ln-code"><a href="#annotated-cell-3-3"></a>df_genres <span class="op">=</span> df_genres.drop([<span class="st">'score_rank'</span>,<span class="st">'initialprice'</span>,<span class="st">'discount'</span>,<span class="st">'userscore'</span>],axis<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="annotated-cell-3-4" class="hljs-ln-code"><a href="#annotated-cell-3-4"></a>df_genres[<span class="st">'appid'</span>] <span class="op">=</span> df_genres[<span class="st">'appid'</span>].astype(<span class="bu">int</span>)</span>
-<span id="annotated-cell-3-5" class="hljs-ln-code"><a href="#annotated-cell-3-5"></a></span>
-<span id="annotated-cell-3-6" class="hljs-ln-code"><a href="#annotated-cell-3-6"></a><span class="co"># get the average of the owners</span></span>
-<span id="annotated-cell-3-7" class="hljs-ln-code"><a href="#annotated-cell-3-7"></a>owners <span class="op">=</span> pd.DataFrame(df_genres[<span class="st">'owners'</span>].<span class="bu">str</span>.replace(<span class="st">','</span>,<span class="st">''</span>).<span class="bu">str</span>.split(<span class="st">' .. '</span>).tolist(),columns <span class="op">=</span> [<span class="st">'min'</span>,<span class="st">'max'</span>])</span>
-<span id="annotated-cell-3-8" class="hljs-ln-code"><a href="#annotated-cell-3-8"></a>df_genres[<span class="st">'owners'</span>]<span class="op">=</span> owners.astype(<span class="bu">int</span>).<span class="bu">sum</span>(axis<span class="op">=</span><span class="dv">1</span>)<span class="op">/</span><span class="dv">2</span></span>
-<span id="annotated-cell-3-9" class="hljs-ln-code"><a href="#annotated-cell-3-9"></a>df_genres[<span class="st">'owners'</span>] <span class="op">=</span> df_genres[<span class="st">'owners'</span>].astype(<span class="bu">int</span>)</span>
-<span id="annotated-cell-3-10" class="hljs-ln-code"><a href="#annotated-cell-3-10"></a>df_genres.rename(columns<span class="op">=</span>{<span class="st">'owners'</span>:<span class="st">'avg_owners'</span>},inplace<span class="op">=</span><span class="va">True</span>)</span>
-<span id="annotated-cell-3-11" class="hljs-ln-code"><a href="#annotated-cell-3-11"></a></span>
-<span id="annotated-cell-3-12" class="hljs-ln-code"><a href="#annotated-cell-3-12"></a><span class="co"># ratio of positive reviews over total reviews</span></span>
-<a class="code-annotation-anchor hljs-ln-code" data-target-cell="annotated-cell-3" data-target-annotation="2" onclick="event.preventDefault();" href="">2</a><span id="annotated-cell-3-13" class="code-annotation-target hljs-ln-code"><a href="#annotated-cell-3-13"></a>df_genres[<span class="st">'positive_ratio'</span>] <span class="op">=</span> df_genres[<span class="st">'positive'</span>]<span class="op">/</span>(df_genres[<span class="st">'positive'</span>]<span class="op">+</span>df_genres[<span class="st">'negative'</span>])</span>
-<span id="annotated-cell-3-14" class="hljs-ln-code"><a href="#annotated-cell-3-14"></a></span>
-<span id="annotated-cell-3-15" class="hljs-ln-code"><a href="#annotated-cell-3-15"></a><span class="co">'''</span></span>
-<span id="annotated-cell-3-16" class="hljs-ln-code"><a href="#annotated-cell-3-16"></a><span class="co">REMARK: this ratio is severely skewed when the number of reviews is low.</span></span>
-<span id="annotated-cell-3-17" class="hljs-ln-code"><a href="#annotated-cell-3-17"></a><span class="co">'''</span></span>
-<span id="annotated-cell-3-18" class="hljs-ln-code"><a href="#annotated-cell-3-18"></a></span>
-<span id="annotated-cell-3-19" class="hljs-ln-code"><a href="#annotated-cell-3-19"></a><span class="co"># lets drop the rows with less than 100 reviews and 0 average concurent players </span></span>
-<span id="annotated-cell-3-20" class="hljs-ln-code"><a href="#annotated-cell-3-20"></a>df_genres <span class="op">=</span> df_genres[((df_genres[<span class="st">'positive'</span>]<span class="op">+</span>df_genres[<span class="st">'negative'</span>])<span class="op">&gt;</span><span class="dv">100</span>) <span class="op">&amp;</span> (df_genres[<span class="st">'average_forever'</span>]<span class="op">&gt;</span><span class="dv">0</span>)]</span>
-<span id="annotated-cell-3-21" class="hljs-ln-code"><a href="#annotated-cell-3-21"></a><span class="co"># only 12k rows left</span></span><div class="code-annotation-gutter-bg hljs-ln-code"></div><div class="code-annotation-gutter hljs-ln-code"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="annotated-cell-4"><pre class="sourceCode numberSource python code-annotation-code number-lines code-with-copy code-annotated" data-id="quarto-animate-code"><code class="sourceCode python hljs"><span id="annotated-cell-4-1" class="hljs-ln-code"><a href="#annotated-cell-4-1"></a><span class="co"># clean </span></span>
+<span id="annotated-cell-4-2" class="hljs-ln-code"><a href="#annotated-cell-4-2"></a>df_genres <span class="op">=</span> data.copy()</span>
+<a class="code-annotation-anchor hljs-ln-code" data-target-cell="annotated-cell-4" data-target-annotation="1" onclick="event.preventDefault();" href="">1</a><span id="annotated-cell-4-3" class="code-annotation-target hljs-ln-code"><a href="#annotated-cell-4-3"></a>df_genres <span class="op">=</span> df_genres.drop([<span class="st">'score_rank'</span>,<span class="st">'initialprice'</span>,<span class="st">'discount'</span>,<span class="st">'userscore'</span>],axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="annotated-cell-4-4" class="hljs-ln-code"><a href="#annotated-cell-4-4"></a>df_genres[<span class="st">'appid'</span>] <span class="op">=</span> df_genres[<span class="st">'appid'</span>].astype(<span class="bu">int</span>)</span>
+<span id="annotated-cell-4-5" class="hljs-ln-code"><a href="#annotated-cell-4-5"></a></span>
+<span id="annotated-cell-4-6" class="hljs-ln-code"><a href="#annotated-cell-4-6"></a><span class="co"># get the average of the owners</span></span>
+<span id="annotated-cell-4-7" class="hljs-ln-code"><a href="#annotated-cell-4-7"></a>owners <span class="op">=</span> pd.DataFrame(df_genres[<span class="st">'owners'</span>].<span class="bu">str</span>.replace(<span class="st">','</span>,<span class="st">''</span>).<span class="bu">str</span>.split(<span class="st">' .. '</span>).tolist(),columns <span class="op">=</span> [<span class="st">'min'</span>,<span class="st">'max'</span>])</span>
+<span id="annotated-cell-4-8" class="hljs-ln-code"><a href="#annotated-cell-4-8"></a>df_genres[<span class="st">'owners'</span>]<span class="op">=</span> owners.astype(<span class="bu">int</span>).<span class="bu">sum</span>(axis<span class="op">=</span><span class="dv">1</span>)<span class="op">/</span><span class="dv">2</span></span>
+<span id="annotated-cell-4-9" class="hljs-ln-code"><a href="#annotated-cell-4-9"></a>df_genres[<span class="st">'owners'</span>] <span class="op">=</span> df_genres[<span class="st">'owners'</span>].astype(<span class="bu">int</span>)</span>
+<span id="annotated-cell-4-10" class="hljs-ln-code"><a href="#annotated-cell-4-10"></a>df_genres.rename(columns<span class="op">=</span>{<span class="st">'owners'</span>:<span class="st">'avg_owners'</span>},inplace<span class="op">=</span><span class="va">True</span>)</span>
+<span id="annotated-cell-4-11" class="hljs-ln-code"><a href="#annotated-cell-4-11"></a></span>
+<span id="annotated-cell-4-12" class="hljs-ln-code"><a href="#annotated-cell-4-12"></a><span class="co"># ratio of positive reviews over total reviews</span></span>
+<a class="code-annotation-anchor hljs-ln-code" data-target-cell="annotated-cell-4" data-target-annotation="2" onclick="event.preventDefault();" href="">2</a><span id="annotated-cell-4-13" class="code-annotation-target hljs-ln-code"><a href="#annotated-cell-4-13"></a>df_genres[<span class="st">'positive_ratio'</span>] <span class="op">=</span> df_genres[<span class="st">'positive'</span>]<span class="op">/</span>(df_genres[<span class="st">'positive'</span>]<span class="op">+</span>df_genres[<span class="st">'negative'</span>])</span>
+<span id="annotated-cell-4-14" class="hljs-ln-code"><a href="#annotated-cell-4-14"></a></span>
+<span id="annotated-cell-4-15" class="hljs-ln-code"><a href="#annotated-cell-4-15"></a><span class="co">'''</span></span>
+<span id="annotated-cell-4-16" class="hljs-ln-code"><a href="#annotated-cell-4-16"></a><span class="co">REMARK: this ratio is severely skewed when the number of reviews is low.</span></span>
+<span id="annotated-cell-4-17" class="hljs-ln-code"><a href="#annotated-cell-4-17"></a><span class="co">'''</span></span>
+<span id="annotated-cell-4-18" class="hljs-ln-code"><a href="#annotated-cell-4-18"></a></span>
+<span id="annotated-cell-4-19" class="hljs-ln-code"><a href="#annotated-cell-4-19"></a><span class="co"># lets drop the rows with less than 100 reviews and 0 average concurent players </span></span>
+<span id="annotated-cell-4-20" class="hljs-ln-code"><a href="#annotated-cell-4-20"></a>df_genres <span class="op">=</span> df_genres[((df_genres[<span class="st">'positive'</span>]<span class="op">+</span>df_genres[<span class="st">'negative'</span>])<span class="op">&gt;</span><span class="dv">100</span>) <span class="op">&amp;</span> (df_genres[<span class="st">'average_forever'</span>]<span class="op">&gt;</span><span class="dv">0</span>)]</span>
+<span id="annotated-cell-4-21" class="hljs-ln-code"><a href="#annotated-cell-4-21"></a><span class="co"># only 12k rows left</span></span><div class="code-annotation-gutter-bg hljs-ln-code"></div><div class="code-annotation-gutter hljs-ln-code"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <dl class="code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-3" data-target-annotation="1">1</dt>
+<dt data-target-cell="annotated-cell-4" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-lines="3" data-code-cell="annotated-cell-3" data-code-annotation="1">drop the columns [‘score_rank’,‘initialprice’,‘discount’,‘userscore’]</span>
+<span data-code-lines="3" data-code-cell="annotated-cell-4" data-code-annotation="1">drop the columns [‘score_rank’,‘initialprice’,‘discount’,‘userscore’]</span>
 </dd>
-<dt data-target-cell="annotated-cell-3" data-target-annotation="2">2</dt>
+<dt data-target-cell="annotated-cell-4" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-lines="13" data-code-cell="annotated-cell-3" data-code-annotation="2">create new column, ‘positive_ratio’, that give the ratio of positive reviews over total reviews</span>
+<span data-code-lines="13" data-code-cell="annotated-cell-4" data-code-annotation="2">create new column, ‘positive_ratio’, that give the ratio of positive reviews over total reviews</span>
 </dd>
 </dl>
 </section>
@@ -857,26 +898,26 @@
 <p>get the genres dummy variables from our data</p>
 <div class="columns">
 <div class="column" style="width:80%;">
-<div class="sourceCode" id="cb5" data-code-line-numbers="|4-13|15-20"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a>genres <span class="op">=</span> [<span class="st">'Action'</span>,<span class="st">'Strategy'</span>,<span class="st">'RPG'</span>,<span class="st">'Indie'</span>,<span class="st">'Adventure'</span>,<span class="st">'Sports'</span>,<span class="st">'Simulation'</span></span>
-<span id="cb5-2"><a href="#cb5-2"></a>          ,<span class="st">'Early+Access'</span>,<span class="st">'Ex+Early+Access'</span>,<span class="st">'Massively'</span>,<span class="st">'Free'</span>]</span>
-<span id="cb5-3"><a href="#cb5-3"></a></span>
-<span id="cb5-4"><a href="#cb5-4"></a><span class="kw">def</span> get_games_by_genre(genre):</span>
-<span id="cb5-5"><a href="#cb5-5"></a>    <span class="co"># get the list of appids for games in genre</span></span>
-<span id="cb5-6"><a href="#cb5-6"></a>    url <span class="op">=</span> <span class="ss">f'https://steamspy.com/api.php?request=genre&amp;genre=</span><span class="sc">{</span>genre<span class="sc">}</span><span class="ss">'</span></span>
-<span id="cb5-7"><a href="#cb5-7"></a>    response <span class="op">=</span> requests.get(url)</span>
-<span id="cb5-8"><a href="#cb5-8"></a>    response <span class="op">=</span> json.loads(response.text)</span>
-<span id="cb5-9"><a href="#cb5-9"></a>    genre_df <span class="op">=</span> json_normalize(response,max_level<span class="op">=</span><span class="dv">0</span>)</span>
-<span id="cb5-10"><a href="#cb5-10"></a>    genre_df <span class="op">=</span> pd.DataFrame(response)</span>
-<span id="cb5-11"><a href="#cb5-11"></a>    genre_df <span class="op">=</span> genre_df.transpose()</span>
-<span id="cb5-12"><a href="#cb5-12"></a>    genre_df <span class="op">=</span> genre_df.reset_index(drop<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb5-13"><a href="#cb5-13"></a>    <span class="cf">return</span> genre_df</span>
-<span id="cb5-14"><a href="#cb5-14"></a></span>
-<span id="cb5-15"><a href="#cb5-15"></a><span class="co">#iterate trough games and obtain dummy variable columns for each genre</span></span>
-<span id="cb5-16"><a href="#cb5-16"></a>not_matched <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb5-17"><a href="#cb5-17"></a><span class="cf">for</span> genre <span class="kw">in</span> genres: </span>
-<span id="cb5-18"><a href="#cb5-18"></a>    df_genres[<span class="ss">f'genre_</span><span class="sc">{</span>genre<span class="sc">}</span><span class="ss">'</span>] <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb5-19"><a href="#cb5-19"></a>    df_genres[<span class="ss">f'genre_</span><span class="sc">{</span>genre<span class="sc">}</span><span class="ss">'</span>][df_genres[<span class="st">'appid'</span>].astype(<span class="bu">int</span>)</span>
-<span id="cb5-20"><a href="#cb5-20"></a>      .isin(get_games_by_genre(<span class="ss">f'</span><span class="sc">{</span>genre<span class="sc">}</span><span class="ss">'</span>)[<span class="st">'appid'</span>])] <span class="op">=</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb6" data-code-line-numbers="|4-13|15-20"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a>genres <span class="op">=</span> [<span class="st">'Action'</span>,<span class="st">'Strategy'</span>,<span class="st">'RPG'</span>,<span class="st">'Indie'</span>,<span class="st">'Adventure'</span>,<span class="st">'Sports'</span>,<span class="st">'Simulation'</span></span>
+<span id="cb6-2"><a href="#cb6-2"></a>          ,<span class="st">'Early+Access'</span>,<span class="st">'Ex+Early+Access'</span>,<span class="st">'Massively'</span>,<span class="st">'Free'</span>]</span>
+<span id="cb6-3"><a href="#cb6-3"></a></span>
+<span id="cb6-4"><a href="#cb6-4"></a><span class="kw">def</span> get_games_by_genre(genre):</span>
+<span id="cb6-5"><a href="#cb6-5"></a>    <span class="co"># get the list of appids for games in genre</span></span>
+<span id="cb6-6"><a href="#cb6-6"></a>    url <span class="op">=</span> <span class="ss">f'https://steamspy.com/api.php?request=genre&amp;genre=</span><span class="sc">{</span>genre<span class="sc">}</span><span class="ss">'</span></span>
+<span id="cb6-7"><a href="#cb6-7"></a>    response <span class="op">=</span> requests.get(url)</span>
+<span id="cb6-8"><a href="#cb6-8"></a>    response <span class="op">=</span> json.loads(response.text)</span>
+<span id="cb6-9"><a href="#cb6-9"></a>    genre_df <span class="op">=</span> json_normalize(response,max_level<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb6-10"><a href="#cb6-10"></a>    genre_df <span class="op">=</span> pd.DataFrame(response)</span>
+<span id="cb6-11"><a href="#cb6-11"></a>    genre_df <span class="op">=</span> genre_df.transpose()</span>
+<span id="cb6-12"><a href="#cb6-12"></a>    genre_df <span class="op">=</span> genre_df.reset_index(drop<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb6-13"><a href="#cb6-13"></a>    <span class="cf">return</span> genre_df</span>
+<span id="cb6-14"><a href="#cb6-14"></a></span>
+<span id="cb6-15"><a href="#cb6-15"></a><span class="co">#iterate trough games and obtain dummy variable columns for each genre</span></span>
+<span id="cb6-16"><a href="#cb6-16"></a>not_matched <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb6-17"><a href="#cb6-17"></a><span class="cf">for</span> genre <span class="kw">in</span> genres: </span>
+<span id="cb6-18"><a href="#cb6-18"></a>    df_genres[<span class="ss">f'genre_</span><span class="sc">{</span>genre<span class="sc">}</span><span class="ss">'</span>] <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb6-19"><a href="#cb6-19"></a>    df_genres[<span class="ss">f'genre_</span><span class="sc">{</span>genre<span class="sc">}</span><span class="ss">'</span>][df_genres[<span class="st">'appid'</span>].astype(<span class="bu">int</span>)</span>
+<span id="cb6-20"><a href="#cb6-20"></a>      .isin(get_games_by_genre(<span class="ss">f'</span><span class="sc">{</span>genre<span class="sc">}</span><span class="ss">'</span>)[<span class="st">'appid'</span>])] <span class="op">=</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column" style="width:20%;">
 <p>Current columns</p>
 <div data-notebook="Linear_regression.ipynb" data-notebook-title="Implement Linear Regression">
@@ -912,8 +953,8 @@
 <div class="cell-output cell-output-display">
 <div id="fig-top-20-developers-of-action-games" class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="Index_files/figure-revealjs/fig-top-20-developers-of-action-games-output-1.png" class="quarto-discovered-preview-image"></p>
-<p></p><figcaption>Figure&nbsp;2: Top 20 developers of action games</figcaption><p></p>
+<p><img data-src="Index_files/figure-revealjs/fig-top-20-developers-of-action-games-output-1.png"></p>
+<p></p><figcaption>Figure&nbsp;3: Top 20 developers of action games</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -929,7 +970,7 @@
 <div id="fig-pivot-tables-dev-action" class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="Index_files/figure-revealjs/fig-pivot-tables-dev-action-output-1.png"></p>
-<p></p><figcaption>Figure&nbsp;3: Mean owners by developer and if its an action games for the top 20 developers of all games</figcaption><p></p>
+<p></p><figcaption>Figure&nbsp;4: Mean owners by developer and if its an action games for the top 20 developers of all games</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -940,7 +981,7 @@
 <div id="fig-pivot-tables-dev-action" class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="Index_files/figure-revealjs/fig-pivot-tables-dev-action-output-2.png"></p>
-<p></p><figcaption>Figure&nbsp;4: Mean owners by developer and if its an action games for the top 20 developers of action games</figcaption><p></p>
+<p></p><figcaption>Figure&nbsp;5: Mean owners by developer and if its an action games for the top 20 developers of action games</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -959,7 +1000,7 @@
 <div id="fig-pivot-tables-dev-rating" class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="Index_files/figure-revealjs/fig-pivot-tables-dev-rating-output-1.png"></p>
-<p></p><figcaption>Figure&nbsp;5: Mean rating by developer and if its an action games for the top 20 developers of all games</figcaption><p></p>
+<p></p><figcaption>Figure&nbsp;6: Mean rating by developer and if its an action games for the top 20 developers of all games</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -970,7 +1011,7 @@
 <div id="fig-pivot-tables-dev-rating" class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="Index_files/figure-revealjs/fig-pivot-tables-dev-rating-output-2.png"></p>
-<p></p><figcaption>Figure&nbsp;6: Mean rating by developer and if its an action games for the top 20 developers of action games</figcaption><p></p>
+<p></p><figcaption>Figure&nbsp;7: Mean rating by developer and if its an action games for the top 20 developers of action games</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -991,7 +1032,7 @@
 <div id="fig-top-20-developers-of-action-games" class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="Index_files/figure-revealjs/fig-top-20-developers-of-action-games-output-1.png"></p>
-<p></p><figcaption>Figure&nbsp;7: Top 20 developers of action games</figcaption><p></p>
+<p></p><figcaption>Figure&nbsp;8: Top 20 developers of action games</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -1008,7 +1049,7 @@
 <div id="fig-top-20-developers-of-action-games" class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="Index_files/figure-revealjs/fig-top-20-developers-of-action-games-output-1.png"></p>
-<p></p><figcaption>Figure&nbsp;8: Top 20 developers of action games</figcaption><p></p>
+<p></p><figcaption>Figure&nbsp;9: Top 20 developers of action games</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -1024,7 +1065,7 @@
 <div id="fig-pivot-tables-dev-action" class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="Index_files/figure-revealjs/fig-pivot-tables-dev-action-output-1.png"></p>
-<p></p><figcaption>Figure&nbsp;9: Mean owners by developer and if its an action games for the top 20 developers of all games</figcaption><p></p>
+<p></p><figcaption>Figure&nbsp;10: Mean owners by developer and if its an action games for the top 20 developers of all games</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -1035,7 +1076,7 @@
 <div id="fig-pivot-tables-dev-action" class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="Index_files/figure-revealjs/fig-pivot-tables-dev-action-output-2.png"></p>
-<p></p><figcaption>Figure&nbsp;10: Mean owners by developer and if its an action games for the top 20 developers of action games</figcaption><p></p>
+<p></p><figcaption>Figure&nbsp;11: Mean owners by developer and if its an action games for the top 20 developers of action games</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -1054,7 +1095,7 @@
 <div id="fig-pivot-tables-dev-rating" class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="Index_files/figure-revealjs/fig-pivot-tables-dev-rating-output-1.png"></p>
-<p></p><figcaption>Figure&nbsp;11: Mean rating by developer and if its an action games for the top 20 developers of all games</figcaption><p></p>
+<p></p><figcaption>Figure&nbsp;12: Mean rating by developer and if its an action games for the top 20 developers of all games</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -1065,7 +1106,7 @@
 <div id="fig-pivot-tables-dev-rating" class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="Index_files/figure-revealjs/fig-pivot-tables-dev-rating-output-2.png"></p>
-<p></p><figcaption>Figure&nbsp;12: Mean rating by developer and if its an action games for the top 20 developers of action games</figcaption><p></p>
+<p></p><figcaption>Figure&nbsp;13: Mean rating by developer and if its an action games for the top 20 developers of action games</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -1087,7 +1128,7 @@
 <div id="fig-pivot-tables-dev-action" class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="Index_files/figure-revealjs/fig-pivot-tables-dev-action-output-1.png"></p>
-<p></p><figcaption>Figure&nbsp;13: Mean owners by developer and if its an action games for the top 20 developers of all games</figcaption><p></p>
+<p></p><figcaption>Figure&nbsp;14: Mean owners by developer and if its an action games for the top 20 developers of all games</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -1098,7 +1139,7 @@
 <div id="fig-pivot-tables-dev-action" class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="Index_files/figure-revealjs/fig-pivot-tables-dev-action-output-2.png"></p>
-<p></p><figcaption>Figure&nbsp;14: Mean owners by developer and if its an action games for the top 20 developers of action games</figcaption><p></p>
+<p></p><figcaption>Figure&nbsp;15: Mean owners by developer and if its an action games for the top 20 developers of action games</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -1117,7 +1158,7 @@
 <div id="fig-top-20-developers-of-action-games" class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="Index_files/figure-revealjs/fig-top-20-developers-of-action-games-output-1.png"></p>
-<p></p><figcaption>Figure&nbsp;15: Top 20 developers of action games</figcaption><p></p>
+<p></p><figcaption>Figure&nbsp;16: Top 20 developers of action games</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -1133,7 +1174,7 @@
 <div id="fig-pivot-tables-dev-action" class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="Index_files/figure-revealjs/fig-pivot-tables-dev-action-output-1.png"></p>
-<p></p><figcaption>Figure&nbsp;16: Mean owners by developer and if its an action games for the top 20 developers of all games</figcaption><p></p>
+<p></p><figcaption>Figure&nbsp;17: Mean owners by developer and if its an action games for the top 20 developers of all games</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -1144,7 +1185,7 @@
 <div id="fig-pivot-tables-dev-action" class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="Index_files/figure-revealjs/fig-pivot-tables-dev-action-output-2.png"></p>
-<p></p><figcaption>Figure&nbsp;17: Mean owners by developer and if its an action games for the top 20 developers of action games</figcaption><p></p>
+<p></p><figcaption>Figure&nbsp;18: Mean owners by developer and if its an action games for the top 20 developers of action games</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -1163,7 +1204,7 @@
 <div id="fig-pivot-tables-dev-rating" class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="Index_files/figure-revealjs/fig-pivot-tables-dev-rating-output-1.png"></p>
-<p></p><figcaption>Figure&nbsp;18: Mean rating by developer and if its an action games for the top 20 developers of all games</figcaption><p></p>
+<p></p><figcaption>Figure&nbsp;19: Mean rating by developer and if its an action games for the top 20 developers of all games</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -1174,7 +1215,7 @@
 <div id="fig-pivot-tables-dev-rating" class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="Index_files/figure-revealjs/fig-pivot-tables-dev-rating-output-2.png"></p>
-<p></p><figcaption>Figure&nbsp;19: Mean rating by developer and if its an action games for the top 20 developers of action games</figcaption><p></p>
+<p></p><figcaption>Figure&nbsp;20: Mean rating by developer and if its an action games for the top 20 developers of action games</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -1196,7 +1237,7 @@
 <div id="fig-pivot-tables-dev-rating" class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="Index_files/figure-revealjs/fig-pivot-tables-dev-rating-output-1.png"></p>
-<p></p><figcaption>Figure&nbsp;20: Mean rating by developer and if its an action games for the top 20 developers of all games</figcaption><p></p>
+<p></p><figcaption>Figure&nbsp;21: Mean rating by developer and if its an action games for the top 20 developers of all games</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -1207,7 +1248,7 @@
 <div id="fig-pivot-tables-dev-rating" class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="Index_files/figure-revealjs/fig-pivot-tables-dev-rating-output-2.png"></p>
-<p></p><figcaption>Figure&nbsp;21: Mean rating by developer and if its an action games for the top 20 developers of action games</figcaption><p></p>
+<p></p><figcaption>Figure&nbsp;22: Mean rating by developer and if its an action games for the top 20 developers of action games</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -1226,7 +1267,7 @@
 <div id="fig-top-20-developers-of-action-games" class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="Index_files/figure-revealjs/fig-top-20-developers-of-action-games-output-1.png"></p>
-<p></p><figcaption>Figure&nbsp;22: Top 20 developers of action games</figcaption><p></p>
+<p></p><figcaption>Figure&nbsp;23: Top 20 developers of action games</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -1242,7 +1283,7 @@
 <div id="fig-pivot-tables-dev-action" class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="Index_files/figure-revealjs/fig-pivot-tables-dev-action-output-1.png"></p>
-<p></p><figcaption>Figure&nbsp;23: Mean owners by developer and if its an action games for the top 20 developers of all games</figcaption><p></p>
+<p></p><figcaption>Figure&nbsp;24: Mean owners by developer and if its an action games for the top 20 developers of all games</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -1253,7 +1294,7 @@
 <div id="fig-pivot-tables-dev-action" class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="Index_files/figure-revealjs/fig-pivot-tables-dev-action-output-2.png"></p>
-<p></p><figcaption>Figure&nbsp;24: Mean owners by developer and if its an action games for the top 20 developers of action games</figcaption><p></p>
+<p></p><figcaption>Figure&nbsp;25: Mean owners by developer and if its an action games for the top 20 developers of action games</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -1272,7 +1313,7 @@
 <div id="fig-pivot-tables-dev-rating" class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="Index_files/figure-revealjs/fig-pivot-tables-dev-rating-output-1.png"></p>
-<p></p><figcaption>Figure&nbsp;25: Mean rating by developer and if its an action games for the top 20 developers of all games</figcaption><p></p>
+<p></p><figcaption>Figure&nbsp;26: Mean rating by developer and if its an action games for the top 20 developers of all games</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -1283,7 +1324,7 @@
 <div id="fig-pivot-tables-dev-rating" class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="Index_files/figure-revealjs/fig-pivot-tables-dev-rating-output-2.png"></p>
-<p></p><figcaption>Figure&nbsp;26: Mean rating by developer and if its an action games for the top 20 developers of action games</figcaption><p></p>
+<p></p><figcaption>Figure&nbsp;27: Mean rating by developer and if its an action games for the top 20 developers of action games</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -1597,7 +1638,7 @@
 <div id="fig-ols-gen-avg-owners" class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="Index_files/figure-revealjs/fig-ols-gen-avg-owners-output-1.png"></p>
-<p></p><figcaption>Figure&nbsp;27: OLS predicting the average owners</figcaption><p></p>
+<p></p><figcaption>Figure&nbsp;28: OLS predicting the average owners</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -1612,7 +1653,7 @@
 <div id="fig-ols-gen-ccu" class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="Index_files/figure-revealjs/fig-ols-gen-ccu-output-1.png"></p>
-<p></p><figcaption>Figure&nbsp;28: OLS predicting the concurent players count</figcaption><p></p>
+<p></p><figcaption>Figure&nbsp;29: OLS predicting the concurent players count</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -1807,7 +1848,7 @@
 <div id="fig-ols-best-1" class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="Index_files/figure-revealjs/fig-ols-best-1-output-1.png"></p>
-<p></p><figcaption>Figure&nbsp;29: OLS Influence plot</figcaption><p></p>
+<p></p><figcaption>Figure&nbsp;30: OLS Influence plot</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -1824,7 +1865,7 @@
 <div id="fig-ols-best-2" class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="Index_files/figure-revealjs/fig-ols-best-2-output-1.png"></p>
-<p></p><figcaption>Figure&nbsp;30: OLS partial Regression plot</figcaption><p></p>
+<p></p><figcaption>Figure&nbsp;31: OLS partial Regression plot</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -1836,7 +1877,7 @@
 <div id="fig-ols-best-3" class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="Index_files/figure-revealjs/fig-ols-best-3-output-1.png"></p>
-<p></p><figcaption>Figure&nbsp;31: Regression plot for num of positve reviews</figcaption><p></p>
+<p></p><figcaption>Figure&nbsp;32: Regression plot for num of positve reviews</figcaption><p></p>
 </figure>
 </div>
 </div>

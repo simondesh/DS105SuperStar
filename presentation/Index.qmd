@@ -60,12 +60,39 @@ flowchart LR
  
 ```
 
+## Distribution Analysis
+
+Hypothesis waiting to be proved in the analysis
+
+- H1: Games with same publishers and developers could be more popular?
+- H2: Developers that have created more top 100 games have higher ability to produce more top 100 games in the future (Individuals who would like to produce popular games could go to these developers)?
+- H3: 
+
+## H1:
+
+- V1: 
+- V2:
+- V3:
+
+## H1/V1:
+
+``` {.python code-line-numbers="|4-13|15-20"}
+
+```
+{{< embed Linear_regression.ipynb#fig-correlation-matrix  >}}
+## H2:
+
+- V1: 
+- V2:
+- V3:
+
+
 
 ## Linear Regression for Genre
 
 Linear Regression
 
-Ill show you how I gathered our current model :
+I'll show you how I gathered our current model :
 
 -   Initial Data Correlation
 -   Genre dummies
