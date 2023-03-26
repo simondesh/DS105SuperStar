@@ -28,6 +28,13 @@ format:
 :::
 :::
 
+## Presentation content
+- project flow chart
+- Linear regression analysis
+- Data pivoting analysis
+
+
+
 ## Project flow chart
 
 <br/> how we envision our futur project structure
@@ -42,6 +49,8 @@ flowchart LR
   B -->|json 1| D
   D -->|query2|C
   C -->|json 2| D
+  J[endpoint: appdetails] --- K[Steam API]
+  J ---|compare| C
   end
   subgraph Futur Data ?
   D -.-> I[ML API]
@@ -60,31 +69,55 @@ flowchart LR
  
 ```
 
+## Introduction of data frame-df_all_games_with_rank(produced from the df_all_games)
+
+:::: {.columns}
+
+::: {.column width="50%"}
+Column name(study related)
+:::
+appid
+name
+developer
+publisher
+spy_rank
+ranking
+
+::::
+
+
 ## Distribution Analysis
 
 Hypothesis waiting to be proved in the analysis
 
 - H1: Games with same publishers and developers could be more popular?
 - H2: Developers that have created more top 100 games have higher ability to produce more top 100 games in the future (Individuals who would like to produce popular games could go to these developers)?
-- H3: 
 
-## H1:
+## H1:Games with same publishers and developers could be more popular?
 
-- V1: 
-- V2:
-- V3:
+- V1: More games are produced with same developers and publishers
+- V2: Proportion of top 100 games which are produced by same and different developers and publisher
+- V3: How does the different developer and publisher affect the number of games produced?
+- V4: How does the same developer and publisher affect the number of games produced?
 
-## H1/V1:
+## H1/V1: More games are produced with same developers and publishers
 
-``` {.python code-line-numbers="|4-13|15-20"}
+``` {.python}
 
+g_1 = ggplot(df_all_games, aes(x='classification')) +\
+      geom_bar(fill='blue') +\
+      labs(title='Proportion of all games which are produced by same and different developers and publishers', x='classification', y='count') +\
+      theme_classic()
+
+g_1
 ```
-{{< embed Linear_regression.ipynb#fig-correlation-matrix  >}}
-## H2:
+{{< embed Pivoting.ipynb#H1/V1 >}}
 
-- V1: 
-- V2:
-- V3:
+## H2: Developers that have created more top 100 games have higher ability to produce more top 100 games in the future (Individuals who would like to produce popular games could go to these developers)?
+
+- V1: What developers create the most games?
+- V2: What developers create the most top 100 games
+- V3: 
 
 
 
@@ -374,5 +407,168 @@ fitted vs test Ys (max dependable) var
 
 
 
+## Data pivoting analysis on genre
+content:
+- Data collection
+    - from Steam API [endpoint: appdetails]
+    - top 500 games ❕
+- Data cleaning
+- Plots on gneres (the factor itself)
 
 
+## Genre Data Collection
+
+::: panel-tabset
+### Code
+
+``` python 
+def get_genre(app_id):
+    """
+    A fucntion to obtain the corresponding genres to each game
+    Argu: app_id: the unique id number of each game
+    Return: a list of genres
+    """
+    url = 'https://store.steampowered.com/api/appdetails'
+    parameters = {'appids': app_id, 'filters': 'genres'}
+    response = requests.get(url, params=parameters)
+    response = json.loads(response.text)
+    if response != None and response[str(app_id)]['success'] == True and isinstance(response[str(app_id)]['data'], dict) == True:
+        genre_dict = response[str(app_id)]['data']['genres']
+        genre_list = [genre['description'] for genre in genre_dict]
+        return genre_list
+```
+
+### Data
+|    | name                             |   appid | genre                 |
+|---:|:---------------------------------|--------:|:----------------------|
+|  0 | Dota 2                           |     570 | Action                |
+|  1 | Dota 2                           |     570 | Free to Play          |
+|  2 | Dota 2                           |     570 | Strategy              |
+|  3 | Counter-Strike: Global Offensive |     730 | Action                |
+|  4 | Counter-Strike: Global Offensive |     730 | Free to Play          |
+|  5 | Apex Legends                     | 1172470 | Action                |
+|  6 | Apex Legends                     | 1172470 | Adventure             |
+|  7 | Apex Legends                     | 1172470 | Free to Play          |
+|  8 | PUBG: BATTLEGROUNDS              |  578080 | Action                |
+|  9 | PUBG: BATTLEGROUNDS              |  578080 | Adventure             |
+| 10 | PUBG: BATTLEGROUNDS              |  578080 | Free to Play          |
+| 11 | PUBG: BATTLEGROUNDS              |  578080 | Massively Multiplayer |
+| 12 | New World                        | 1063730 | Action                |
+| 13 | New World                        | 1063730 | Adventure             |
+| 14 | New World                        | 1063730 | Massively Multiplayer |
+
+:::
+
+
+## Data pivoting
+6 main genres including `'Action','Strategy','RPG','Indie','Adventure','Sports','Simulation'`
+
+::: panel-tabset
+### Code
+``` python
+index_cols      = ['name', 'appid']
+col_aggregators = ['genre']
+value_col       = ['present']
+
+selected_cols = index_cols + col_aggregators + value_col
+
+df_pivotted = df.drop_duplicates()\
+        .assign(present=1)[selected_cols]\
+        .pivot_table(index=index_cols, columns=col_aggregators, fill_value=0, margins=True, aggfunc=np.sum)\
+        .sort_values(('present',                  'All'), ascending=False)
+```
+### Table
+{{< embed genre_data_pivoting.ipynb#data-pivoting-table  >}}
+:::
+
+## Plots
+plot-1: bar chart about the number of games per genre
+
+::: panel-tabset
+### table
+|    | genre      |   num_game |
+|---:|:-----------|-----------:|
+|  0 | Action     |        497 |
+|  1 | Adventure  |        196 |
+|  2 | Indie      |        165 |
+|  3 | RPG        |        119 |
+|  4 | Simulation |         49 |
+|  5 | Sports     |         11 |
+|  6 | Strategy   |         61 |
+
+
+### bar chart
+::: columns
+
+::: {.column width="40%"}
+``` python 
+from plotnine import *
+
+order_categories = genre_df.sort_values("num_game", ascending=False)["genre"].unique()
+genre_df["genre"] = pd.Categorical(genre_df["genre"], categories=order_categories, ordered=True)
+
+g = (ggplot(genre_df, aes(x="genre", y="num_game", fill="num_game")) +
+        geom_col() +    # Bar chart
+        theme_minimal() +   # Minimal theme
+        coord_flip() +
+        scale_y_continuous(breaks=range(0, 500, 100)) +   # Set the x-axis ticks
+        scale_x_discrete(limits=order_categories) +   # Set the x-axis limits
+        guides(fill=False) +    # Remove the legend
+        theme(figure_size=(10, 5),
+              axis_text = element_text(size=10),
+              text = element_text(size=10),
+              title= element_text(size=15),
+              plot_caption=element_text(margin={"t": 20})) +   # Rotate the x-axis labels
+        labs(title="Number of games in each category",
+             x="Genre names", y="Number of games")
+    )
+```
+:::
+
+::: {.column width="60%"}
+{{< embed genre_data_pivoting.ipynb#fig-bar-chart  >}}
+:::
+:::
+:::
+
+
+## More plots
+Question: does the number of genres affect the performance of games
+Plot-2: scatter plot about correlation between number of genres and game ranking
+
+::: panel-tabset
+### code
+```{.python code-line-numbers="4, 9"}
+num_genre_df = df_pivotted.reset_index() # change the pivot table to dataframe
+num_genre_df.columns = num_genre_df.columns.droplevel(level=0) # drrop the firt level of column names
+num_genre_df = num_genre_df.drop(columns=genres) # remove unnecessary columns
+num_genre_df.columns = ['name', 'appid', 'num_genres'] # rename the remaining columns
+
+df_ranking = df.drop_duplicates(subset='appid')\
+            .drop(columns=['genre', 'isin_genres'])\
+            .reset_index().drop(columns='index')
+df_ranking['ranking'] = df_ranking.reset_index().index + 1 # create a df with ranking
+
+df_genre_ranking = pd.merge(num_genre_df, df_ranking, on='appid', how='left')\
+                    .drop(columns='name_y')\
+                    .sort_values(by='ranking').reset_index().drop(columns='index') # combine the two dfs
+```
+### table
+|    | name_x                           |   appid |   num_genres |   ranking |
+|---:|:---------------------------------|--------:|-------------:|----------:|
+|  0 | Dota 2                           |     570 |            2 |         1 |
+|  1 | Counter-Strike: Global Offensive |     730 |            1 |         2 |
+|  2 | Apex Legends                     | 1172470 |            2 |         3 |
+|  3 | PUBG: BATTLEGROUNDS              |  578080 |            2 |         4 |
+|  4 | New World                        | 1063730 |            3 |         5 |
+|  5 | Team Fortress 2                  |     440 |            1 |         6 |
+|  6 | Grand Theft Auto V               |  271590 |            2 |         7 |
+|  7 | Lost Ark                         | 1599340 |            3 |         8 |
+|  8 | Left 4 Dead 2                    |     550 |            1 |         9 |
+|  9 | Unturned                         |  304930 |            3 |        10 |
+:::
+
+## More plots (cont.)
+{{< embed genre_data_pivoting.ipynb#fig-scatter  >}}
+
+conslusion: no correlation between the two factors
