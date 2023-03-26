@@ -96,7 +96,7 @@ Hypothesis waiting to be proved in the analysis
 ## H1:Games with same publishers and developers could be more popular?
 
 - V1: More games are produced with same developers and publishers
-- V2: Proportion of top 100 games which are produced by same and different developers and publisher
+- V2: Proportion of top 100 games which are produced by same and different developers and publishers
 - V3: How does the different developer and publisher affect the number of games produced?
 - V4: How does the same developer and publisher affect the number of games produced?
 
@@ -113,15 +113,158 @@ g_1
 ```
 {{< embed Pivoting.ipynb#H1/V1 >}}
 
+## H1/V2: Proportion of top 100 games which are produced by same and different developers and publishers
+
+``` {.python}
+g_2 = ggplot(df_games_100, aes(x='classification')) +\
+      geom_bar(fill='blue') +\
+      labs(title='Proportion of top 100 games which are produced by same and different developers and publishers', x='classification', y='count') +\
+      theme_classic()
+      
+g_2
+```
+{{< embed Pivoting.ipynb#H1/V2 >}}
+
+
+## H1/V3: How does the different developer and publisher affect the number of games produced?
+
+``` {.python}
+g_3 = ggplot(df_tmp_100_games_different, aes(x='developer', y='num_games')) +\
+        geom_bar(stat='identity', fill='blue') +\
+        labs(title='Number of games produced by different developers and publishers', x='developer', y='num_games') +\
+        theme_classic() +\
+        theme(axis_text_x=element_text(angle=90, hjust=1), figure_size=(12, 10)) +\
+        coord_flip() +\
+        scale_x_discrete(limits=df_tmp_100_games_different['developer'].tolist()) +\
+        scale_y_continuous(breaks=range(0, 10, 2))
+g_3
+```
+
+{{< embed Pivoting.ipynb#H1/V3 >}}
+
+
+``` {.python}
+g_4 = ggplot(df_tmp_100_games_same, aes(x='developer', y='num_games')) +\
+        geom_bar(stat='identity', fill='blue') +\
+        labs(title='Number of games produced by same developers and publishers', x='developer', y='num_games') +\
+        theme_classic() +\
+        theme(axis_text_x=element_text(angle=90, hjust=1), figure_size=(12, 10)) +\
+        coord_flip() +\
+        scale_x_discrete(limits=df_tmp_100_games_same['developer'].tolist()) +\
+        scale_y_continuous(breaks=range(0, 10, 2))
+
+g_4
+```
+
+{{< embed Pivoting.ipynb#H1/V4 >}}
+
 ## H2: Developers that have created more top 100 games have higher ability to produce more top 100 games in the future (Individuals who would like to produce popular games could go to these developers)?
 
 - V1: What developers create the most games?
 - V2: What developers create the most top 100 games
 - V3: 
 
+## H2/V1:What developers create the most games?
+
+``` {.python}
+
+g_5 = ggplot(df_tmp_selected_games, aes(x='developer', y='num_games')) +\
+        geom_bar(stat='identity', fill='blue') +\
+        labs(title='Which producer produce the most games', x='developer', y='num_games') +\
+        theme_classic() +\
+        theme(axis_text_x=element_text(angle=90, hjust=1), figure_size=(25, 50)) +\
+        coord_flip() +\
+        scale_x_discrete(limits=df_tmp_selected_games['developer'].tolist()) +\
+        geom_text(aes(label='num_games'), size=18, color='red') +\
+        geom_hline(yintercept=26.544041, linetype='dashed', color='red') +\
+        theme(axis_text_x=element_text(size=20))
+g_5
+
+```
+{{< embed Pivoting.ipynb#H2/V1/plot >}}
+
+## H2/V2:
+
+```{.python}
+g_6 = ggplot(df_tmp_100_games, aes(x='developer', y='num_games')) +\
+      geom_bar(stat='identity', fill='blue') +\
+      labs(title='Number of top 100 games games produced by developers', x='developer', y='num_games') +\
+      theme_classic() +\
+      theme(axis_text_x=element_text(angle=90, hjust=1), figure_size=(30, 50)) +\
+      coord_flip() +\
+      scale_x_discrete(limits=df_tmp_100_games['developer'].tolist())+\
+      geom_text(aes(label='num_games'), size=20, color='red')+\
+      scale_y_continuous(breaks=range(0, 10, 2)) +\
+      geom_hline(yintercept=1.2345685, linetype='dashed', color='red', size =3) +\
+      theme(axis_text_y=element_text(size=28)) +\
+      theme(axis_text_x=element_text(size = 30))
+           
+g_6
+
+```
+{{< embed Pivoting.ipynb#H2/V2/plot >}}
+
+## H2/V3: 
+
+```{.python}
+g_7 = (ggplot(df_tmp_selected_500_games, aes(x='developer', y='num_games')) +\
+      geom_bar(stat='identity', fill = 'blue') +\
+      theme(axis_text_x=element_text(rotation=90, hjust=1), 
+           figure_size=(30, 80),
+           axis_text=element_text(size=10),
+           axis_title=element_text(size=12)) +\
+      labs(title='Number of top 500 games produced by developers', x='developer', y='num_games') +\
+      coord_flip() +\
+      scale_x_discrete(limits=df_tmp_selected_500_games['developer'].tolist()) +\
+      scale_y_continuous(breaks=range(0, 10, 2)) +\
+      theme_classic()) +\
+      geom_text(aes(label='num_games'), size=10, color='red')+\
+      scale_y_continuous(breaks=range(0, 10, 2)) +\
+      geom_hline(yintercept=1.2345685, linetype='dashed', color='red', size =1) +\
+      theme(axis_text_y=element_text(size=10))
+
+g_7
+
+```
+{{< embed Pivoting.ipynb#H2/V3/plot >}}
+
+## Result for H1 and H2:
+
+- Valve is tooo outstanding than others no matter in number of games or ability to create popular games, while the second is Endnight Games Ltd in the ability but their range is very big.
+
+- There is no evidence to show that same or different until now.
+
+- A future study on the logistic regression on two classifications will be taken into account: 
+1. same or different developers and publishers
+2. minus, minor, major, super ability of creating popular games for developers
+
+## Pivoting Heatmap
+
+```{.python}
+# Create a custom color map for the binary values
+cmap = sns.color_palette(["#FFFFFF", "#000000"])
+
+# Set the plot size
+plt.figure(figsize=(50, 50))
+
+# Plot the heatmap with binary color map
+sns.heatmap(pivot_table, cmap=cmap, center=0, linewidths=.20, annot=True, fmt='.0f', cbar=False)
+
+# Rotate the x-axis labels
+plt.xticks(rotation=90)
+
+# Set the plot title and axis labels
+plt.title('Binary Matrix Heatmap')
+plt.xlabel('Column')
+plt.ylabel('Row')
+
+# Show the plot
+plt.show()
+```
+{{< embed Pivoting.ipynb#Heatmap/heatmap >}}
 
 
-## Linear Regression for Genre
+## Linear Regression Content
 
 Linear Regression
 
@@ -133,26 +276,6 @@ I'll show you how I gathered our current model :
 -   General linear Reg 
 -   Best OLS so far
 
-## Flowchart of Dataprocessing for OLS Genres
-```{mermaid}
-flowchart TD
-  subgraph API
-  A[SpySteam 'all' endpoint] -->|return page i of all games data|B(initial DF) 
-  B --- C(DF with genres as dummies)
-  D[SpySteam 'all' endpoint] -->|gameIDs of all games in genre|C 
-  end
-  subgraph Python Manipulation
-  C-->E[avg_owners to int]
-  E-->F[create positive ratio column]
-  F-->|form more than 30K to 12K rows|G[drop unuseful rows& columns]
-  end
-  G-->H[OLS]
-  subgraph futur steps 
-  F-->|query with appid|F1[steam api]
-  F1-->|gives more prescise data for each games|F2[time data added]
-  end
-
-```
 
 
 ## Initial Data Correlation{.smaller transition="slide"}
@@ -366,7 +489,7 @@ doesn't seem like there is much difference in ratings
 -   predict the dependent var for the test dataset
 -   evaluate our result
 :::
-<br/> [view code](https://github.com/simondesh/DS105SuperStar/blob/quarto/presentation/Linear_regression.ipynb)
+<br/> [view code](https://scikit-learn.org/)
 
 :::
 :::{.column width="40%"}
@@ -407,16 +530,19 @@ fitted vs test Ys (max dependable) var
 
 
 
-## Data pivoting analysis on genre
+## Data pivoting analysis on genre { transition="slide"}
 content:
-- Data collection
-    - from Steam API [endpoint: appdetails]
-    - top 500 games ❕
-- Data cleaning
-- Plots on gneres (the factor itself)
+
+* Data collection
+    * from Steam API [endpoint: appdetails]
+    * top 500 games ❕
+
+* Data cleaning
+
+* Plots on gneres (the factor itself)
 
 
-## Genre Data Collection
+## Genre Data Collection { transition="slide"}
 
 ::: panel-tabset
 ### Code
@@ -453,14 +579,11 @@ def get_genre(app_id):
 |  9 | PUBG: BATTLEGROUNDS              |  578080 | Adventure             |
 | 10 | PUBG: BATTLEGROUNDS              |  578080 | Free to Play          |
 | 11 | PUBG: BATTLEGROUNDS              |  578080 | Massively Multiplayer |
-| 12 | New World                        | 1063730 | Action                |
-| 13 | New World                        | 1063730 | Adventure             |
-| 14 | New World                        | 1063730 | Massively Multiplayer |
 
 :::
 
 
-## Data pivoting
+## Data pivoting { transition="slide"}
 6 main genres including `'Action','Strategy','RPG','Indie','Adventure','Sports','Simulation'`
 
 ::: panel-tabset
@@ -481,7 +604,7 @@ df_pivotted = df.drop_duplicates()\
 {{< embed genre_data_pivoting.ipynb#data-pivoting-table  >}}
 :::
 
-## Plots
+## Plots { transition="slide"}
 plot-1: bar chart about the number of games per genre
 
 ::: panel-tabset
@@ -532,7 +655,7 @@ g = (ggplot(genre_df, aes(x="genre", y="num_game", fill="num_game")) +
 :::
 
 
-## More plots
+## More plots { transition="slide"}
 Question: does the number of genres affect the performance of games
 Plot-2: scatter plot about correlation between number of genres and game ranking
 
@@ -568,7 +691,7 @@ df_genre_ranking = pd.merge(num_genre_df, df_ranking, on='appid', how='left')\
 |  9 | Unturned                         |  304930 |            3 |        10 |
 :::
 
-## More plots (cont.)
+## More plots (cont.) { transition="slide"}
 {{< embed genre_data_pivoting.ipynb#fig-scatter  >}}
 
 conslusion: no correlation between the two factors
