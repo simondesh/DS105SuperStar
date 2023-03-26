@@ -530,16 +530,19 @@ fitted vs test Ys (max dependable) var
 
 
 
-## Data pivoting analysis on genre
+## Data pivoting analysis on genre { transition="slide"}
 content:
-- Data collection
-    - from Steam API [endpoint: appdetails]
-    - top 500 games ❕
-- Data cleaning
-- Plots on gneres (the factor itself)
+
+* Data collection
+    * from Steam API [endpoint: appdetails]
+    * top 500 games ❕
+
+* Data cleaning
+
+* Plots on gneres (the factor itself)
 
 
-## Genre Data Collection
+## Genre Data Collection { transition="slide"}
 
 ::: panel-tabset
 ### Code
@@ -576,14 +579,11 @@ def get_genre(app_id):
 |  9 | PUBG: BATTLEGROUNDS              |  578080 | Adventure             |
 | 10 | PUBG: BATTLEGROUNDS              |  578080 | Free to Play          |
 | 11 | PUBG: BATTLEGROUNDS              |  578080 | Massively Multiplayer |
-| 12 | New World                        | 1063730 | Action                |
-| 13 | New World                        | 1063730 | Adventure             |
-| 14 | New World                        | 1063730 | Massively Multiplayer |
 
 :::
 
 
-## Data pivoting
+## Data pivoting { transition="slide"}
 6 main genres including `'Action','Strategy','RPG','Indie','Adventure','Sports','Simulation'`
 
 ::: panel-tabset
@@ -604,7 +604,7 @@ df_pivotted = df.drop_duplicates()\
 {{< embed genre_data_pivoting.ipynb#data-pivoting-table  >}}
 :::
 
-## Plots
+## Plots { transition="slide"}
 plot-1: bar chart about the number of games per genre
 
 ::: panel-tabset
@@ -655,7 +655,7 @@ g = (ggplot(genre_df, aes(x="genre", y="num_game", fill="num_game")) +
 :::
 
 
-## More plots
+## More plots { transition="slide"}
 Question: does the number of genres affect the performance of games
 Plot-2: scatter plot about correlation between number of genres and game ranking
 
@@ -691,7 +691,7 @@ df_genre_ranking = pd.merge(num_genre_df, df_ranking, on='appid', how='left')\
 |  9 | Unturned                         |  304930 |            3 |        10 |
 :::
 
-## More plots (cont.)
+## More plots (cont.) { transition="slide"}
 {{< embed genre_data_pivoting.ipynb#fig-scatter  >}}
 
 conslusion: no correlation between the two factors
