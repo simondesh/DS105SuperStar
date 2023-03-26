@@ -488,7 +488,7 @@
 <h2>H1:Games with same publishers and developers could be more popular?</h2>
 <ul>
 <li>V1: More games are produced with same developers and publishers</li>
-<li>V2: Proportion of top 100 games which are produced by same and different developers and publisher</li>
+<li>V2: Proportion of top 100 games which are produced by same and different developers and publishers</li>
 <li>V3: How does the different developer and publisher affect the number of games produced?</li>
 <li>V4: How does the same developer and publisher affect the number of games produced?</li>
 </ul>
@@ -503,12 +503,79 @@
 <span id="cb1-6"><a href="#cb1-6"></a></span>
 <span id="cb1-7"><a href="#cb1-7"></a>g_1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div data-notebook="Pivoting.ipynb" data-notebook-title="Pivoting &amp; Visualisations">
-<div class="cell" data-execution_count="12">
+<div class="cell" data-execution_count="62">
 <div class="cell-output cell-output-display">
 <div id="h1v1" class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="Index_files/figure-revealjs/h1v1-output-1.png" class="quarto-discovered-preview-image"></p>
 <p></p><figcaption>Proportion of all games which are produced by same and different developers and publishers</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="h1v2-proportion-of-top-100-games-which-are-produced-by-same-and-different-developers-and-publishers" class="slide level2">
+<h2>H1/V2: Proportion of top 100 games which are produced by same and different developers and publishers</h2>
+<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a>g_2 <span class="op">=</span> ggplot(df_games_100, aes(x<span class="op">=</span><span class="st">'classification'</span>)) <span class="op">+\</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a>      geom_bar(fill<span class="op">=</span><span class="st">'blue'</span>) <span class="op">+\</span></span>
+<span id="cb2-3"><a href="#cb2-3"></a>      labs(title<span class="op">=</span><span class="st">'Proportion of top 100 games which are produced by same and different developers and publishers'</span>, x<span class="op">=</span><span class="st">'classification'</span>, y<span class="op">=</span><span class="st">'count'</span>) <span class="op">+\</span></span>
+<span id="cb2-4"><a href="#cb2-4"></a>      theme_classic()</span>
+<span id="cb2-5"><a href="#cb2-5"></a>      </span>
+<span id="cb2-6"><a href="#cb2-6"></a>g_2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div data-notebook="Pivoting.ipynb" data-notebook-title="Pivoting &amp; Visualisations">
+<div class="cell" data-execution_count="63">
+<div class="cell-output cell-output-display">
+<div id="h1v2" class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="Index_files/figure-revealjs/h1v2-output-1.png"></p>
+<p></p><figcaption>Proportion of top 100 games which are produced by same and different developers and publisher</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="h1v3-how-does-the-different-developer-and-publisher-affect-the-number-of-games-produced" class="slide level2">
+<h2>H1/V3: How does the different developer and publisher affect the number of games produced?</h2>
+<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a>g_3 <span class="op">=</span> ggplot(df_tmp_100_games_different, aes(x<span class="op">=</span><span class="st">'developer'</span>, y<span class="op">=</span><span class="st">'num_games'</span>)) <span class="op">+\</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a>        geom_bar(stat<span class="op">=</span><span class="st">'identity'</span>, fill<span class="op">=</span><span class="st">'blue'</span>) <span class="op">+\</span></span>
+<span id="cb3-3"><a href="#cb3-3"></a>        labs(title<span class="op">=</span><span class="st">'Number of games produced by different developers and publishers'</span>, x<span class="op">=</span><span class="st">'developer'</span>, y<span class="op">=</span><span class="st">'num_games'</span>) <span class="op">+\</span></span>
+<span id="cb3-4"><a href="#cb3-4"></a>        theme_classic() <span class="op">+\</span></span>
+<span id="cb3-5"><a href="#cb3-5"></a>        theme(axis_text_x<span class="op">=</span>element_text(angle<span class="op">=</span><span class="dv">90</span>, hjust<span class="op">=</span><span class="dv">1</span>), figure_size<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">10</span>)) <span class="op">+\</span></span>
+<span id="cb3-6"><a href="#cb3-6"></a>        coord_flip() <span class="op">+\</span></span>
+<span id="cb3-7"><a href="#cb3-7"></a>        scale_x_discrete(limits<span class="op">=</span>df_tmp_100_games_different[<span class="st">'developer'</span>].tolist()) <span class="op">+\</span></span>
+<span id="cb3-8"><a href="#cb3-8"></a>        scale_y_continuous(breaks<span class="op">=</span><span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">10</span>, <span class="dv">2</span>))</span>
+<span id="cb3-9"><a href="#cb3-9"></a>g_3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div data-notebook="Pivoting.ipynb" data-notebook-title="Pivoting &amp; Visualisations">
+<div class="cell" data-execution_count="66">
+<div class="cell-output cell-output-display">
+<div id="h1v3" class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="Index_files/figure-revealjs/h1v3-output-1.png"></p>
+<p></p><figcaption>How does the different developer and publisher affect the number of games produced?</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a>g_4 <span class="op">=</span> ggplot(df_tmp_100_games_same, aes(x<span class="op">=</span><span class="st">'developer'</span>, y<span class="op">=</span><span class="st">'num_games'</span>)) <span class="op">+\</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a>        geom_bar(stat<span class="op">=</span><span class="st">'identity'</span>, fill<span class="op">=</span><span class="st">'blue'</span>) <span class="op">+\</span></span>
+<span id="cb4-3"><a href="#cb4-3"></a>        labs(title<span class="op">=</span><span class="st">'Number of games produced by same developers and publishers'</span>, x<span class="op">=</span><span class="st">'developer'</span>, y<span class="op">=</span><span class="st">'num_games'</span>) <span class="op">+\</span></span>
+<span id="cb4-4"><a href="#cb4-4"></a>        theme_classic() <span class="op">+\</span></span>
+<span id="cb4-5"><a href="#cb4-5"></a>        theme(axis_text_x<span class="op">=</span>element_text(angle<span class="op">=</span><span class="dv">90</span>, hjust<span class="op">=</span><span class="dv">1</span>), figure_size<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">10</span>)) <span class="op">+\</span></span>
+<span id="cb4-6"><a href="#cb4-6"></a>        coord_flip() <span class="op">+\</span></span>
+<span id="cb4-7"><a href="#cb4-7"></a>        scale_x_discrete(limits<span class="op">=</span>df_tmp_100_games_same[<span class="st">'developer'</span>].tolist()) <span class="op">+\</span></span>
+<span id="cb4-8"><a href="#cb4-8"></a>        scale_y_continuous(breaks<span class="op">=</span><span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">10</span>, <span class="dv">2</span>))</span>
+<span id="cb4-9"><a href="#cb4-9"></a></span>
+<span id="cb4-10"><a href="#cb4-10"></a>g_4</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div data-notebook="Pivoting.ipynb" data-notebook-title="Pivoting &amp; Visualisations">
+<div class="cell" data-execution_count="68">
+<div class="cell-output cell-output-display">
+<div id="h1v4" class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="Index_files/figure-revealjs/h1v4-output-1.png"></p>
+<p></p><figcaption>How does the same developer and publisher affect the number of games produced?</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -522,6 +589,188 @@
 <li>V2: What developers create the most top 100 games</li>
 <li>V3:</li>
 </ul>
+</section>
+<section id="h2v1what-developers-create-the-most-games" class="slide level2">
+<h2>H2/V1:What developers create the most games?</h2>
+<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a></span>
+<span id="cb5-2"><a href="#cb5-2"></a>g_5 <span class="op">=</span> ggplot(df_tmp_selected_games, aes(x<span class="op">=</span><span class="st">'developer'</span>, y<span class="op">=</span><span class="st">'num_games'</span>)) <span class="op">+\</span></span>
+<span id="cb5-3"><a href="#cb5-3"></a>        geom_bar(stat<span class="op">=</span><span class="st">'identity'</span>, fill<span class="op">=</span><span class="st">'blue'</span>) <span class="op">+\</span></span>
+<span id="cb5-4"><a href="#cb5-4"></a>        labs(title<span class="op">=</span><span class="st">'Which producer produce the most games'</span>, x<span class="op">=</span><span class="st">'developer'</span>, y<span class="op">=</span><span class="st">'num_games'</span>) <span class="op">+\</span></span>
+<span id="cb5-5"><a href="#cb5-5"></a>        theme_classic() <span class="op">+\</span></span>
+<span id="cb5-6"><a href="#cb5-6"></a>        theme(axis_text_x<span class="op">=</span>element_text(angle<span class="op">=</span><span class="dv">90</span>, hjust<span class="op">=</span><span class="dv">1</span>), figure_size<span class="op">=</span>(<span class="dv">25</span>, <span class="dv">50</span>)) <span class="op">+\</span></span>
+<span id="cb5-7"><a href="#cb5-7"></a>        coord_flip() <span class="op">+\</span></span>
+<span id="cb5-8"><a href="#cb5-8"></a>        scale_x_discrete(limits<span class="op">=</span>df_tmp_selected_games[<span class="st">'developer'</span>].tolist()) <span class="op">+\</span></span>
+<span id="cb5-9"><a href="#cb5-9"></a>        geom_text(aes(label<span class="op">=</span><span class="st">'num_games'</span>), size<span class="op">=</span><span class="dv">18</span>, color<span class="op">=</span><span class="st">'red'</span>) <span class="op">+\</span></span>
+<span id="cb5-10"><a href="#cb5-10"></a>        geom_hline(yintercept<span class="op">=</span><span class="fl">26.544041</span>, linetype<span class="op">=</span><span class="st">'dashed'</span>, color<span class="op">=</span><span class="st">'red'</span>) <span class="op">+\</span></span>
+<span id="cb5-11"><a href="#cb5-11"></a>        theme(axis_text_x<span class="op">=</span>element_text(size<span class="op">=</span><span class="dv">20</span>))</span>
+<span id="cb5-12"><a href="#cb5-12"></a>g_5</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div data-notebook="Pivoting.ipynb" data-notebook-title="Pivoting &amp; Visualisations">
+<div class="cell" data-execution_count="74">
+<div class="cell-output cell-output-display">
+<div id="h2v1plot" class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="Index_files/figure-revealjs/h2v1plot-output-1.png"></p>
+<p></p><figcaption>Which producer produce the most games</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="h2v2" class="slide level2">
+<h2>H2/V2:</h2>
+<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a>g_6 <span class="op">=</span> ggplot(df_tmp_100_games, aes(x<span class="op">=</span><span class="st">'developer'</span>, y<span class="op">=</span><span class="st">'num_games'</span>)) <span class="op">+\</span></span>
+<span id="cb6-2"><a href="#cb6-2"></a>      geom_bar(stat<span class="op">=</span><span class="st">'identity'</span>, fill<span class="op">=</span><span class="st">'blue'</span>) <span class="op">+\</span></span>
+<span id="cb6-3"><a href="#cb6-3"></a>      labs(title<span class="op">=</span><span class="st">'Number of top 100 games games produced by developers'</span>, x<span class="op">=</span><span class="st">'developer'</span>, y<span class="op">=</span><span class="st">'num_games'</span>) <span class="op">+\</span></span>
+<span id="cb6-4"><a href="#cb6-4"></a>      theme_classic() <span class="op">+\</span></span>
+<span id="cb6-5"><a href="#cb6-5"></a>      theme(axis_text_x<span class="op">=</span>element_text(angle<span class="op">=</span><span class="dv">90</span>, hjust<span class="op">=</span><span class="dv">1</span>), figure_size<span class="op">=</span>(<span class="dv">30</span>, <span class="dv">50</span>)) <span class="op">+\</span></span>
+<span id="cb6-6"><a href="#cb6-6"></a>      coord_flip() <span class="op">+\</span></span>
+<span id="cb6-7"><a href="#cb6-7"></a>      scale_x_discrete(limits<span class="op">=</span>df_tmp_100_games[<span class="st">'developer'</span>].tolist())<span class="op">+\</span></span>
+<span id="cb6-8"><a href="#cb6-8"></a>      geom_text(aes(label<span class="op">=</span><span class="st">'num_games'</span>), size<span class="op">=</span><span class="dv">20</span>, color<span class="op">=</span><span class="st">'red'</span>)<span class="op">+\</span></span>
+<span id="cb6-9"><a href="#cb6-9"></a>      scale_y_continuous(breaks<span class="op">=</span><span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">10</span>, <span class="dv">2</span>)) <span class="op">+\</span></span>
+<span id="cb6-10"><a href="#cb6-10"></a>      geom_hline(yintercept<span class="op">=</span><span class="fl">1.2345685</span>, linetype<span class="op">=</span><span class="st">'dashed'</span>, color<span class="op">=</span><span class="st">'red'</span>, size <span class="op">=</span><span class="dv">3</span>) <span class="op">+\</span></span>
+<span id="cb6-11"><a href="#cb6-11"></a>      theme(axis_text_y<span class="op">=</span>element_text(size<span class="op">=</span><span class="dv">28</span>)) <span class="op">+\</span></span>
+<span id="cb6-12"><a href="#cb6-12"></a>      theme(axis_text_x<span class="op">=</span>element_text(size <span class="op">=</span> <span class="dv">30</span>))</span>
+<span id="cb6-13"><a href="#cb6-13"></a>           </span>
+<span id="cb6-14"><a href="#cb6-14"></a>g_6</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div data-notebook="Pivoting.ipynb" data-notebook-title="Pivoting &amp; Visualisations">
+<div class="cell" data-execution_count="77">
+<div class="cell-output cell-output-display">
+<div id="h2v2plot" class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="Index_files/figure-revealjs/h2v2plot-output-1.png"></p>
+<p></p><figcaption>What is the developer that produce the most 100 games</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="h2v3" class="slide level2">
+<h2>H2/V3:</h2>
+<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1"></a>g_7 <span class="op">=</span> (ggplot(df_tmp_selected_500_games, aes(x<span class="op">=</span><span class="st">'developer'</span>, y<span class="op">=</span><span class="st">'num_games'</span>)) <span class="op">+\</span></span>
+<span id="cb7-2"><a href="#cb7-2"></a>      geom_bar(stat<span class="op">=</span><span class="st">'identity'</span>, fill <span class="op">=</span> <span class="st">'blue'</span>) <span class="op">+\</span></span>
+<span id="cb7-3"><a href="#cb7-3"></a>      theme(axis_text_x<span class="op">=</span>element_text(rotation<span class="op">=</span><span class="dv">90</span>, hjust<span class="op">=</span><span class="dv">1</span>), </span>
+<span id="cb7-4"><a href="#cb7-4"></a>           figure_size<span class="op">=</span>(<span class="dv">30</span>, <span class="dv">80</span>),</span>
+<span id="cb7-5"><a href="#cb7-5"></a>           axis_text<span class="op">=</span>element_text(size<span class="op">=</span><span class="dv">10</span>),</span>
+<span id="cb7-6"><a href="#cb7-6"></a>           axis_title<span class="op">=</span>element_text(size<span class="op">=</span><span class="dv">12</span>)) <span class="op">+\</span></span>
+<span id="cb7-7"><a href="#cb7-7"></a>      labs(title<span class="op">=</span><span class="st">'Number of top 500 games produced by developers'</span>, x<span class="op">=</span><span class="st">'developer'</span>, y<span class="op">=</span><span class="st">'num_games'</span>) <span class="op">+\</span></span>
+<span id="cb7-8"><a href="#cb7-8"></a>      coord_flip() <span class="op">+\</span></span>
+<span id="cb7-9"><a href="#cb7-9"></a>      scale_x_discrete(limits<span class="op">=</span>df_tmp_selected_500_games[<span class="st">'developer'</span>].tolist()) <span class="op">+\</span></span>
+<span id="cb7-10"><a href="#cb7-10"></a>      scale_y_continuous(breaks<span class="op">=</span><span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">10</span>, <span class="dv">2</span>)) <span class="op">+\</span></span>
+<span id="cb7-11"><a href="#cb7-11"></a>      theme_classic()) <span class="op">+\</span></span>
+<span id="cb7-12"><a href="#cb7-12"></a>      geom_text(aes(label<span class="op">=</span><span class="st">'num_games'</span>), size<span class="op">=</span><span class="dv">10</span>, color<span class="op">=</span><span class="st">'red'</span>)<span class="op">+\</span></span>
+<span id="cb7-13"><a href="#cb7-13"></a>      scale_y_continuous(breaks<span class="op">=</span><span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">10</span>, <span class="dv">2</span>)) <span class="op">+\</span></span>
+<span id="cb7-14"><a href="#cb7-14"></a>      geom_hline(yintercept<span class="op">=</span><span class="fl">1.2345685</span>, linetype<span class="op">=</span><span class="st">'dashed'</span>, color<span class="op">=</span><span class="st">'red'</span>, size <span class="op">=</span><span class="dv">1</span>) <span class="op">+\</span></span>
+<span id="cb7-15"><a href="#cb7-15"></a>      theme(axis_text_y<span class="op">=</span>element_text(size<span class="op">=</span><span class="dv">10</span>))</span>
+<span id="cb7-16"><a href="#cb7-16"></a></span>
+<span id="cb7-17"><a href="#cb7-17"></a>g_7</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div data-notebook="Pivoting.ipynb" data-notebook-title="Pivoting &amp; Visualisations">
+<div class="cell" data-execution_count="78">
+<div id="h2v3plot" class="cell-output cell-output-display" data-execution_count="78">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+
+<table class="dataframe" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header" style="text-align: right;">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">developer</th>
+<th data-quarto-table-cell-role="th">num_games</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">11</td>
+<td>4A Games</td>
+<td>3</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">255</td>
+<td>Respawn Entertainment</td>
+<td>3</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">247</td>
+<td>Rebellion</td>
+<td>3</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">347</td>
+<td>Wargaming Group Limited</td>
+<td>3</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">223</td>
+<td>Obsidian Entertainment</td>
+<td>3</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+<p>What is the developer that produce the most 500 games</p>
+</div>
+</div>
+</div>
+</section>
+<section id="result-for-h1-and-h2" class="slide level2">
+<h2>Result for H1 and H2:</h2>
+<ul>
+<li><p>Valve is tooo outstanding than others no matter in number of games or ability to create popular games, while the second is Endnight Games Ltd in the ability but their range is very big.</p></li>
+<li><p>There is no evidence to show that same or different until now.</p></li>
+<li><p>A future study on the logistic regression on two classifications will be taken into account:</p></li>
+</ul>
+<ol type="1">
+<li>same or different developers and publishers</li>
+<li>minus, minor, major, super ability of creating popular games for developers</li>
+</ol>
+</section>
+<section id="pivoting-heatmap" class="slide level2">
+<h2>Pivoting Heatmap</h2>
+<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1"></a><span class="co"># Create a custom color map for the binary values</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a>cmap <span class="op">=</span> sns.color_palette([<span class="st">"#FFFFFF"</span>, <span class="st">"#000000"</span>])</span>
+<span id="cb8-3"><a href="#cb8-3"></a></span>
+<span id="cb8-4"><a href="#cb8-4"></a><span class="co"># Set the plot size</span></span>
+<span id="cb8-5"><a href="#cb8-5"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">50</span>, <span class="dv">50</span>))</span>
+<span id="cb8-6"><a href="#cb8-6"></a></span>
+<span id="cb8-7"><a href="#cb8-7"></a><span class="co"># Plot the heatmap with binary color map</span></span>
+<span id="cb8-8"><a href="#cb8-8"></a>sns.heatmap(pivot_table, cmap<span class="op">=</span>cmap, center<span class="op">=</span><span class="dv">0</span>, linewidths<span class="op">=</span><span class="fl">.20</span>, annot<span class="op">=</span><span class="va">True</span>, fmt<span class="op">=</span><span class="st">'.0f'</span>, cbar<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb8-9"><a href="#cb8-9"></a></span>
+<span id="cb8-10"><a href="#cb8-10"></a><span class="co"># Rotate the x-axis labels</span></span>
+<span id="cb8-11"><a href="#cb8-11"></a>plt.xticks(rotation<span class="op">=</span><span class="dv">90</span>)</span>
+<span id="cb8-12"><a href="#cb8-12"></a></span>
+<span id="cb8-13"><a href="#cb8-13"></a><span class="co"># Set the plot title and axis labels</span></span>
+<span id="cb8-14"><a href="#cb8-14"></a>plt.title(<span class="st">'Binary Matrix Heatmap'</span>)</span>
+<span id="cb8-15"><a href="#cb8-15"></a>plt.xlabel(<span class="st">'Column'</span>)</span>
+<span id="cb8-16"><a href="#cb8-16"></a>plt.ylabel(<span class="st">'Row'</span>)</span>
+<span id="cb8-17"><a href="#cb8-17"></a></span>
+<span id="cb8-18"><a href="#cb8-18"></a><span class="co"># Show the plot</span></span>
+<span id="cb8-19"><a href="#cb8-19"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div data-notebook="Pivoting.ipynb" data-notebook-title="Pivoting &amp; Visualisations">
+<div class="cell" data-execution_count="101">
+<div class="cell-output cell-output-display">
+<div id="heatmapheatmap" class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="Index_files/figure-revealjs/heatmapheatmap-output-1.png"></p>
+<p></p><figcaption>heatmap</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
 </section>
 <section id="linear-regression-content" class="slide level2">
 <h2>Linear Regression Content</h2>
@@ -544,21 +793,21 @@
 <p>code to obtain the correlation matrix plot of the initial DF</p>
 <div class="columns">
 <div class="column" style="width:40%;">
-<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb2-2"><a href="#cb2-2"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
-<span id="cb2-3"><a href="#cb2-3"></a></span>
-<span id="cb2-4"><a href="#cb2-4"></a><span class="co"># plot the correlation matrix</span></span>
-<span id="cb2-5"><a href="#cb2-5"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">12</span>,<span class="dv">10</span>), dpi<span class="op">=</span> <span class="dv">80</span>)</span>
-<span id="cb2-6"><a href="#cb2-6"></a>sns.heatmap(data.corr(), xticklabels<span class="op">=</span>data.corr().columns, </span>
-<span id="cb2-7"><a href="#cb2-7"></a>    yticklabels<span class="op">=</span>data.corr().columns, </span>
-<span id="cb2-8"><a href="#cb2-8"></a>    cmap<span class="op">=</span><span class="st">'RdYlGn'</span>, c</span>
-<span id="cb2-9"><a href="#cb2-9"></a>    enter<span class="op">=</span><span class="dv">0</span>, annot<span class="op">=</span><span class="va">True</span>, fmt<span class="op">=</span><span class="st">".2f"</span>)</span>
-<span id="cb2-10"><a href="#cb2-10"></a></span>
-<span id="cb2-11"><a href="#cb2-11"></a><span class="co"># decoration</span></span>
-<span id="cb2-12"><a href="#cb2-12"></a>plt.title(<span class="st">'Correlogram of Steam Games data'</span>, fontsize<span class="op">=</span><span class="dv">22</span>)</span>
-<span id="cb2-13"><a href="#cb2-13"></a>plt.xticks(fontsize<span class="op">=</span><span class="dv">12</span>)</span>
-<span id="cb2-14"><a href="#cb2-14"></a>plt.yticks(fontsize<span class="op">=</span><span class="dv">12</span>)</span>
-<span id="cb2-15"><a href="#cb2-15"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb9-2"><a href="#cb9-2"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb9-3"><a href="#cb9-3"></a></span>
+<span id="cb9-4"><a href="#cb9-4"></a><span class="co"># plot the correlation matrix</span></span>
+<span id="cb9-5"><a href="#cb9-5"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">12</span>,<span class="dv">10</span>), dpi<span class="op">=</span> <span class="dv">80</span>)</span>
+<span id="cb9-6"><a href="#cb9-6"></a>sns.heatmap(data.corr(), xticklabels<span class="op">=</span>data.corr().columns, </span>
+<span id="cb9-7"><a href="#cb9-7"></a>    yticklabels<span class="op">=</span>data.corr().columns, </span>
+<span id="cb9-8"><a href="#cb9-8"></a>    cmap<span class="op">=</span><span class="st">'RdYlGn'</span>, c</span>
+<span id="cb9-9"><a href="#cb9-9"></a>    enter<span class="op">=</span><span class="dv">0</span>, annot<span class="op">=</span><span class="va">True</span>, fmt<span class="op">=</span><span class="st">".2f"</span>)</span>
+<span id="cb9-10"><a href="#cb9-10"></a></span>
+<span id="cb9-11"><a href="#cb9-11"></a><span class="co"># decoration</span></span>
+<span id="cb9-12"><a href="#cb9-12"></a>plt.title(<span class="st">'Correlogram of Steam Games data'</span>, fontsize<span class="op">=</span><span class="dv">22</span>)</span>
+<span id="cb9-13"><a href="#cb9-13"></a>plt.xticks(fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb9-14"><a href="#cb9-14"></a>plt.yticks(fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb9-15"><a href="#cb9-15"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column" style="width:60%;">
 <div data-notebook="Linear_regression.ipynb" data-notebook-title="Implement Linear Regression">
 <div class="cell" data-execution_count="64">
@@ -836,55 +1085,55 @@
 </section>
 <section id="tranforming-the-data" class="slide level2" data-transition="slide" data-auto-animate="true">
 <h2 data-id="quarto-animate-title">Tranforming the Data</h2>
-<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode python hljs"><span id="cb4-1" class="hljs-ln-code"><a href="#cb4-1"></a><span class="co"># clean </span></span>
-<span id="cb4-2" class="hljs-ln-code"><a href="#cb4-2"></a>df_genres <span class="op">=</span> data.copy()</span>
-<span id="cb4-3" class="hljs-ln-code"><a href="#cb4-3"></a>df_genres <span class="op">=</span> df_genres.drop([<span class="st">'score_rank'</span>,<span class="st">'initialprice'</span>,<span class="st">'discount'</span>,<span class="st">'userscore'</span>],axis<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb4-4" class="hljs-ln-code"><a href="#cb4-4"></a>df_genres[<span class="st">'appid'</span>] <span class="op">=</span> df_genres[<span class="st">'appid'</span>].astype(<span class="bu">int</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode python hljs"><span id="cb11-1" class="hljs-ln-code"><a href="#cb11-1"></a><span class="co"># clean </span></span>
+<span id="cb11-2" class="hljs-ln-code"><a href="#cb11-2"></a>df_genres <span class="op">=</span> data.copy()</span>
+<span id="cb11-3" class="hljs-ln-code"><a href="#cb11-3"></a>df_genres <span class="op">=</span> df_genres.drop([<span class="st">'score_rank'</span>,<span class="st">'initialprice'</span>,<span class="st">'discount'</span>,<span class="st">'userscore'</span>],axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb11-4" class="hljs-ln-code"><a href="#cb11-4"></a>df_genres[<span class="st">'appid'</span>] <span class="op">=</span> df_genres[<span class="st">'appid'</span>].astype(<span class="bu">int</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="from-str-to-int-owners" class="slide level2" data-auto-animate="true">
 <h2 data-id="quarto-animate-title">From str to int : owners</h2>
-<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode python hljs"><span id="cb5-1" class="hljs-ln-code"><a href="#cb5-1"></a><span class="co"># clean </span></span>
-<span id="cb5-2" class="hljs-ln-code"><a href="#cb5-2"></a>df_genres <span class="op">=</span> data.copy()</span>
-<span id="cb5-3" class="hljs-ln-code"><a href="#cb5-3"></a>df_genres <span class="op">=</span> df_genres.drop([<span class="st">'score_rank'</span>,<span class="st">'initialprice'</span>,<span class="st">'discount'</span>,<span class="st">'userscore'</span>],axis<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb5-4" class="hljs-ln-code"><a href="#cb5-4"></a>df_genres[<span class="st">'appid'</span>] <span class="op">=</span> df_genres[<span class="st">'appid'</span>].astype(<span class="bu">int</span>)</span>
-<span id="cb5-5" class="hljs-ln-code"><a href="#cb5-5"></a></span>
-<span id="cb5-6" class="hljs-ln-code"><a href="#cb5-6"></a><span class="co"># get the average of the owners</span></span>
-<span id="cb5-7" class="hljs-ln-code"><a href="#cb5-7"></a>owners <span class="op">=</span> pd.DataFrame(df_genres[<span class="st">'owners'</span>].<span class="bu">str</span>.replace(<span class="st">','</span>,<span class="st">''</span>).<span class="bu">str</span>.split(<span class="st">' .. '</span>).tolist(),columns <span class="op">=</span> [<span class="st">'min'</span>,<span class="st">'max'</span>])</span>
-<span id="cb5-8" class="hljs-ln-code"><a href="#cb5-8"></a>df_genres[<span class="st">'owners'</span>]<span class="op">=</span> owners.astype(<span class="bu">int</span>).<span class="bu">sum</span>(axis<span class="op">=</span><span class="dv">1</span>)<span class="op">/</span><span class="dv">2</span></span>
-<span id="cb5-9" class="hljs-ln-code"><a href="#cb5-9"></a>df_genres[<span class="st">'owners'</span>] <span class="op">=</span> df_genres[<span class="st">'owners'</span>].astype(<span class="bu">int</span>)</span>
-<span id="cb5-10" class="hljs-ln-code"><a href="#cb5-10"></a>df_genres.rename(columns<span class="op">=</span>{<span class="st">'owners'</span>:<span class="st">'avg_owners'</span>},inplace<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode numberSource python number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode python hljs"><span id="cb12-1" class="hljs-ln-code"><a href="#cb12-1"></a><span class="co"># clean </span></span>
+<span id="cb12-2" class="hljs-ln-code"><a href="#cb12-2"></a>df_genres <span class="op">=</span> data.copy()</span>
+<span id="cb12-3" class="hljs-ln-code"><a href="#cb12-3"></a>df_genres <span class="op">=</span> df_genres.drop([<span class="st">'score_rank'</span>,<span class="st">'initialprice'</span>,<span class="st">'discount'</span>,<span class="st">'userscore'</span>],axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb12-4" class="hljs-ln-code"><a href="#cb12-4"></a>df_genres[<span class="st">'appid'</span>] <span class="op">=</span> df_genres[<span class="st">'appid'</span>].astype(<span class="bu">int</span>)</span>
+<span id="cb12-5" class="hljs-ln-code"><a href="#cb12-5"></a></span>
+<span id="cb12-6" class="hljs-ln-code"><a href="#cb12-6"></a><span class="co"># get the average of the owners</span></span>
+<span id="cb12-7" class="hljs-ln-code"><a href="#cb12-7"></a>owners <span class="op">=</span> pd.DataFrame(df_genres[<span class="st">'owners'</span>].<span class="bu">str</span>.replace(<span class="st">','</span>,<span class="st">''</span>).<span class="bu">str</span>.split(<span class="st">' .. '</span>).tolist(),columns <span class="op">=</span> [<span class="st">'min'</span>,<span class="st">'max'</span>])</span>
+<span id="cb12-8" class="hljs-ln-code"><a href="#cb12-8"></a>df_genres[<span class="st">'owners'</span>]<span class="op">=</span> owners.astype(<span class="bu">int</span>).<span class="bu">sum</span>(axis<span class="op">=</span><span class="dv">1</span>)<span class="op">/</span><span class="dv">2</span></span>
+<span id="cb12-9" class="hljs-ln-code"><a href="#cb12-9"></a>df_genres[<span class="st">'owners'</span>] <span class="op">=</span> df_genres[<span class="st">'owners'</span>].astype(<span class="bu">int</span>)</span>
+<span id="cb12-10" class="hljs-ln-code"><a href="#cb12-10"></a>df_genres.rename(columns<span class="op">=</span>{<span class="st">'owners'</span>:<span class="st">'avg_owners'</span>},inplace<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="tweeking-and-made-usefull" class="slide level2" data-auto-animate="true">
 <h2 data-id="quarto-animate-title">Tweeking and Made Usefull</h2>
-<div class="sourceCode" id="annotated-cell-4"><pre class="sourceCode numberSource python code-annotation-code number-lines code-with-copy code-annotated" data-id="quarto-animate-code"><code class="sourceCode python hljs"><span id="annotated-cell-4-1" class="hljs-ln-code"><a href="#annotated-cell-4-1"></a><span class="co"># clean </span></span>
-<span id="annotated-cell-4-2" class="hljs-ln-code"><a href="#annotated-cell-4-2"></a>df_genres <span class="op">=</span> data.copy()</span>
-<a class="code-annotation-anchor hljs-ln-code" data-target-cell="annotated-cell-4" data-target-annotation="1" onclick="event.preventDefault();" href="">1</a><span id="annotated-cell-4-3" class="code-annotation-target hljs-ln-code"><a href="#annotated-cell-4-3"></a>df_genres <span class="op">=</span> df_genres.drop([<span class="st">'score_rank'</span>,<span class="st">'initialprice'</span>,<span class="st">'discount'</span>,<span class="st">'userscore'</span>],axis<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="annotated-cell-4-4" class="hljs-ln-code"><a href="#annotated-cell-4-4"></a>df_genres[<span class="st">'appid'</span>] <span class="op">=</span> df_genres[<span class="st">'appid'</span>].astype(<span class="bu">int</span>)</span>
-<span id="annotated-cell-4-5" class="hljs-ln-code"><a href="#annotated-cell-4-5"></a></span>
-<span id="annotated-cell-4-6" class="hljs-ln-code"><a href="#annotated-cell-4-6"></a><span class="co"># get the average of the owners</span></span>
-<span id="annotated-cell-4-7" class="hljs-ln-code"><a href="#annotated-cell-4-7"></a>owners <span class="op">=</span> pd.DataFrame(df_genres[<span class="st">'owners'</span>].<span class="bu">str</span>.replace(<span class="st">','</span>,<span class="st">''</span>).<span class="bu">str</span>.split(<span class="st">' .. '</span>).tolist(),columns <span class="op">=</span> [<span class="st">'min'</span>,<span class="st">'max'</span>])</span>
-<span id="annotated-cell-4-8" class="hljs-ln-code"><a href="#annotated-cell-4-8"></a>df_genres[<span class="st">'owners'</span>]<span class="op">=</span> owners.astype(<span class="bu">int</span>).<span class="bu">sum</span>(axis<span class="op">=</span><span class="dv">1</span>)<span class="op">/</span><span class="dv">2</span></span>
-<span id="annotated-cell-4-9" class="hljs-ln-code"><a href="#annotated-cell-4-9"></a>df_genres[<span class="st">'owners'</span>] <span class="op">=</span> df_genres[<span class="st">'owners'</span>].astype(<span class="bu">int</span>)</span>
-<span id="annotated-cell-4-10" class="hljs-ln-code"><a href="#annotated-cell-4-10"></a>df_genres.rename(columns<span class="op">=</span>{<span class="st">'owners'</span>:<span class="st">'avg_owners'</span>},inplace<span class="op">=</span><span class="va">True</span>)</span>
-<span id="annotated-cell-4-11" class="hljs-ln-code"><a href="#annotated-cell-4-11"></a></span>
-<span id="annotated-cell-4-12" class="hljs-ln-code"><a href="#annotated-cell-4-12"></a><span class="co"># ratio of positive reviews over total reviews</span></span>
-<a class="code-annotation-anchor hljs-ln-code" data-target-cell="annotated-cell-4" data-target-annotation="2" onclick="event.preventDefault();" href="">2</a><span id="annotated-cell-4-13" class="code-annotation-target hljs-ln-code"><a href="#annotated-cell-4-13"></a>df_genres[<span class="st">'positive_ratio'</span>] <span class="op">=</span> df_genres[<span class="st">'positive'</span>]<span class="op">/</span>(df_genres[<span class="st">'positive'</span>]<span class="op">+</span>df_genres[<span class="st">'negative'</span>])</span>
-<span id="annotated-cell-4-14" class="hljs-ln-code"><a href="#annotated-cell-4-14"></a></span>
-<span id="annotated-cell-4-15" class="hljs-ln-code"><a href="#annotated-cell-4-15"></a><span class="co">'''</span></span>
-<span id="annotated-cell-4-16" class="hljs-ln-code"><a href="#annotated-cell-4-16"></a><span class="co">REMARK: this ratio is severely skewed when the number of reviews is low.</span></span>
-<span id="annotated-cell-4-17" class="hljs-ln-code"><a href="#annotated-cell-4-17"></a><span class="co">'''</span></span>
-<span id="annotated-cell-4-18" class="hljs-ln-code"><a href="#annotated-cell-4-18"></a></span>
-<span id="annotated-cell-4-19" class="hljs-ln-code"><a href="#annotated-cell-4-19"></a><span class="co"># lets drop the rows with less than 100 reviews and 0 average concurent players </span></span>
-<span id="annotated-cell-4-20" class="hljs-ln-code"><a href="#annotated-cell-4-20"></a>df_genres <span class="op">=</span> df_genres[((df_genres[<span class="st">'positive'</span>]<span class="op">+</span>df_genres[<span class="st">'negative'</span>])<span class="op">&gt;</span><span class="dv">100</span>) <span class="op">&amp;</span> (df_genres[<span class="st">'average_forever'</span>]<span class="op">&gt;</span><span class="dv">0</span>)]</span>
-<span id="annotated-cell-4-21" class="hljs-ln-code"><a href="#annotated-cell-4-21"></a><span class="co"># only 12k rows left</span></span><div class="code-annotation-gutter-bg hljs-ln-code"></div><div class="code-annotation-gutter hljs-ln-code"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="annotated-cell-11"><pre class="sourceCode numberSource python code-annotation-code number-lines code-with-copy code-annotated" data-id="quarto-animate-code"><code class="sourceCode python hljs"><span id="annotated-cell-11-1" class="hljs-ln-code"><a href="#annotated-cell-11-1"></a><span class="co"># clean </span></span>
+<span id="annotated-cell-11-2" class="hljs-ln-code"><a href="#annotated-cell-11-2"></a>df_genres <span class="op">=</span> data.copy()</span>
+<a class="code-annotation-anchor hljs-ln-code" data-target-cell="annotated-cell-11" data-target-annotation="1" onclick="event.preventDefault();" href="">1</a><span id="annotated-cell-11-3" class="code-annotation-target hljs-ln-code"><a href="#annotated-cell-11-3"></a>df_genres <span class="op">=</span> df_genres.drop([<span class="st">'score_rank'</span>,<span class="st">'initialprice'</span>,<span class="st">'discount'</span>,<span class="st">'userscore'</span>],axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="annotated-cell-11-4" class="hljs-ln-code"><a href="#annotated-cell-11-4"></a>df_genres[<span class="st">'appid'</span>] <span class="op">=</span> df_genres[<span class="st">'appid'</span>].astype(<span class="bu">int</span>)</span>
+<span id="annotated-cell-11-5" class="hljs-ln-code"><a href="#annotated-cell-11-5"></a></span>
+<span id="annotated-cell-11-6" class="hljs-ln-code"><a href="#annotated-cell-11-6"></a><span class="co"># get the average of the owners</span></span>
+<span id="annotated-cell-11-7" class="hljs-ln-code"><a href="#annotated-cell-11-7"></a>owners <span class="op">=</span> pd.DataFrame(df_genres[<span class="st">'owners'</span>].<span class="bu">str</span>.replace(<span class="st">','</span>,<span class="st">''</span>).<span class="bu">str</span>.split(<span class="st">' .. '</span>).tolist(),columns <span class="op">=</span> [<span class="st">'min'</span>,<span class="st">'max'</span>])</span>
+<span id="annotated-cell-11-8" class="hljs-ln-code"><a href="#annotated-cell-11-8"></a>df_genres[<span class="st">'owners'</span>]<span class="op">=</span> owners.astype(<span class="bu">int</span>).<span class="bu">sum</span>(axis<span class="op">=</span><span class="dv">1</span>)<span class="op">/</span><span class="dv">2</span></span>
+<span id="annotated-cell-11-9" class="hljs-ln-code"><a href="#annotated-cell-11-9"></a>df_genres[<span class="st">'owners'</span>] <span class="op">=</span> df_genres[<span class="st">'owners'</span>].astype(<span class="bu">int</span>)</span>
+<span id="annotated-cell-11-10" class="hljs-ln-code"><a href="#annotated-cell-11-10"></a>df_genres.rename(columns<span class="op">=</span>{<span class="st">'owners'</span>:<span class="st">'avg_owners'</span>},inplace<span class="op">=</span><span class="va">True</span>)</span>
+<span id="annotated-cell-11-11" class="hljs-ln-code"><a href="#annotated-cell-11-11"></a></span>
+<span id="annotated-cell-11-12" class="hljs-ln-code"><a href="#annotated-cell-11-12"></a><span class="co"># ratio of positive reviews over total reviews</span></span>
+<a class="code-annotation-anchor hljs-ln-code" data-target-cell="annotated-cell-11" data-target-annotation="2" onclick="event.preventDefault();" href="">2</a><span id="annotated-cell-11-13" class="code-annotation-target hljs-ln-code"><a href="#annotated-cell-11-13"></a>df_genres[<span class="st">'positive_ratio'</span>] <span class="op">=</span> df_genres[<span class="st">'positive'</span>]<span class="op">/</span>(df_genres[<span class="st">'positive'</span>]<span class="op">+</span>df_genres[<span class="st">'negative'</span>])</span>
+<span id="annotated-cell-11-14" class="hljs-ln-code"><a href="#annotated-cell-11-14"></a></span>
+<span id="annotated-cell-11-15" class="hljs-ln-code"><a href="#annotated-cell-11-15"></a><span class="co">'''</span></span>
+<span id="annotated-cell-11-16" class="hljs-ln-code"><a href="#annotated-cell-11-16"></a><span class="co">REMARK: this ratio is severely skewed when the number of reviews is low.</span></span>
+<span id="annotated-cell-11-17" class="hljs-ln-code"><a href="#annotated-cell-11-17"></a><span class="co">'''</span></span>
+<span id="annotated-cell-11-18" class="hljs-ln-code"><a href="#annotated-cell-11-18"></a></span>
+<span id="annotated-cell-11-19" class="hljs-ln-code"><a href="#annotated-cell-11-19"></a><span class="co"># lets drop the rows with less than 100 reviews and 0 average concurent players </span></span>
+<span id="annotated-cell-11-20" class="hljs-ln-code"><a href="#annotated-cell-11-20"></a>df_genres <span class="op">=</span> df_genres[((df_genres[<span class="st">'positive'</span>]<span class="op">+</span>df_genres[<span class="st">'negative'</span>])<span class="op">&gt;</span><span class="dv">100</span>) <span class="op">&amp;</span> (df_genres[<span class="st">'average_forever'</span>]<span class="op">&gt;</span><span class="dv">0</span>)]</span>
+<span id="annotated-cell-11-21" class="hljs-ln-code"><a href="#annotated-cell-11-21"></a><span class="co"># only 12k rows left</span></span><div class="code-annotation-gutter-bg hljs-ln-code"></div><div class="code-annotation-gutter hljs-ln-code"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <dl class="code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-4" data-target-annotation="1">1</dt>
+<dt data-target-cell="annotated-cell-11" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-4" data-code-annotation="1" data-code-lines="3">drop the columns [‘score_rank’,‘initialprice’,‘discount’,‘userscore’]</span>
+<span data-code-cell="annotated-cell-11" data-code-lines="3" data-code-annotation="1">drop the columns [‘score_rank’,‘initialprice’,‘discount’,‘userscore’]</span>
 </dd>
-<dt data-target-cell="annotated-cell-4" data-target-annotation="2">2</dt>
+<dt data-target-cell="annotated-cell-11" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-cell="annotated-cell-4" data-code-annotation="2" data-code-lines="13">create new column, ‘positive_ratio’, that give the ratio of positive reviews over total reviews</span>
+<span data-code-cell="annotated-cell-11" data-code-lines="13" data-code-annotation="2">create new column, ‘positive_ratio’, that give the ratio of positive reviews over total reviews</span>
 </dd>
 </dl>
 </section>
@@ -893,26 +1142,26 @@
 <p>get the genres dummy variables from our data</p>
 <div class="columns">
 <div class="column" style="width:80%;">
-<div class="sourceCode" id="cb6" data-code-line-numbers="|4-13|15-20"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a>genres <span class="op">=</span> [<span class="st">'Action'</span>,<span class="st">'Strategy'</span>,<span class="st">'RPG'</span>,<span class="st">'Indie'</span>,<span class="st">'Adventure'</span>,<span class="st">'Sports'</span>,<span class="st">'Simulation'</span></span>
-<span id="cb6-2"><a href="#cb6-2"></a>          ,<span class="st">'Early+Access'</span>,<span class="st">'Ex+Early+Access'</span>,<span class="st">'Massively'</span>,<span class="st">'Free'</span>]</span>
-<span id="cb6-3"><a href="#cb6-3"></a></span>
-<span id="cb6-4"><a href="#cb6-4"></a><span class="kw">def</span> get_games_by_genre(genre):</span>
-<span id="cb6-5"><a href="#cb6-5"></a>    <span class="co"># get the list of appids for games in genre</span></span>
-<span id="cb6-6"><a href="#cb6-6"></a>    url <span class="op">=</span> <span class="ss">f'https://steamspy.com/api.php?request=genre&amp;genre=</span><span class="sc">{</span>genre<span class="sc">}</span><span class="ss">'</span></span>
-<span id="cb6-7"><a href="#cb6-7"></a>    response <span class="op">=</span> requests.get(url)</span>
-<span id="cb6-8"><a href="#cb6-8"></a>    response <span class="op">=</span> json.loads(response.text)</span>
-<span id="cb6-9"><a href="#cb6-9"></a>    genre_df <span class="op">=</span> json_normalize(response,max_level<span class="op">=</span><span class="dv">0</span>)</span>
-<span id="cb6-10"><a href="#cb6-10"></a>    genre_df <span class="op">=</span> pd.DataFrame(response)</span>
-<span id="cb6-11"><a href="#cb6-11"></a>    genre_df <span class="op">=</span> genre_df.transpose()</span>
-<span id="cb6-12"><a href="#cb6-12"></a>    genre_df <span class="op">=</span> genre_df.reset_index(drop<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb6-13"><a href="#cb6-13"></a>    <span class="cf">return</span> genre_df</span>
-<span id="cb6-14"><a href="#cb6-14"></a></span>
-<span id="cb6-15"><a href="#cb6-15"></a><span class="co">#iterate trough games and obtain dummy variable columns for each genre</span></span>
-<span id="cb6-16"><a href="#cb6-16"></a>not_matched <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb6-17"><a href="#cb6-17"></a><span class="cf">for</span> genre <span class="kw">in</span> genres: </span>
-<span id="cb6-18"><a href="#cb6-18"></a>    df_genres[<span class="ss">f'genre_</span><span class="sc">{</span>genre<span class="sc">}</span><span class="ss">'</span>] <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb6-19"><a href="#cb6-19"></a>    df_genres[<span class="ss">f'genre_</span><span class="sc">{</span>genre<span class="sc">}</span><span class="ss">'</span>][df_genres[<span class="st">'appid'</span>].astype(<span class="bu">int</span>)</span>
-<span id="cb6-20"><a href="#cb6-20"></a>      .isin(get_games_by_genre(<span class="ss">f'</span><span class="sc">{</span>genre<span class="sc">}</span><span class="ss">'</span>)[<span class="st">'appid'</span>])] <span class="op">=</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb13" data-code-line-numbers="|4-13|15-20"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1"></a>genres <span class="op">=</span> [<span class="st">'Action'</span>,<span class="st">'Strategy'</span>,<span class="st">'RPG'</span>,<span class="st">'Indie'</span>,<span class="st">'Adventure'</span>,<span class="st">'Sports'</span>,<span class="st">'Simulation'</span></span>
+<span id="cb13-2"><a href="#cb13-2"></a>          ,<span class="st">'Early+Access'</span>,<span class="st">'Ex+Early+Access'</span>,<span class="st">'Massively'</span>,<span class="st">'Free'</span>]</span>
+<span id="cb13-3"><a href="#cb13-3"></a></span>
+<span id="cb13-4"><a href="#cb13-4"></a><span class="kw">def</span> get_games_by_genre(genre):</span>
+<span id="cb13-5"><a href="#cb13-5"></a>    <span class="co"># get the list of appids for games in genre</span></span>
+<span id="cb13-6"><a href="#cb13-6"></a>    url <span class="op">=</span> <span class="ss">f'https://steamspy.com/api.php?request=genre&amp;genre=</span><span class="sc">{</span>genre<span class="sc">}</span><span class="ss">'</span></span>
+<span id="cb13-7"><a href="#cb13-7"></a>    response <span class="op">=</span> requests.get(url)</span>
+<span id="cb13-8"><a href="#cb13-8"></a>    response <span class="op">=</span> json.loads(response.text)</span>
+<span id="cb13-9"><a href="#cb13-9"></a>    genre_df <span class="op">=</span> json_normalize(response,max_level<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb13-10"><a href="#cb13-10"></a>    genre_df <span class="op">=</span> pd.DataFrame(response)</span>
+<span id="cb13-11"><a href="#cb13-11"></a>    genre_df <span class="op">=</span> genre_df.transpose()</span>
+<span id="cb13-12"><a href="#cb13-12"></a>    genre_df <span class="op">=</span> genre_df.reset_index(drop<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb13-13"><a href="#cb13-13"></a>    <span class="cf">return</span> genre_df</span>
+<span id="cb13-14"><a href="#cb13-14"></a></span>
+<span id="cb13-15"><a href="#cb13-15"></a><span class="co">#iterate trough games and obtain dummy variable columns for each genre</span></span>
+<span id="cb13-16"><a href="#cb13-16"></a>not_matched <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb13-17"><a href="#cb13-17"></a><span class="cf">for</span> genre <span class="kw">in</span> genres: </span>
+<span id="cb13-18"><a href="#cb13-18"></a>    df_genres[<span class="ss">f'genre_</span><span class="sc">{</span>genre<span class="sc">}</span><span class="ss">'</span>] <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb13-19"><a href="#cb13-19"></a>    df_genres[<span class="ss">f'genre_</span><span class="sc">{</span>genre<span class="sc">}</span><span class="ss">'</span>][df_genres[<span class="st">'appid'</span>].astype(<span class="bu">int</span>)</span>
+<span id="cb13-20"><a href="#cb13-20"></a>      .isin(get_games_by_genre(<span class="ss">f'</span><span class="sc">{</span>genre<span class="sc">}</span><span class="ss">'</span>)[<span class="st">'appid'</span>])] <span class="op">=</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column" style="width:20%;">
 <p>Current columns</p>
 <div data-notebook="Linear_regression.ipynb" data-notebook-title="Implement Linear Regression">
@@ -1893,20 +2142,20 @@
 <ul id="tabset-2" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-2-1">Code</a></li><li><a href="#tabset-2-2">Data</a></li></ul>
 <div class="tab-content">
 <div id="tabset-2-1">
-<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1"></a><span class="kw">def</span> get_genre(app_id):</span>
-<span id="cb8-2"><a href="#cb8-2"></a>    <span class="co">"""</span></span>
-<span id="cb8-3"><a href="#cb8-3"></a><span class="co">    A fucntion to obtain the corresponding genres to each game</span></span>
-<span id="cb8-4"><a href="#cb8-4"></a><span class="co">    Argu: app_id: the unique id number of each game</span></span>
-<span id="cb8-5"><a href="#cb8-5"></a><span class="co">    Return: a list of genres</span></span>
-<span id="cb8-6"><a href="#cb8-6"></a><span class="co">    """</span></span>
-<span id="cb8-7"><a href="#cb8-7"></a>    url <span class="op">=</span> <span class="st">'https://store.steampowered.com/api/appdetails'</span></span>
-<span id="cb8-8"><a href="#cb8-8"></a>    parameters <span class="op">=</span> {<span class="st">'appids'</span>: app_id, <span class="st">'filters'</span>: <span class="st">'genres'</span>}</span>
-<span id="cb8-9"><a href="#cb8-9"></a>    response <span class="op">=</span> requests.get(url, params<span class="op">=</span>parameters)</span>
-<span id="cb8-10"><a href="#cb8-10"></a>    response <span class="op">=</span> json.loads(response.text)</span>
-<span id="cb8-11"><a href="#cb8-11"></a>    <span class="cf">if</span> response <span class="op">!=</span> <span class="va">None</span> <span class="kw">and</span> response[<span class="bu">str</span>(app_id)][<span class="st">'success'</span>] <span class="op">==</span> <span class="va">True</span> <span class="kw">and</span> <span class="bu">isinstance</span>(response[<span class="bu">str</span>(app_id)][<span class="st">'data'</span>], <span class="bu">dict</span>) <span class="op">==</span> <span class="va">True</span>:</span>
-<span id="cb8-12"><a href="#cb8-12"></a>        genre_dict <span class="op">=</span> response[<span class="bu">str</span>(app_id)][<span class="st">'data'</span>][<span class="st">'genres'</span>]</span>
-<span id="cb8-13"><a href="#cb8-13"></a>        genre_list <span class="op">=</span> [genre[<span class="st">'description'</span>] <span class="cf">for</span> genre <span class="kw">in</span> genre_dict]</span>
-<span id="cb8-14"><a href="#cb8-14"></a>        <span class="cf">return</span> genre_list</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1"></a><span class="kw">def</span> get_genre(app_id):</span>
+<span id="cb15-2"><a href="#cb15-2"></a>    <span class="co">"""</span></span>
+<span id="cb15-3"><a href="#cb15-3"></a><span class="co">    A fucntion to obtain the corresponding genres to each game</span></span>
+<span id="cb15-4"><a href="#cb15-4"></a><span class="co">    Argu: app_id: the unique id number of each game</span></span>
+<span id="cb15-5"><a href="#cb15-5"></a><span class="co">    Return: a list of genres</span></span>
+<span id="cb15-6"><a href="#cb15-6"></a><span class="co">    """</span></span>
+<span id="cb15-7"><a href="#cb15-7"></a>    url <span class="op">=</span> <span class="st">'https://store.steampowered.com/api/appdetails'</span></span>
+<span id="cb15-8"><a href="#cb15-8"></a>    parameters <span class="op">=</span> {<span class="st">'appids'</span>: app_id, <span class="st">'filters'</span>: <span class="st">'genres'</span>}</span>
+<span id="cb15-9"><a href="#cb15-9"></a>    response <span class="op">=</span> requests.get(url, params<span class="op">=</span>parameters)</span>
+<span id="cb15-10"><a href="#cb15-10"></a>    response <span class="op">=</span> json.loads(response.text)</span>
+<span id="cb15-11"><a href="#cb15-11"></a>    <span class="cf">if</span> response <span class="op">!=</span> <span class="va">None</span> <span class="kw">and</span> response[<span class="bu">str</span>(app_id)][<span class="st">'success'</span>] <span class="op">==</span> <span class="va">True</span> <span class="kw">and</span> <span class="bu">isinstance</span>(response[<span class="bu">str</span>(app_id)][<span class="st">'data'</span>], <span class="bu">dict</span>) <span class="op">==</span> <span class="va">True</span>:</span>
+<span id="cb15-12"><a href="#cb15-12"></a>        genre_dict <span class="op">=</span> response[<span class="bu">str</span>(app_id)][<span class="st">'data'</span>][<span class="st">'genres'</span>]</span>
+<span id="cb15-13"><a href="#cb15-13"></a>        genre_list <span class="op">=</span> [genre[<span class="st">'description'</span>] <span class="cf">for</span> genre <span class="kw">in</span> genre_dict]</span>
+<span id="cb15-14"><a href="#cb15-14"></a>        <span class="cf">return</span> genre_list</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="tabset-2-2">
 <table>
@@ -2028,16 +2277,16 @@
 <ul id="tabset-3" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-3-1">Code</a></li><li><a href="#tabset-3-2">Table</a></li></ul>
 <div class="tab-content">
 <div id="tabset-3-1">
-<div class="sourceCode" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1"></a>index_cols      <span class="op">=</span> [<span class="st">'name'</span>, <span class="st">'appid'</span>]</span>
-<span id="cb9-2"><a href="#cb9-2"></a>col_aggregators <span class="op">=</span> [<span class="st">'genre'</span>]</span>
-<span id="cb9-3"><a href="#cb9-3"></a>value_col       <span class="op">=</span> [<span class="st">'present'</span>]</span>
-<span id="cb9-4"><a href="#cb9-4"></a></span>
-<span id="cb9-5"><a href="#cb9-5"></a>selected_cols <span class="op">=</span> index_cols <span class="op">+</span> col_aggregators <span class="op">+</span> value_col</span>
-<span id="cb9-6"><a href="#cb9-6"></a></span>
-<span id="cb9-7"><a href="#cb9-7"></a>df_pivotted <span class="op">=</span> df.drop_duplicates()<span class="op">\</span></span>
-<span id="cb9-8"><a href="#cb9-8"></a>        .assign(present<span class="op">=</span><span class="dv">1</span>)[selected_cols]<span class="op">\</span></span>
-<span id="cb9-9"><a href="#cb9-9"></a>        .pivot_table(index<span class="op">=</span>index_cols, columns<span class="op">=</span>col_aggregators, fill_value<span class="op">=</span><span class="dv">0</span>, margins<span class="op">=</span><span class="va">True</span>, aggfunc<span class="op">=</span>np.<span class="bu">sum</span>)<span class="op">\</span></span>
-<span id="cb9-10"><a href="#cb9-10"></a>        .sort_values((<span class="st">'present'</span>,                  <span class="st">'All'</span>), ascending<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1"></a>index_cols      <span class="op">=</span> [<span class="st">'name'</span>, <span class="st">'appid'</span>]</span>
+<span id="cb16-2"><a href="#cb16-2"></a>col_aggregators <span class="op">=</span> [<span class="st">'genre'</span>]</span>
+<span id="cb16-3"><a href="#cb16-3"></a>value_col       <span class="op">=</span> [<span class="st">'present'</span>]</span>
+<span id="cb16-4"><a href="#cb16-4"></a></span>
+<span id="cb16-5"><a href="#cb16-5"></a>selected_cols <span class="op">=</span> index_cols <span class="op">+</span> col_aggregators <span class="op">+</span> value_col</span>
+<span id="cb16-6"><a href="#cb16-6"></a></span>
+<span id="cb16-7"><a href="#cb16-7"></a>df_pivotted <span class="op">=</span> df.drop_duplicates()<span class="op">\</span></span>
+<span id="cb16-8"><a href="#cb16-8"></a>        .assign(present<span class="op">=</span><span class="dv">1</span>)[selected_cols]<span class="op">\</span></span>
+<span id="cb16-9"><a href="#cb16-9"></a>        .pivot_table(index<span class="op">=</span>index_cols, columns<span class="op">=</span>col_aggregators, fill_value<span class="op">=</span><span class="dv">0</span>, margins<span class="op">=</span><span class="va">True</span>, aggfunc<span class="op">=</span>np.<span class="bu">sum</span>)<span class="op">\</span></span>
+<span id="cb16-10"><a href="#cb16-10"></a>        .sort_values((<span class="st">'present'</span>,                  <span class="st">'All'</span>), ascending<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="tabset-3-2">
 <div data-notebook="genre_data_pivoting.ipynb" data-notebook-title="Genre Data Analysis:">
@@ -2296,26 +2545,26 @@
 <div id="tabset-4-2">
 <div class="columns">
 <div class="column" style="width:40%;">
-<div class="sourceCode" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1"></a><span class="im">from</span> plotnine <span class="im">import</span> <span class="op">*</span></span>
-<span id="cb10-2"><a href="#cb10-2"></a></span>
-<span id="cb10-3"><a href="#cb10-3"></a>order_categories <span class="op">=</span> genre_df.sort_values(<span class="st">"num_game"</span>, ascending<span class="op">=</span><span class="va">False</span>)[<span class="st">"genre"</span>].unique()</span>
-<span id="cb10-4"><a href="#cb10-4"></a>genre_df[<span class="st">"genre"</span>] <span class="op">=</span> pd.Categorical(genre_df[<span class="st">"genre"</span>], categories<span class="op">=</span>order_categories, ordered<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb10-5"><a href="#cb10-5"></a></span>
-<span id="cb10-6"><a href="#cb10-6"></a>g <span class="op">=</span> (ggplot(genre_df, aes(x<span class="op">=</span><span class="st">"genre"</span>, y<span class="op">=</span><span class="st">"num_game"</span>, fill<span class="op">=</span><span class="st">"num_game"</span>)) <span class="op">+</span></span>
-<span id="cb10-7"><a href="#cb10-7"></a>        geom_col() <span class="op">+</span>    <span class="co"># Bar chart</span></span>
-<span id="cb10-8"><a href="#cb10-8"></a>        theme_minimal() <span class="op">+</span>   <span class="co"># Minimal theme</span></span>
-<span id="cb10-9"><a href="#cb10-9"></a>        coord_flip() <span class="op">+</span></span>
-<span id="cb10-10"><a href="#cb10-10"></a>        scale_y_continuous(breaks<span class="op">=</span><span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">500</span>, <span class="dv">100</span>)) <span class="op">+</span>   <span class="co"># Set the x-axis ticks</span></span>
-<span id="cb10-11"><a href="#cb10-11"></a>        scale_x_discrete(limits<span class="op">=</span>order_categories) <span class="op">+</span>   <span class="co"># Set the x-axis limits</span></span>
-<span id="cb10-12"><a href="#cb10-12"></a>        guides(fill<span class="op">=</span><span class="va">False</span>) <span class="op">+</span>    <span class="co"># Remove the legend</span></span>
-<span id="cb10-13"><a href="#cb10-13"></a>        theme(figure_size<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">5</span>),</span>
-<span id="cb10-14"><a href="#cb10-14"></a>              axis_text <span class="op">=</span> element_text(size<span class="op">=</span><span class="dv">10</span>),</span>
-<span id="cb10-15"><a href="#cb10-15"></a>              text <span class="op">=</span> element_text(size<span class="op">=</span><span class="dv">10</span>),</span>
-<span id="cb10-16"><a href="#cb10-16"></a>              title<span class="op">=</span> element_text(size<span class="op">=</span><span class="dv">15</span>),</span>
-<span id="cb10-17"><a href="#cb10-17"></a>              plot_caption<span class="op">=</span>element_text(margin<span class="op">=</span>{<span class="st">"t"</span>: <span class="dv">20</span>})) <span class="op">+</span>   <span class="co"># Rotate the x-axis labels</span></span>
-<span id="cb10-18"><a href="#cb10-18"></a>        labs(title<span class="op">=</span><span class="st">"Number of games in each category"</span>,</span>
-<span id="cb10-19"><a href="#cb10-19"></a>             x<span class="op">=</span><span class="st">"Genre names"</span>, y<span class="op">=</span><span class="st">"Number of games"</span>)</span>
-<span id="cb10-20"><a href="#cb10-20"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1"></a><span class="im">from</span> plotnine <span class="im">import</span> <span class="op">*</span></span>
+<span id="cb17-2"><a href="#cb17-2"></a></span>
+<span id="cb17-3"><a href="#cb17-3"></a>order_categories <span class="op">=</span> genre_df.sort_values(<span class="st">"num_game"</span>, ascending<span class="op">=</span><span class="va">False</span>)[<span class="st">"genre"</span>].unique()</span>
+<span id="cb17-4"><a href="#cb17-4"></a>genre_df[<span class="st">"genre"</span>] <span class="op">=</span> pd.Categorical(genre_df[<span class="st">"genre"</span>], categories<span class="op">=</span>order_categories, ordered<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb17-5"><a href="#cb17-5"></a></span>
+<span id="cb17-6"><a href="#cb17-6"></a>g <span class="op">=</span> (ggplot(genre_df, aes(x<span class="op">=</span><span class="st">"genre"</span>, y<span class="op">=</span><span class="st">"num_game"</span>, fill<span class="op">=</span><span class="st">"num_game"</span>)) <span class="op">+</span></span>
+<span id="cb17-7"><a href="#cb17-7"></a>        geom_col() <span class="op">+</span>    <span class="co"># Bar chart</span></span>
+<span id="cb17-8"><a href="#cb17-8"></a>        theme_minimal() <span class="op">+</span>   <span class="co"># Minimal theme</span></span>
+<span id="cb17-9"><a href="#cb17-9"></a>        coord_flip() <span class="op">+</span></span>
+<span id="cb17-10"><a href="#cb17-10"></a>        scale_y_continuous(breaks<span class="op">=</span><span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">500</span>, <span class="dv">100</span>)) <span class="op">+</span>   <span class="co"># Set the x-axis ticks</span></span>
+<span id="cb17-11"><a href="#cb17-11"></a>        scale_x_discrete(limits<span class="op">=</span>order_categories) <span class="op">+</span>   <span class="co"># Set the x-axis limits</span></span>
+<span id="cb17-12"><a href="#cb17-12"></a>        guides(fill<span class="op">=</span><span class="va">False</span>) <span class="op">+</span>    <span class="co"># Remove the legend</span></span>
+<span id="cb17-13"><a href="#cb17-13"></a>        theme(figure_size<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">5</span>),</span>
+<span id="cb17-14"><a href="#cb17-14"></a>              axis_text <span class="op">=</span> element_text(size<span class="op">=</span><span class="dv">10</span>),</span>
+<span id="cb17-15"><a href="#cb17-15"></a>              text <span class="op">=</span> element_text(size<span class="op">=</span><span class="dv">10</span>),</span>
+<span id="cb17-16"><a href="#cb17-16"></a>              title<span class="op">=</span> element_text(size<span class="op">=</span><span class="dv">15</span>),</span>
+<span id="cb17-17"><a href="#cb17-17"></a>              plot_caption<span class="op">=</span>element_text(margin<span class="op">=</span>{<span class="st">"t"</span>: <span class="dv">20</span>})) <span class="op">+</span>   <span class="co"># Rotate the x-axis labels</span></span>
+<span id="cb17-18"><a href="#cb17-18"></a>        labs(title<span class="op">=</span><span class="st">"Number of games in each category"</span>,</span>
+<span id="cb17-19"><a href="#cb17-19"></a>             x<span class="op">=</span><span class="st">"Genre names"</span>, y<span class="op">=</span><span class="st">"Number of games"</span>)</span>
+<span id="cb17-20"><a href="#cb17-20"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column" style="width:60%;">
 <div data-notebook="genre_data_pivoting.ipynb" data-notebook-title="Genre Data Analysis:">
 <div class="cell" data-execution_count="19">
@@ -2345,19 +2594,19 @@
 <ul id="tabset-5" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-5-1">code</a></li><li><a href="#tabset-5-2">table</a></li></ul>
 <div class="tab-content">
 <div id="tabset-5-1">
-<div class="sourceCode" id="cb12" data-code-line-numbers="4, 9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1"></a>num_genre_df <span class="op">=</span> df_pivotted.reset_index() <span class="co"># change the pivot table to dataframe</span></span>
-<span id="cb12-2"><a href="#cb12-2"></a>num_genre_df.columns <span class="op">=</span> num_genre_df.columns.droplevel(level<span class="op">=</span><span class="dv">0</span>) <span class="co"># drrop the firt level of column names</span></span>
-<span id="cb12-3"><a href="#cb12-3"></a>num_genre_df <span class="op">=</span> num_genre_df.drop(columns<span class="op">=</span>genres) <span class="co"># remove unnecessary columns</span></span>
-<span id="cb12-4"><a href="#cb12-4"></a>num_genre_df.columns <span class="op">=</span> [<span class="st">'name'</span>, <span class="st">'appid'</span>, <span class="st">'num_genres'</span>] <span class="co"># rename the remaining columns</span></span>
-<span id="cb12-5"><a href="#cb12-5"></a></span>
-<span id="cb12-6"><a href="#cb12-6"></a>df_ranking <span class="op">=</span> df.drop_duplicates(subset<span class="op">=</span><span class="st">'appid'</span>)<span class="op">\</span></span>
-<span id="cb12-7"><a href="#cb12-7"></a>            .drop(columns<span class="op">=</span>[<span class="st">'genre'</span>, <span class="st">'isin_genres'</span>])<span class="op">\</span></span>
-<span id="cb12-8"><a href="#cb12-8"></a>            .reset_index().drop(columns<span class="op">=</span><span class="st">'index'</span>)</span>
-<span id="cb12-9"><a href="#cb12-9"></a>df_ranking[<span class="st">'ranking'</span>] <span class="op">=</span> df_ranking.reset_index().index <span class="op">+</span> <span class="dv">1</span> <span class="co"># create a df with ranking</span></span>
-<span id="cb12-10"><a href="#cb12-10"></a></span>
-<span id="cb12-11"><a href="#cb12-11"></a>df_genre_ranking <span class="op">=</span> pd.merge(num_genre_df, df_ranking, on<span class="op">=</span><span class="st">'appid'</span>, how<span class="op">=</span><span class="st">'left'</span>)<span class="op">\</span></span>
-<span id="cb12-12"><a href="#cb12-12"></a>                    .drop(columns<span class="op">=</span><span class="st">'name_y'</span>)<span class="op">\</span></span>
-<span id="cb12-13"><a href="#cb12-13"></a>                    .sort_values(by<span class="op">=</span><span class="st">'ranking'</span>).reset_index().drop(columns<span class="op">=</span><span class="st">'index'</span>) <span class="co"># combine the two dfs</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb19" data-code-line-numbers="4, 9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1"></a>num_genre_df <span class="op">=</span> df_pivotted.reset_index() <span class="co"># change the pivot table to dataframe</span></span>
+<span id="cb19-2"><a href="#cb19-2"></a>num_genre_df.columns <span class="op">=</span> num_genre_df.columns.droplevel(level<span class="op">=</span><span class="dv">0</span>) <span class="co"># drrop the firt level of column names</span></span>
+<span id="cb19-3"><a href="#cb19-3"></a>num_genre_df <span class="op">=</span> num_genre_df.drop(columns<span class="op">=</span>genres) <span class="co"># remove unnecessary columns</span></span>
+<span id="cb19-4"><a href="#cb19-4"></a>num_genre_df.columns <span class="op">=</span> [<span class="st">'name'</span>, <span class="st">'appid'</span>, <span class="st">'num_genres'</span>] <span class="co"># rename the remaining columns</span></span>
+<span id="cb19-5"><a href="#cb19-5"></a></span>
+<span id="cb19-6"><a href="#cb19-6"></a>df_ranking <span class="op">=</span> df.drop_duplicates(subset<span class="op">=</span><span class="st">'appid'</span>)<span class="op">\</span></span>
+<span id="cb19-7"><a href="#cb19-7"></a>            .drop(columns<span class="op">=</span>[<span class="st">'genre'</span>, <span class="st">'isin_genres'</span>])<span class="op">\</span></span>
+<span id="cb19-8"><a href="#cb19-8"></a>            .reset_index().drop(columns<span class="op">=</span><span class="st">'index'</span>)</span>
+<span id="cb19-9"><a href="#cb19-9"></a>df_ranking[<span class="st">'ranking'</span>] <span class="op">=</span> df_ranking.reset_index().index <span class="op">+</span> <span class="dv">1</span> <span class="co"># create a df with ranking</span></span>
+<span id="cb19-10"><a href="#cb19-10"></a></span>
+<span id="cb19-11"><a href="#cb19-11"></a>df_genre_ranking <span class="op">=</span> pd.merge(num_genre_df, df_ranking, on<span class="op">=</span><span class="st">'appid'</span>, how<span class="op">=</span><span class="st">'left'</span>)<span class="op">\</span></span>
+<span id="cb19-12"><a href="#cb19-12"></a>                    .drop(columns<span class="op">=</span><span class="st">'name_y'</span>)<span class="op">\</span></span>
+<span id="cb19-13"><a href="#cb19-13"></a>                    .sort_values(by<span class="op">=</span><span class="st">'ranking'</span>).reset_index().drop(columns<span class="op">=</span><span class="st">'index'</span>) <span class="co"># combine the two dfs</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="tabset-5-2">
 <table>
@@ -2458,17 +2707,17 @@
 <h2>More plots (cont.)</h2>
 <div data-notebook="genre_data_pivoting.ipynb" data-notebook-title="Genre Data Analysis:">
 <div class="cell" data-execution_count="72">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1"></a><span class="kw">def</span> plot_scatter(x, y, title<span class="op">=</span><span class="st">''</span>, xlabel<span class="op">=</span><span class="st">''</span>, ylabel<span class="op">=</span><span class="st">''</span>, figsize<span class="op">=</span>(<span class="dv">15</span>,<span class="dv">7</span>)):</span>
-<span id="cb13-2"><a href="#cb13-2"></a>    plt.figure(figsize<span class="op">=</span>figsize)</span>
-<span id="cb13-3"><a href="#cb13-3"></a>    plt.title(title)</span>
-<span id="cb13-4"><a href="#cb13-4"></a>    plt.xlabel(xlabel)</span>
-<span id="cb13-5"><a href="#cb13-5"></a>    plt.ylabel(ylabel)</span>
-<span id="cb13-6"><a href="#cb13-6"></a>    plt.scatter(x, y)</span>
-<span id="cb13-7"><a href="#cb13-7"></a>    plt.show()</span>
-<span id="cb13-8"><a href="#cb13-8"></a></span>
-<span id="cb13-9"><a href="#cb13-9"></a>plot_scatter(df_genre_ranking[<span class="st">'ranking'</span>], df_genre_ranking[<span class="st">'num_genres'</span>], </span>
-<span id="cb13-10"><a href="#cb13-10"></a>             title<span class="op">=</span><span class="st">'Scatter Plot of Ranking and Number of genres'</span>, </span>
-<span id="cb13-11"><a href="#cb13-11"></a>             xlabel<span class="op">=</span><span class="st">'Ranking'</span>, ylabel<span class="op">=</span><span class="st">'Number of Genres'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1"></a><span class="kw">def</span> plot_scatter(x, y, title<span class="op">=</span><span class="st">''</span>, xlabel<span class="op">=</span><span class="st">''</span>, ylabel<span class="op">=</span><span class="st">''</span>, figsize<span class="op">=</span>(<span class="dv">15</span>,<span class="dv">7</span>)):</span>
+<span id="cb20-2"><a href="#cb20-2"></a>    plt.figure(figsize<span class="op">=</span>figsize)</span>
+<span id="cb20-3"><a href="#cb20-3"></a>    plt.title(title)</span>
+<span id="cb20-4"><a href="#cb20-4"></a>    plt.xlabel(xlabel)</span>
+<span id="cb20-5"><a href="#cb20-5"></a>    plt.ylabel(ylabel)</span>
+<span id="cb20-6"><a href="#cb20-6"></a>    plt.scatter(x, y)</span>
+<span id="cb20-7"><a href="#cb20-7"></a>    plt.show()</span>
+<span id="cb20-8"><a href="#cb20-8"></a></span>
+<span id="cb20-9"><a href="#cb20-9"></a>plot_scatter(df_genre_ranking[<span class="st">'ranking'</span>], df_genre_ranking[<span class="st">'num_genres'</span>], </span>
+<span id="cb20-10"><a href="#cb20-10"></a>             title<span class="op">=</span><span class="st">'Scatter Plot of Ranking and Number of genres'</span>, </span>
+<span id="cb20-11"><a href="#cb20-11"></a>             xlabel<span class="op">=</span><span class="st">'Ranking'</span>, ylabel<span class="op">=</span><span class="st">'Number of Genres'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div id="fig-scatter" class="quarto-figure quarto-figure-center">
 <figure>
