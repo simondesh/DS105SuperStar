@@ -1,0 +1,297 @@
+---
+title: "DS105 SuperStars"
+subtitle: "Presentation Numero 2"
+format:
+  revealjs: 
+    width: 1920
+    height: 1080
+    theme: default
+    slide-number: true
+    preview-links: auto
+    css: styles.css
+    footer: <https://github.com/simondesh/DS105SuperStar>
+---
+
+## Our Team {.bigger}
+
+<br/>DS105 SuperStars
+
+::: columns
+::: {.column width="50%"}
+- Simon Deshayes
+- Shuyu Cao
+:::
+:::{.column width="50%"}
+- Sijia He
+- Yinyue Wang
+:::
+:::
+
+## Linear Regression Content
+
+Linear Regression
+
+Ill show you how I gathered our current model :
+
+-   Initial Data Correlation
+-   Genre dummies
+-   Plots on Genres
+-   General linear Reg 
+-   Best OLS so far
+
+
+
+## Initial Data Correlation{.smaller transition="slide"}
+
+::: panel-tabset
+### Plot 
+
+code to obtain the correlation matrix plot of the initial DF
+
+::: columns
+
+::: {.column width="40%"}
+``` python 
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# plot the correlation matrix
+plt.figure(figsize=(12,10), dpi= 80)
+sns.heatmap(data.corr(), xticklabels=data.corr().columns, 
+    yticklabels=data.corr().columns, 
+    cmap='RdYlGn', c
+    enter=0, annot=True, fmt=".2f")
+
+# decoration
+plt.title('Correlogram of Steam Games data', fontsize=22)
+plt.xticks(fontsize=12)
+plt.yticks(fontsize=12)
+plt.show()
+```
+:::
+
+::: {.column width="60%"}
+{{< embed Linear_regression.ipynb#fig-correlation-matrix  >}}
+:::
+
+:::
+
+
+
+### Data
+|    |   appid | name                             | developer                        | publisher             |   score_rank |   positive |   negative |   userscore | owners                     |   average_forever |   average_2weeks |   median_forever |   median_2weeks |   price |   initialprice |   discount |     ccu |
+|---:|--------:|:---------------------------------|:---------------------------------|:----------------------|-------------:|-----------:|-----------:|------------:|:---------------------------|------------------:|-----------------:|-----------------:|----------------:|--------:|---------------:|-----------:|--------:|
+|  0 |     570 | Dota 2                           | Valve                            | Valve                 |          nan |    1611153 |     338953 |           0 | 200,000,000 .. 500,000,000 |             37228 |             1393 |              853 |             711 |       0 |              0 |          0 |  532699 |
+|  1 |     730 | Counter-Strike: Global Offensive | Valve, Hidden Path Entertainment | Valve                 |          nan |    6207621 |     811918 |           0 | 50,000,000 .. 100,000,000  |             30347 |              822 |             5979 |             331 |       0 |              0 |          0 | 1010721 |
+|  2 | 1172470 | Apex Legends                     | Respawn Entertainment            | Electronic Arts       |          nan |     513660 |     105734 |           0 | 50,000,000 .. 100,000,000  |              8491 |              917 |              834 |             498 |       0 |              0 |          0 |  363786 |
+|  3 |  578080 | PUBG: BATTLEGROUNDS              | KRAFTON, Inc.                    | KRAFTON, Inc.         |          nan |    1231039 |     925364 |           0 | 50,000,000 .. 100,000,000  |             22551 |              734 |             5940 |             230 |       0 |              0 |          0 |  328139 |
+|  4 | 1063730 | New World                        | Amazon Games                     | Amazon Games          |          nan |     176376 |      75957 |           0 | 50,000,000 .. 100,000,000  |              9175 |              723 |             3226 |             454 |    1999 |           3999 |         50 |   17498 |
+|  5 |     440 | Team Fortress 2                  | Valve                            | Valve                 |          nan |     883078 |      58714 |           0 | 50,000,000 .. 100,000,000  |              8909 |             1214 |              421 |             113 |       0 |              0 |          0 |  100175 |
+|  6 |  271590 | Grand Theft Auto V               | Rockstar North                   | Rockstar Games        |          nan |    1301322 |     218427 |           0 | 50,000,000 .. 100,000,000  |             13540 |              589 |             6105 |             143 |    2998 |           2998 |          0 |  109847 |
+|  7 | 1599340 | Lost Ark                         | Smilegate RPG                    | Amazon Games          |          nan |     136970 |      53607 |           0 | 20,000,000 .. 50,000,000   |              3768 |             1303 |              744 |             836 |       0 |              0 |          0 |   85067 |
+|  8 |     550 | Left 4 Dead 2                    | Valve                            | Valve                 |          nan |     702272 |      17857 |           0 | 20,000,000 .. 50,000,000   |              2309 |              320 |              520 |             113 |      99 |            999 |         90 |   44785 |
+|  9 |  304930 | Unturned                         | Smartly Dressed Games            | Smartly Dressed Games |          nan |     464351 |      43104 |           0 | 20,000,000 .. 50,000,000   |              6654 |             5845 |              293 |            2420 |       0 |              0 |          0 |   51599 |
+
+so the columns are : 
+{{< embed Linear_regression.ipynb#initial-column-list >}}
+:::
+
+
+## Tranforming the Data {transition="slide" auto-animate="true"}
+``` python
+# clean 
+df_genres = data.copy()
+df_genres = df_genres.drop(['score_rank','initialprice','discount','userscore'],axis=1)
+df_genres['appid'] = df_genres['appid'].astype(int)
+
+```
+## From str to int : owners {auto-animate="true"}
+``` python
+# clean 
+df_genres = data.copy()
+df_genres = df_genres.drop(['score_rank','initialprice','discount','userscore'],axis=1)
+df_genres['appid'] = df_genres['appid'].astype(int)
+
+# get the average of the owners
+owners = pd.DataFrame(df_genres['owners'].str.replace(',','').str.split(' .. ').tolist(),columns = ['min','max'])
+df_genres['owners']= owners.astype(int).sum(axis=1)/2
+df_genres['owners'] = df_genres['owners'].astype(int)
+df_genres.rename(columns={'owners':'avg_owners'},inplace=True)
+```
+## Tweeking and Made Usefull {auto-animate="true" }
+``` python
+# clean 
+df_genres = data.copy()
+df_genres = df_genres.drop(['score_rank','initialprice','discount','userscore'],axis=1)              # <1>
+df_genres['appid'] = df_genres['appid'].astype(int)
+
+# get the average of the owners
+owners = pd.DataFrame(df_genres['owners'].str.replace(',','').str.split(' .. ').tolist(),columns = ['min','max'])
+df_genres['owners']= owners.astype(int).sum(axis=1)/2
+df_genres['owners'] = df_genres['owners'].astype(int)
+df_genres.rename(columns={'owners':'avg_owners'},inplace=True)
+
+# ratio of positive reviews over total reviews
+df_genres['positive_ratio'] = df_genres['positive']/(df_genres['positive']+df_genres['negative'])    # <2>
+
+'''
+REMARK: this ratio is severely skewed when the number of reviews is low.
+'''
+
+# lets drop the rows with less than 100 reviews and 0 average concurent players 
+df_genres = df_genres[((df_genres['positive']+df_genres['negative'])>100) & (df_genres['average_forever']>0)]
+# only 12k rows left
+```
+1. drop the columns ['score_rank','initialprice','discount','userscore']
+2. create new column, 'positive_ratio', that give the ratio of positive reviews over total reviews
+
+## Adding Genre Dummies { transition="slide"}
+
+get the genres dummy variables from our data 
+
+::: columns
+::: {.column width="80%"}
+``` {.python code-line-numbers="|4-13|15-20"}
+genres = ['Action','Strategy','RPG','Indie','Adventure','Sports','Simulation'
+          ,'Early+Access','Ex+Early+Access','Massively','Free']
+
+def get_games_by_genre(genre):
+    # get the list of appids for games in genre
+    url = f'https://steamspy.com/api.php?request=genre&genre={genre}'
+    response = requests.get(url)
+    response = json.loads(response.text)
+    genre_df = json_normalize(response,max_level=0)
+    genre_df = pd.DataFrame(response)
+    genre_df = genre_df.transpose()
+    genre_df = genre_df.reset_index(drop=True)
+    return genre_df
+
+#iterate trough games and obtain dummy variable columns for each genre
+not_matched = 0
+for genre in genres: 
+    df_genres[f'genre_{genre}'] = 0
+    df_genres[f'genre_{genre}'][df_genres['appid'].astype(int)
+      .isin(get_games_by_genre(f'{genre}')['appid'])] = 1
+```
+:::
+::: {.column width="20%"}
+Current columns
+{{< embed Linear_regression.ipynb#modified-initial-data  >}}
+:::
+:::
+
+
+## More on Genres {transition="slide" auto-animate="true" }
+::: { layout="[[30,-10,60], [-10,80,-10]]" }
+{{< embed Linear_regression.ipynb#fig-Top-20-developers-of-action-games  >}}
+
+{{< embed Linear_regression.ipynb#fig-Pivot-tables-Dev-Action  >}}
+
+{{< embed Linear_regression.ipynb#fig-Pivot-tables-Dev-Rating  >}}
+:::
+
+## More on Genres {auto-animate="true" }
+
+{{< embed Linear_regression.ipynb#fig-Top-20-developers-of-action-games  >}}
+
+## More on Genres { auto-animate="true" }
+::: { layout="[[30,-10,60], [-10,80,-10]]" }
+{{< embed Linear_regression.ipynb#fig-Top-20-developers-of-action-games  >}}
+
+{{< embed Linear_regression.ipynb#fig-Pivot-tables-Dev-Action  >}}
+
+{{< embed Linear_regression.ipynb#fig-Pivot-tables-Dev-Rating  >}}
+:::
+
+## More on Genres {auto-animate="true" }
+
+{{< embed Linear_regression.ipynb#fig-Pivot-tables-Dev-Action  >}}
+
+the action genre seems to be prefered by developers
+
+## More on Genres { auto-animate="true" }
+::: { layout="[[30,-10,60], [-10,80,-10]]" }
+{{< embed Linear_regression.ipynb#fig-Top-20-developers-of-action-games  >}}
+
+{{< embed Linear_regression.ipynb#fig-Pivot-tables-Dev-Action  >}}
+
+{{< embed Linear_regression.ipynb#fig-Pivot-tables-Dev-Rating  >}}
+:::
+
+## More on Genres {auto-animate="true" }
+
+{{< embed Linear_regression.ipynb#fig-Pivot-tables-Dev-Rating  >}}
+
+doesn't seem like there is much difference in ratings
+
+## More on Genres { auto-animate="true" }
+::: { layout="[[30,-10,60], [-10,80,-10]]" }
+{{< embed Linear_regression.ipynb#fig-Top-20-developers-of-action-games  >}}
+
+{{< embed Linear_regression.ipynb#fig-Pivot-tables-Dev-Action  >}}
+
+{{< embed Linear_regression.ipynb#fig-Pivot-tables-Dev-Rating  >}}
+:::
+
+## Linear Regression
+
+
+
+::: columns
+::: {.column width="60%"}
+<br/> In python using the [sklearn](https://scikit-learn.org/) and [statsmodels](https://www.statsmodels.org/) library 
+
+<br/>Linear Regression methodology: 
+
+::: incremental
+-   import lib
+-   select dependent and independent variables & create DFs for each
+-   split them into train and test datasets
+-   create the model 
+-   then fit it 
+-   predict the dependent var for the test dataset
+-   evaluate our result
+:::
+<br/> [view code](https://scikit-learn.org/)
+
+:::
+:::{.column width="40%"}
+{{< embed Linear_regression.ipynb#tbl-ols-regression  >}}
+
+:::
+:::
+
+## OLS Plots { transition="slide"}
+fitted vs test Ys (max dependable) var
+
+::: {layout='[45,-10,45]'}
+{{< embed Linear_regression.ipynb#fig-Ols-gen-avg-owners  >}}
+{{< embed Linear_regression.ipynb#fig-Ols-gen-ccu  >}}
+:::
+
+## Our Fav Current Model { transition="slide"}
+
+::: columns
+::: {.column width="40%"}
+<br/> avg_owners ~ average_forever + positive_ratio*positive
+
+{{< embed Linear_regression.ipynb#tbl-ols-best >}}
+:::
+:::{.column width="60%"}
+:::{layout="[[-30,40,-30],[50,50]]"}
+{{< embed Linear_regression.ipynb#fig-Ols-best-1 >}}
+{{< embed Linear_regression.ipynb#fig-Ols-best-2 >}}
+{{< embed Linear_regression.ipynb#fig-Ols-best-3 >}}
+:::
+:::
+:::
+
+
+
+
+
+
+
+
+
+

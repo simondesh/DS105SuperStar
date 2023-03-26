@@ -1,0 +1,34 @@
+
+body {
+  font-size: 14px;
+}
+
+.border {
+    border: 1px solid #dee2e6;
+  }
+  
+  .border-thick {
+    border-width: 3px;
+  }
+/* Custom style for the dataframe */
+#tabset-1-2 table{
+  font-size: 16px;
+}
+/* Custom style for the code cell */
+.reveal pre.sourceCode code{
+  max-height: 100%;
+}
+/* Custom style for annotation grid */
+dl.code-annotation-container-grid {
+  font-size: 24px;
+  padding-top: 20px;
+  font-family: ui-monospace;
+}
+
+#tbl-ols-regression {
+  font-size: 13px;
+}
+
+#tbl-ols-best {
+  font-size: 16px;
+}
