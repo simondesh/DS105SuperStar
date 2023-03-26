@@ -286,7 +286,7 @@ doesn't seem like there is much difference in ratings
 -   predict the dependent var for the test dataset
 -   evaluate our result
 :::
-<br/> [view code](https://scikit-learn.org/)
+<br/> [view code](https://github.com/simondesh/DS105SuperStar/blob/quarto/presentation/Linear_regression.ipynb)
 
 :::
 :::{.column width="40%"}
