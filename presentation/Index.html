@@ -10,7 +10,7 @@
 <link href="Index_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.3.287">
 
-  <title>Pivoting &amp; Visualisations</title>
+  <title>DS105 SuperStars</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -397,7 +397,7 @@
     <div class="slides">
 
 <section id="title-slide" class="quarto-title-block center">
-  <h1 class="title">Pivoting &amp; Visualisations</h1>
+  <h1 class="title">DS105 SuperStars</h1>
   <p class="subtitle">Presentation Numero 2</p>
 
 <div class="quarto-title-authors">
@@ -421,6 +421,14 @@
 </div>
 </div>
 </section>
+<section id="presentation-content" class="slide level2">
+<h2>Presentation content</h2>
+<ul>
+<li>project flow chart</li>
+<li>Linear regression analysis</li>
+<li>Data pivoting analysis</li>
+</ul>
+</section>
 <section id="project-flow-chart" class="slide level2">
 <h2>Project flow chart</h2>
 <p><br> how we envision our futur project structure</p>
@@ -436,6 +444,8 @@
   B --&gt;|json 1| D
   D --&gt;|query2|C
   C --&gt;|json 2| D
+  J[endpoint: appdetails] --- K[Steam API]
+  J ---|compare| C
   end
   subgraph Futur Data ?
   D -.-&gt; I[ML API]
@@ -472,15 +482,15 @@
 <ul>
 <li>H1: Games with same publishers and developers could be more popular?</li>
 <li>H2: Developers that have created more top 100 games have higher ability to produce more top 100 games in the future (Individuals who would like to produce popular games could go to these developers)?</li>
-<li>H3:</li>
 </ul>
 </section>
-<section id="h1" class="slide level2">
-<h2>H1:</h2>
+<section id="h1games-with-same-publishers-and-developers-could-be-more-popular" class="slide level2">
+<h2>H1:Games with same publishers and developers could be more popular?</h2>
 <ul>
 <li>V1: More games are produced with same developers and publishers</li>
-<li>V2:</li>
-<li>V3:</li>
+<li>V2: Proportion of top 100 games which are produced by same and different developers and publisher</li>
+<li>V3: How does the different developer and publisher affect the number of games produced?</li>
+<li>V4: How does the same developer and publisher affect the number of games produced?</li>
 </ul>
 </section>
 <section id="h1v1-more-games-are-produced-with-same-developers-and-publishers" class="slide level2">
@@ -492,3488 +502,24 @@
 <span id="cb1-5"><a href="#cb1-5"></a>      theme_classic()</span>
 <span id="cb1-6"><a href="#cb1-6"></a></span>
 <span id="cb1-7"><a href="#cb1-7"></a>g_1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section>
 <div data-notebook="Pivoting.ipynb" data-notebook-title="Pivoting &amp; Visualisations">
-<section id="set-up" class="slide level2">
-<h2>Set up</h2>
-</section>
-<section id="step-1-read-the-csv-created-by-previous-coding" class="slide level2">
-<h2>Step 1: read the csv created by previous coding</h2>
-<div class="cell" data-execution_count="107">
-<div class="cell-output cell-output-display" data-execution_count="107">
-<div>
-<style scoped="">
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-
-<table class="dataframe" data-quarto-postprocess="true" data-border="1">
-<thead>
-<tr class="header" style="text-align: right;">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">appid</th>
-<th data-quarto-table-cell-role="th">name</th>
-<th data-quarto-table-cell-role="th">developer</th>
-<th data-quarto-table-cell-role="th">publisher</th>
-<th data-quarto-table-cell-role="th">score_rank</th>
-<th data-quarto-table-cell-role="th">positive</th>
-<th data-quarto-table-cell-role="th">negative</th>
-<th data-quarto-table-cell-role="th">userscore</th>
-<th data-quarto-table-cell-role="th">owners</th>
-<th data-quarto-table-cell-role="th">average_forever</th>
-<th data-quarto-table-cell-role="th">average_2weeks</th>
-<th data-quarto-table-cell-role="th">median_forever</th>
-<th data-quarto-table-cell-role="th">median_2weeks</th>
-<th data-quarto-table-cell-role="th">price</th>
-<th data-quarto-table-cell-role="th">initialprice</th>
-<th data-quarto-table-cell-role="th">discount</th>
-<th data-quarto-table-cell-role="th">ccu</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">0</td>
-<td>570</td>
-<td>Dota 2</td>
-<td>Valve</td>
-<td>Valve</td>
-<td>NaN</td>
-<td>1611153</td>
-<td>338953</td>
-<td>0</td>
-<td>200,000,000 .. 500,000,000</td>
-<td>37228</td>
-<td>1393</td>
-<td>853</td>
-<td>711</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>532699</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">1</td>
-<td>730</td>
-<td>Counter-Strike: Global Offensive</td>
-<td>Valve, Hidden Path Entertainment</td>
-<td>Valve</td>
-<td>NaN</td>
-<td>6207621</td>
-<td>811918</td>
-<td>0</td>
-<td>50,000,000 .. 100,000,000</td>
-<td>30347</td>
-<td>822</td>
-<td>5979</td>
-<td>331</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>1010721</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">2</td>
-<td>1172470</td>
-<td>Apex Legends</td>
-<td>Respawn Entertainment</td>
-<td>Electronic Arts</td>
-<td>NaN</td>
-<td>513660</td>
-<td>105734</td>
-<td>0</td>
-<td>50,000,000 .. 100,000,000</td>
-<td>8491</td>
-<td>917</td>
-<td>834</td>
-<td>498</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>363786</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">3</td>
-<td>578080</td>
-<td>PUBG: BATTLEGROUNDS</td>
-<td>KRAFTON, Inc.</td>
-<td>KRAFTON, Inc.</td>
-<td>NaN</td>
-<td>1231039</td>
-<td>925364</td>
-<td>0</td>
-<td>50,000,000 .. 100,000,000</td>
-<td>22551</td>
-<td>734</td>
-<td>5940</td>
-<td>230</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>328139</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">4</td>
-<td>1063730</td>
-<td>New World</td>
-<td>Amazon Games</td>
-<td>Amazon Games</td>
-<td>NaN</td>
-<td>176376</td>
-<td>75957</td>
-<td>0</td>
-<td>50,000,000 .. 100,000,000</td>
-<td>9175</td>
-<td>723</td>
-<td>3226</td>
-<td>454</td>
-<td>1999</td>
-<td>3999</td>
-<td>50</td>
-<td>17498</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">58200</td>
-<td>2227180</td>
-<td>Water 2050</td>
-<td>Totem Games</td>
-<td>Totem Games</td>
-<td>NaN</td>
-<td>2</td>
-<td>0</td>
-<td>0</td>
-<td>0 .. 20,000</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>399</td>
-<td>399</td>
-<td>0</td>
-<td>0</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">58201</td>
-<td>2306850</td>
-<td>Parcel Problems</td>
-<td>JD</td>
-<td>JD</td>
-<td>NaN</td>
-<td>1</td>
-<td>0</td>
-<td>0</td>
-<td>0 .. 20,000</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>199</td>
-<td>199</td>
-<td>0</td>
-<td>0</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">58202</td>
-<td>2319560</td>
-<td>Road To Place</td>
-<td>Goose Strangler</td>
-<td>lunatic studios</td>
-<td>NaN</td>
-<td>0</td>
-<td>1</td>
-<td>0</td>
-<td>0 .. 20,000</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>299</td>
-<td>299</td>
-<td>0</td>
-<td>0</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">58203</td>
-<td>2289500</td>
-<td>FirstResponderVR</td>
-<td>Emergisim Pty Ltd</td>
-<td>Emergisim Pty Ltd</td>
-<td>NaN</td>
-<td>3</td>
-<td>1</td>
-<td>0</td>
-<td>0 .. 20,000</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>599</td>
-<td>599</td>
-<td>0</td>
-<td>0</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">58204</td>
-<td>678750</td>
-<td>Gravity Tunnel VR</td>
-<td>Qverty.com</td>
-<td>Qverty.com</td>
-<td>NaN</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0 .. 20,000</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-</tr>
-</tbody>
-</table>
-
-<p>58205 rows × 17 columns</p>
+<div class="cell" data-execution_count="12">
+<div class="cell-output cell-output-display">
+<div id="h1v1" class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="Index_files/figure-revealjs/h1v1-output-1.png" class="quarto-discovered-preview-image"></p>
+<p></p><figcaption>Proportion of all games which are produced by same and different developers and publishers</figcaption><p></p>
+</figure>
+</div>
 </div>
 </div>
 </div>
 </section>
-<section id="step-2-data-pre-processing" class="slide level2">
-<h2>Step 2: Data pre-processing</h2>
-</section>
-<section id="add-rank-to-the-df" class="slide level2">
-<h2>1.0 - add rank to the df</h2>
-<div class="cell" data-execution_count="108">
-<div class="cell-output cell-output-display" data-execution_count="108">
-<div>
-<style scoped="">
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-
-<table class="dataframe" data-quarto-postprocess="true" data-border="1">
-<thead>
-<tr class="header" style="text-align: right;">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">appid</th>
-<th data-quarto-table-cell-role="th">name</th>
-<th data-quarto-table-cell-role="th">developer</th>
-<th data-quarto-table-cell-role="th">publisher</th>
-<th data-quarto-table-cell-role="th">score_rank</th>
-<th data-quarto-table-cell-role="th">positive</th>
-<th data-quarto-table-cell-role="th">negative</th>
-<th data-quarto-table-cell-role="th">userscore</th>
-<th data-quarto-table-cell-role="th">owners</th>
-<th data-quarto-table-cell-role="th">average_forever</th>
-<th data-quarto-table-cell-role="th">average_2weeks</th>
-<th data-quarto-table-cell-role="th">median_forever</th>
-<th data-quarto-table-cell-role="th">median_2weeks</th>
-<th data-quarto-table-cell-role="th">price</th>
-<th data-quarto-table-cell-role="th">initialprice</th>
-<th data-quarto-table-cell-role="th">discount</th>
-<th data-quarto-table-cell-role="th">ccu</th>
-<th data-quarto-table-cell-role="th">spy_rank</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">0</td>
-<td>570</td>
-<td>Dota 2</td>
-<td>Valve</td>
-<td>Valve</td>
-<td>NaN</td>
-<td>1611153</td>
-<td>338953</td>
-<td>0</td>
-<td>200,000,000 .. 500,000,000</td>
-<td>37228</td>
-<td>1393</td>
-<td>853</td>
-<td>711</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>532699</td>
-<td>1</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">1</td>
-<td>730</td>
-<td>Counter-Strike: Global Offensive</td>
-<td>Valve, Hidden Path Entertainment</td>
-<td>Valve</td>
-<td>NaN</td>
-<td>6207621</td>
-<td>811918</td>
-<td>0</td>
-<td>50,000,000 .. 100,000,000</td>
-<td>30347</td>
-<td>822</td>
-<td>5979</td>
-<td>331</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>1010721</td>
-<td>2</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">2</td>
-<td>1172470</td>
-<td>Apex Legends</td>
-<td>Respawn Entertainment</td>
-<td>Electronic Arts</td>
-<td>NaN</td>
-<td>513660</td>
-<td>105734</td>
-<td>0</td>
-<td>50,000,000 .. 100,000,000</td>
-<td>8491</td>
-<td>917</td>
-<td>834</td>
-<td>498</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>363786</td>
-<td>3</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">3</td>
-<td>578080</td>
-<td>PUBG: BATTLEGROUNDS</td>
-<td>KRAFTON, Inc.</td>
-<td>KRAFTON, Inc.</td>
-<td>NaN</td>
-<td>1231039</td>
-<td>925364</td>
-<td>0</td>
-<td>50,000,000 .. 100,000,000</td>
-<td>22551</td>
-<td>734</td>
-<td>5940</td>
-<td>230</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>328139</td>
-<td>4</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">4</td>
-<td>1063730</td>
-<td>New World</td>
-<td>Amazon Games</td>
-<td>Amazon Games</td>
-<td>NaN</td>
-<td>176376</td>
-<td>75957</td>
-<td>0</td>
-<td>50,000,000 .. 100,000,000</td>
-<td>9175</td>
-<td>723</td>
-<td>3226</td>
-<td>454</td>
-<td>1999</td>
-<td>3999</td>
-<td>50</td>
-<td>17498</td>
-<td>5</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">58200</td>
-<td>2227180</td>
-<td>Water 2050</td>
-<td>Totem Games</td>
-<td>Totem Games</td>
-<td>NaN</td>
-<td>2</td>
-<td>0</td>
-<td>0</td>
-<td>0 .. 20,000</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>399</td>
-<td>399</td>
-<td>0</td>
-<td>0</td>
-<td>58201</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">58201</td>
-<td>2306850</td>
-<td>Parcel Problems</td>
-<td>JD</td>
-<td>JD</td>
-<td>NaN</td>
-<td>1</td>
-<td>0</td>
-<td>0</td>
-<td>0 .. 20,000</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>199</td>
-<td>199</td>
-<td>0</td>
-<td>0</td>
-<td>58202</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">58202</td>
-<td>2319560</td>
-<td>Road To Place</td>
-<td>Goose Strangler</td>
-<td>lunatic studios</td>
-<td>NaN</td>
-<td>0</td>
-<td>1</td>
-<td>0</td>
-<td>0 .. 20,000</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>299</td>
-<td>299</td>
-<td>0</td>
-<td>0</td>
-<td>58203</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">58203</td>
-<td>2289500</td>
-<td>FirstResponderVR</td>
-<td>Emergisim Pty Ltd</td>
-<td>Emergisim Pty Ltd</td>
-<td>NaN</td>
-<td>3</td>
-<td>1</td>
-<td>0</td>
-<td>0 .. 20,000</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>599</td>
-<td>599</td>
-<td>0</td>
-<td>0</td>
-<td>58204</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">58204</td>
-<td>678750</td>
-<td>Gravity Tunnel VR</td>
-<td>Qverty.com</td>
-<td>Qverty.com</td>
-<td>NaN</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0 .. 20,000</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>58205</td>
-</tr>
-</tbody>
-</table>
-
-<p>58205 rows × 18 columns</p>
-</div>
-</div>
-</div>
-</section>
-<section id="create-data-frame-of-top-100-games-and-top-500-games" class="slide level2">
-<h2>2.0 - create data frame of top 100 games and top 500 games</h2>
-<div class="cell" data-execution_count="109">
-<div class="cell-output cell-output-display" data-execution_count="109">
-<div>
-<style scoped="">
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-
-<table class="dataframe" data-quarto-postprocess="true" data-border="1">
-<thead>
-<tr class="header" style="text-align: right;">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">appid</th>
-<th data-quarto-table-cell-role="th">name</th>
-<th data-quarto-table-cell-role="th">developer</th>
-<th data-quarto-table-cell-role="th">publisher</th>
-<th data-quarto-table-cell-role="th">score_rank</th>
-<th data-quarto-table-cell-role="th">positive</th>
-<th data-quarto-table-cell-role="th">negative</th>
-<th data-quarto-table-cell-role="th">userscore</th>
-<th data-quarto-table-cell-role="th">owners</th>
-<th data-quarto-table-cell-role="th">average_forever</th>
-<th data-quarto-table-cell-role="th">average_2weeks</th>
-<th data-quarto-table-cell-role="th">median_forever</th>
-<th data-quarto-table-cell-role="th">median_2weeks</th>
-<th data-quarto-table-cell-role="th">price</th>
-<th data-quarto-table-cell-role="th">initialprice</th>
-<th data-quarto-table-cell-role="th">discount</th>
-<th data-quarto-table-cell-role="th">ccu</th>
-<th data-quarto-table-cell-role="th">spy_rank</th>
-<th data-quarto-table-cell-role="th">ranking</th>
-<th data-quarto-table-cell-role="th">classification</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">1</td>
-<td>730</td>
-<td>Counter-Strike: Global Offensive</td>
-<td>Valve, Hidden Path Entertainment</td>
-<td>Valve</td>
-<td>NaN</td>
-<td>6207621</td>
-<td>811918</td>
-<td>0</td>
-<td>50,000,000 .. 100,000,000</td>
-<td>30347</td>
-<td>822</td>
-<td>5979</td>
-<td>331</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>1010721</td>
-<td>2</td>
-<td>1.0</td>
-<td>different</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">0</td>
-<td>570</td>
-<td>Dota 2</td>
-<td>Valve</td>
-<td>Valve</td>
-<td>NaN</td>
-<td>1611153</td>
-<td>338953</td>
-<td>0</td>
-<td>200,000,000 .. 500,000,000</td>
-<td>37228</td>
-<td>1393</td>
-<td>853</td>
-<td>711</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>532699</td>
-<td>1</td>
-<td>2.0</td>
-<td>same</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">2</td>
-<td>1172470</td>
-<td>Apex Legends</td>
-<td>Respawn Entertainment</td>
-<td>Electronic Arts</td>
-<td>NaN</td>
-<td>513660</td>
-<td>105734</td>
-<td>0</td>
-<td>50,000,000 .. 100,000,000</td>
-<td>8491</td>
-<td>917</td>
-<td>834</td>
-<td>498</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>363786</td>
-<td>3</td>
-<td>3.0</td>
-<td>different</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">3</td>
-<td>578080</td>
-<td>PUBG: BATTLEGROUNDS</td>
-<td>KRAFTON, Inc.</td>
-<td>KRAFTON, Inc.</td>
-<td>NaN</td>
-<td>1231039</td>
-<td>925364</td>
-<td>0</td>
-<td>50,000,000 .. 100,000,000</td>
-<td>22551</td>
-<td>734</td>
-<td>5940</td>
-<td>230</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>328139</td>
-<td>4</td>
-<td>4.0</td>
-<td>same</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">17</td>
-<td>1085660</td>
-<td>Destiny 2</td>
-<td>Bungie</td>
-<td>Bungie</td>
-<td>NaN</td>
-<td>442135</td>
-<td>89132</td>
-<td>0</td>
-<td>20,000,000 .. 50,000,000</td>
-<td>8276</td>
-<td>1965</td>
-<td>361</td>
-<td>1277</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>171726</td>
-<td>18</td>
-<td>5.0</td>
-<td>same</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">23519</td>
-<td>1091260</td>
-<td>Crunch</td>
-<td>K7 Software</td>
-<td>K7 Software</td>
-<td>NaN</td>
-<td>11</td>
-<td>1</td>
-<td>0</td>
-<td>0 .. 20,000</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>23520</td>
-<td>16942.0</td>
-<td>same</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">23520</td>
-<td>1061900</td>
-<td>ThunderGod</td>
-<td>Goodbye Kansas Game Invest</td>
-<td>Goodbye Kansas Game Invest</td>
-<td>NaN</td>
-<td>11</td>
-<td>3</td>
-<td>0</td>
-<td>0 .. 20,000</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>999</td>
-<td>999</td>
-<td>0</td>
-<td>0</td>
-<td>23521</td>
-<td>16942.0</td>
-<td>same</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">23521</td>
-<td>1069270</td>
-<td>Rotatex</td>
-<td>Dnovel</td>
-<td>My Way Games</td>
-<td>NaN</td>
-<td>18</td>
-<td>7</td>
-<td>0</td>
-<td>0 .. 20,000</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>119</td>
-<td>1199</td>
-<td>90</td>
-<td>0</td>
-<td>23522</td>
-<td>16942.0</td>
-<td>different</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">23512</td>
-<td>1027060</td>
-<td>CreatorCrate</td>
-<td>Jori Ryan</td>
-<td>CreatorCrate Games</td>
-<td>NaN</td>
-<td>14</td>
-<td>1</td>
-<td>0</td>
-<td>0 .. 20,000</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>499</td>
-<td>499</td>
-<td>0</td>
-<td>0</td>
-<td>23513</td>
-<td>16942.0</td>
-<td>different</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">58204</td>
-<td>678750</td>
-<td>Gravity Tunnel VR</td>
-<td>Qverty.com</td>
-<td>Qverty.com</td>
-<td>NaN</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0 .. 20,000</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>58205</td>
-<td>16942.0</td>
-<td>same</td>
-</tr>
-</tbody>
-</table>
-
-<p>58205 rows × 20 columns</p>
-</div>
-</div>
-</div>
-<div class="cell" data-execution_count="111">
-<div class="cell-output cell-output-display" data-execution_count="111">
-<pre><code>Index(['appid', 'name', 'developer', 'publisher', 'score_rank', 'positive',
-       'negative', 'userscore', 'owners', 'average_forever', 'average_2weeks',
-       'median_forever', 'median_2weeks', 'price', 'initialprice', 'discount',
-       'ccu', 'spy_rank', 'ranking', 'classification'],
-      dtype='object')</code></pre>
-</div>
-</div>
-</section>
-<section id="analyze-for-all-games-with-same-developer-and-publisher" class="slide level2">
-<h2>3.0 - analyze for all games with same developer and publisher</h2>
-<div class="cell" data-execution_count="114">
-<div class="cell-output cell-output-display" data-execution_count="114">
-<pre><code>18968</code></pre>
-</div>
-</div>
-<div class="cell" data-execution_count="115">
-<div class="cell-output cell-output-display" data-execution_count="115">
-<pre><code>39237</code></pre>
-</div>
-</div>
-</section>
-<section id="step-3-data-visualisation" class="slide level2">
-<h2>Step 3: Data Visualisation</h2>
-<h3 id="visualisation-1">Visualisation 1:</h3>
-<h3 id="plot-for-the-proportion-of-all-games-which-are-produced-by-same-and-different-developers-and-publishers">plot for the proportion of all games which are produced by same and different developers and publishers</h3>
-<div class="cell" data-execution_count="116">
-<div class="cell-output cell-output-display">
-<pre><code>&lt;Figure size 5000x5000 with 0 Axes&gt;</code></pre>
-</div>
-<div class="cell-output cell-output-display">
-<p><img data-src="Index_files/figure-revealjs/cell-12-output-2.png" class="quarto-discovered-preview-image"></p>
-</div>
-</div>
-<h3 id="visualisation-2">Visualisation 2:</h3>
-<h3 id="how-does-the-classification-between-same-and-different-developers-and-publishers-influence-the-rank-of-the-games-regression">how does the classification between same and different developers and publishers influence the rank of the games (Regression)</h3>
-<div class="cell" data-execution_count="117">
-<div class="cell-output cell-output-display">
-<p><img data-src="Index_files/figure-revealjs/cell-13-output-1.png"></p>
-</div>
-</div>
-<h3 id="visualisation-3-4">Visualisation 3 &amp; 4:</h3>
-<h3 id="plot-for-the-proportion-of-all-games-which-are-produced-by-same-and-different-developers-and-publisher">plot for the proportion of all games which are produced by same and different developers and publisher</h3>
-<h3 id="different">Different</h3>
-<div class="cell" data-execution_count="119">
-<div class="cell-output cell-output-display" data-execution_count="119">
-<div>
-<style scoped="">
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-
-<table class="dataframe" data-quarto-postprocess="true" data-border="1">
-<thead>
-<tr class="header" style="text-align: right;">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">developer</th>
-<th data-quarto-table-cell-role="th">publisher</th>
-<th data-quarto-table-cell-role="th">num_games</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">21</td>
-<td>Infinity Ward</td>
-<td>Activision</td>
-<td>2</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">41</td>
-<td>Ubisoft Montreal</td>
-<td>Ubisoft</td>
-<td>2</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">0</td>
-<td>24 Entertainment</td>
-<td>NetEase Games Global</td>
-<td>1</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">34</td>
-<td>Smilegate RPG</td>
-<td>Amazon Games</td>
-<td>1</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">26</td>
-<td>Nicalis, Inc., Edmund McMillen</td>
-<td>Nicalis, Inc.</td>
-<td>1</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">27</td>
-<td>No More Room in Hell Team</td>
-<td>Lever Games</td>
-<td>1</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">28</td>
-<td>OVERKILL - a Starbreeze Studio.</td>
-<td>Starbreeze Publishing AB</td>
-<td>1</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">29</td>
-<td>Rare Ltd</td>
-<td>Xbox Game Studios</td>
-<td>1</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">30</td>
-<td>Respawn Entertainment</td>
-<td>Electronic Arts</td>
-<td>1</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">31</td>
-<td>Rockstar North</td>
-<td>Rockstar Games</td>
-<td>1</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">32</td>
-<td>Rockstar North, Rockstar Toronto</td>
-<td>Rockstar Games</td>
-<td>1</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">33</td>
-<td>Rogue Planet Games</td>
-<td>Daybreak Game Company</td>
-<td>1</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">35</td>
-<td>Splash Damage</td>
-<td>Warchest Ltd.</td>
-<td>1</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">24</td>
-<td>Massive Entertainment</td>
-<td>Ubisoft</td>
-<td>1</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">36</td>
-<td>Studio Wildcard, Instinct Games, Efecto Studio...</td>
-<td>Studio Wildcard</td>
-<td>1</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">37</td>
-<td>The Fun Pimps</td>
-<td>The Fun Pimps Entertainment LLC</td>
-<td>1</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">38</td>
-<td>Titan Forge Games</td>
-<td>Hi-Rez Studios</td>
-<td>1</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">39</td>
-<td>Treyarch, Aspyr (Mac)</td>
-<td>Activision, Aspyr (Mac)</td>
-<td>1</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">40</td>
-<td>Turtle Rock Studios</td>
-<td>2K</td>
-<td>1</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">42</td>
-<td>VALOFE, NS STUDIO</td>
-<td>VALOFE</td>
-<td>1</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">43</td>
-<td>Valve, Hidden Path Entertainment</td>
-<td>Valve</td>
-<td>1</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">44</td>
-<td>Valve, NEXON</td>
-<td>NEXON</td>
-<td>1</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">25</td>
-<td>Mediatonic</td>
-<td>ICAD/VisionLab PUC-Rio</td>
-<td>1</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">23</td>
-<td>Iron Gate AB</td>
-<td>Coffee Stain Publishing</td>
-<td>1</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">1</td>
-<td>343 Industries</td>
-<td>Xbox Game Studios</td>
-<td>1</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">22</td>
-<td>Infinity Ward, Raven Software, Beenox, Treyarc...</td>
-<td>Activision</td>
-<td>1</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">2</td>
-<td>343 Industries, Splash Damage, Ruffian Games, ...</td>
-<td>Xbox Game Studios</td>
-<td>1</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">3</td>
-<td>Aurora Studio</td>
-<td>TCH Scarlet Limited</td>
-<td>1</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">4</td>
-<td>Avalanche Software</td>
-<td>Warner Bros. Games</td>
-<td>1</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">5</td>
-<td>Blue Mammoth Games</td>
-<td>Ubisoft</td>
-<td>1</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">6</td>
-<td>CREATIVE ASSEMBLY, Feral Interactive (Mac), Fe...</td>
-<td>SEGA, Feral Interactive (Mac), Feral Interacti...</td>
-<td>1</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">7</td>
-<td>Cryptic Studios</td>
-<td>Gearbox Publishing</td>
-<td>1</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">8</td>
-<td>Crystal Dynamics, Eidos-Montréal, Feral Intera...</td>
-<td>Crystal Dynamics, Feral Interactive (Mac)</td>
-<td>1</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">9</td>
-<td>DICE</td>
-<td>Electronic Arts</td>
-<td>1</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">10</td>
-<td>DONTNOD Entertainment, Feral Interactive (Mac)...</td>
-<td>Square Enix, Feral interactive (Mac), Feral In...</td>
-<td>1</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">11</td>
-<td>Endnight Games Ltd</td>
-<td>Newnight</td>
-<td>1</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">12</td>
-<td>Evil Mojo Games</td>
-<td>Hi-Rez Studios</td>
-<td>1</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">13</td>
-<td>FromSoftware</td>
-<td>Activision (Excluding Japan and Asia), FromSof...</td>
-<td>1</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">14</td>
-<td>FromSoftware Inc.</td>
-<td>FromSoftware Inc., Bandai Namco Entertainment</td>
-<td>1</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">15</td>
-<td>FromSoftware, Inc.</td>
-<td>FromSoftware, Inc., Bandai Namco Entertainment</td>
-<td>1</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">16</td>
-<td>Gaijin Entertainment</td>
-<td>Gaijin Distribution KFT</td>
-<td>1</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">17</td>
-<td>Gearbox Software</td>
-<td>Valve</td>
-<td>1</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">18</td>
-<td>Gearbox Software, Aspyr (Mac), Aspyr (Linux)</td>
-<td>2K, Aspyr (Mac), Aspyr (Linux)</td>
-<td>1</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">19</td>
-<td>Heroic Leap Games</td>
-<td>Hi-Rez Studios</td>
-<td>1</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">20</td>
-<td>Hopoo Games</td>
-<td>Gearbox Publishing</td>
-<td>1</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">45</td>
-<td>鬼谷工作室</td>
-<td>鬼谷工作室, Lightning Games</td>
-<td>1</td>
-</tr>
-</tbody>
-</table>
-
-</div>
-</div>
-</div>
-<div class="cell" data-execution_count="120">
-<div class="cell-output cell-output-display">
-<p><img data-src="Index_files/figure-revealjs/cell-16-output-1.png"></p>
-</div>
-</div>
-<h3 id="same">Same</h3>
-<div class="cell" data-execution_count="121">
-<div class="cell-output cell-output-display" data-execution_count="121">
-<div>
-<style scoped="">
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-
-<table class="dataframe" data-quarto-postprocess="true" data-border="1">
-<thead>
-<tr class="header" style="text-align: right;">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">developer</th>
-<th data-quarto-table-cell-role="th">publisher</th>
-<th data-quarto-table-cell-role="th">num_games</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">26</td>
-<td>Rockstar Games</td>
-<td>Rockstar Games</td>
-<td>2</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">0</td>
-<td>Amazon Games</td>
-<td>Amazon Games</td>
-<td>1</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">20</td>
-<td>MY.GAMES</td>
-<td>MY.GAMES</td>
-<td>1</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">21</td>
-<td>Northwood Studios</td>
-<td>Northwood Studios</td>
-<td>1</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">22</td>
-<td>Pearl Abyss</td>
-<td>Pearl Abyss</td>
-<td>1</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">23</td>
-<td>Psyonix LLC</td>
-<td>Psyonix LLC</td>
-<td>1</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">24</td>
-<td>Re-Logic</td>
-<td>Re-Logic</td>
-<td>1</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">25</td>
-<td>RobTop Games</td>
-<td>RobTop Games</td>
-<td>1</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">27</td>
-<td>Smartly Dressed Games</td>
-<td>Smartly Dressed Games</td>
-<td>1</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">1</td>
-<td>Axolot Games</td>
-<td>Axolot Games</td>
-<td>1</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">28</td>
-<td>TLM Partners</td>
-<td>TLM Partners</td>
-<td>1</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">29</td>
-<td>Team Cherry</td>
-<td>Team Cherry</td>
-<td>1</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">30</td>
-<td>Techland</td>
-<td>Techland</td>
-<td>1</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">31</td>
-<td>The Behemoth</td>
-<td>The Behemoth</td>
-<td>1</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">33</td>
-<td>Wargaming Group Limited</td>
-<td>Wargaming Group Limited</td>
-<td>1</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">34</td>
-<td>World Makers</td>
-<td>World Makers</td>
-<td>1</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">19</td>
-<td>Kinetic Games</td>
-<td>Kinetic Games</td>
-<td>1</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">18</td>
-<td>KRAFTON, Inc.</td>
-<td>KRAFTON, Inc.</td>
-<td>1</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">17</td>
-<td>KOG</td>
-<td>KOG</td>
-<td>1</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">8</td>
-<td>Crazy Rocks Studios</td>
-<td>Crazy Rocks Studios</td>
-<td>1</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">2</td>
-<td>Behaviour Interactive Inc.</td>
-<td>Behaviour Interactive Inc.</td>
-<td>1</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">3</td>
-<td>BetaDwarf</td>
-<td>BetaDwarf</td>
-<td>1</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">4</td>
-<td>Bohemia Interactive</td>
-<td>Bohemia Interactive</td>
-<td>1</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">5</td>
-<td>Bungie</td>
-<td>Bungie</td>
-<td>1</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">6</td>
-<td>CAPCOM Co., Ltd.</td>
-<td>CAPCOM Co., Ltd.</td>
-<td>1</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">7</td>
-<td>Crate Entertainment</td>
-<td>Crate Entertainment</td>
-<td>1</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">9</td>
-<td>Daybreak Game Company</td>
-<td>Daybreak Game Company</td>
-<td>1</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">16</td>
-<td>Hello Games</td>
-<td>Hello Games</td>
-<td>1</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">10</td>
-<td>Digital Extremes</td>
-<td>Digital Extremes</td>
-<td>1</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">11</td>
-<td>Endnight Games Ltd</td>
-<td>Endnight Games Ltd</td>
-<td>1</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">12</td>
-<td>Expansive Worlds, Avalanche Studios</td>
-<td>Expansive Worlds, Avalanche Studios</td>
-<td>1</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">13</td>
-<td>Facepunch Studios</td>
-<td>Facepunch Studios</td>
-<td>1</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">14</td>
-<td>Freejam</td>
-<td>Freejam</td>
-<td>1</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">15</td>
-<td>Grinding Gear Games</td>
-<td>Grinding Gear Games</td>
-<td>1</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">35</td>
-<td>gamigo US Inc.</td>
-<td>gamigo US Inc.</td>
-<td>1</td>
-</tr>
-</tbody>
-</table>
-
-</div>
-</div>
-</div>
-<div class="cell" data-execution_count="122">
-<div class="cell-output cell-output-display">
-<p><img data-src="Index_files/figure-revealjs/cell-18-output-1.png"></p>
-</div>
-</div>
-<h3 id="visulisation-5">Visulisation 5:</h3>
-<h3 id="which-developer-produce-the-most-games">which developer produce the most games</h3>
-<div class="cell" data-execution_count="123">
-<div class="cell-output cell-output-display" data-execution_count="123">
-<div>
-<style scoped="">
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-
-<table class="dataframe" data-quarto-postprocess="true" data-border="1">
-<thead>
-<tr class="header" style="text-align: right;">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">developer</th>
-<th data-quarto-table-cell-role="th">num_games</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">5543</td>
-<td>Choice of Games</td>
-<td>147</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">16839</td>
-<td>Laush Dmitriy Sergeevich</td>
-<td>116</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">27450</td>
-<td>Sokpop Collective</td>
-<td>100</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">15690</td>
-<td>KOEI TECMO GAMES CO., LTD.</td>
-<td>98</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">4224</td>
-<td>Boogygames Studios</td>
-<td>95</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">...</td>
-<td>...</td>
-<td>...</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">20869</td>
-<td>Nippon Ichi Software, Inc.</td>
-<td>15</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">19189</td>
-<td>Microids</td>
-<td>15</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">26251</td>
-<td>Seaborgium Entertainment</td>
-<td>15</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">27788</td>
-<td>Spike Chunsoft Co., Ltd.</td>
-<td>15</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">33611</td>
-<td>Yustas Game Studio</td>
-<td>15</td>
-</tr>
-</tbody>
-</table>
-
-<p>193 rows × 2 columns</p>
-</div>
-</div>
-</div>
-<div class="cell" data-execution_count="124">
-<div class="cell-output cell-output-display" data-execution_count="124">
-<pre><code>193</code></pre>
-</div>
-</div>
-<div class="cell" data-execution_count="125">
-<div class="cell-output cell-output-display" data-execution_count="125">
-<div>
-<style scoped="">
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-
-<table class="dataframe" data-quarto-postprocess="true" data-border="1">
-<thead>
-<tr class="header" style="text-align: right;">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">developer</th>
-<th data-quarto-table-cell-role="th">num_games</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">5543</td>
-<td>Choice of Games</td>
-<td>147</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">16839</td>
-<td>Laush Dmitriy Sergeevich</td>
-<td>116</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">27450</td>
-<td>Sokpop Collective</td>
-<td>100</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">15690</td>
-<td>KOEI TECMO GAMES CO., LTD.</td>
-<td>98</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">4224</td>
-<td>Boogygames Studios</td>
-<td>95</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">...</td>
-<td>...</td>
-<td>...</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">13696</td>
-<td>IKO, Reynard Films, Prefrontal Cortex</td>
-<td>1</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">13695</td>
-<td>IKINAGAMES, Nanali Studios</td>
-<td>1</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">13693</td>
-<td>IKIGames</td>
-<td>1</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">13692</td>
-<td>IKIGAI Play</td>
-<td>1</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">36574</td>
-<td>＼上／</td>
-<td>1</td>
-</tr>
-</tbody>
-</table>
-
-<p>36575 rows × 2 columns</p>
-</div>
-</div>
-</div>
-<div class="cell" data-execution_count="126">
-<div class="cell-output cell-output-display" data-execution_count="126">
-<pre><code>36575</code></pre>
-</div>
-</div>
-<h3 id="proportion-1">Proportion 1:</h3>
-<h3 id="the-proportion-that-how-many-developers-have-created-more-than-or-equal-to-15-games">the proportion that how many developers have created more than or equal to 15 games</h3>
-<div class="cell" data-execution_count="127">
-<div class="cell-output cell-output-display" data-execution_count="127">
-<pre><code>0.5276828434723171</code></pre>
-</div>
-</div>
-<div class="cell" data-execution_count="128">
-<div class="cell-output cell-output-display">
-<p><img data-src="Index_files/figure-revealjs/cell-24-output-1.png"></p>
-</div>
-</div>
-<h3 id="visualisation-6">Visualisation 6:</h3>
-<h3 id="what-are-the-developers-that-created-the-most-top-100-games">what are the developers that created the most top 100 games</h3>
-<div class="cell" data-execution_count="129">
-<div class="cell-output cell-output-display" data-execution_count="129">
-<div>
-<style scoped="">
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-
-<table class="dataframe" data-quarto-postprocess="true" data-border="1">
-<thead>
-<tr class="header" style="text-align: right;">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">developer</th>
-<th data-quarto-table-cell-role="th">num_games</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">74</td>
-<td>Valve</td>
-<td>16</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">37</td>
-<td>Infinity Ward</td>
-<td>2</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">56</td>
-<td>Rockstar Games</td>
-<td>2</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">72</td>
-<td>Ubisoft Montreal</td>
-<td>2</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">22</td>
-<td>Endnight Games Ltd</td>
-<td>2</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">...</td>
-<td>...</td>
-<td>...</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">26</td>
-<td>Freejam</td>
-<td>1</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">25</td>
-<td>Facepunch Studios</td>
-<td>1</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">24</td>
-<td>Expansive Worlds, Avalanche Studios</td>
-<td>1</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">23</td>
-<td>Evil Mojo Games</td>
-<td>1</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">80</td>
-<td>鬼谷工作室</td>
-<td>1</td>
-</tr>
-</tbody>
-</table>
-
-<p>81 rows × 2 columns</p>
-</div>
-</div>
-</div>
-<div class="cell" data-execution_count="130">
-<div class="cell-output cell-output-display">
-<p><img data-src="Index_files/figure-revealjs/cell-26-output-1.png"></p>
-</div>
-</div>
-<h3 id="visualisation-7">Visualisation 7:</h3>
-<h3 id="what-are-the-developers-who-created-the-most-top-500-games">what are the developers who created the most top 500 games</h3>
-<div class="cell" data-execution_count="131">
-<div class="cell-output cell-output-display" data-execution_count="131">
-<div>
-<style scoped="">
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-
-<table class="dataframe" data-quarto-postprocess="true" data-border="1">
-<thead>
-<tr class="header" style="text-align: right;">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">developer</th>
-<th data-quarto-table-cell-role="th">num_games</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">335</td>
-<td>Valve</td>
-<td>24</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">45</td>
-<td>CAPCOM Co., Ltd.</td>
-<td>11</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">71</td>
-<td>DICE</td>
-<td>6</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">24</td>
-<td>Avalanche Studios</td>
-<td>5</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">259</td>
-<td>Rockstar Games</td>
-<td>5</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">39</td>
-<td>Bohemia Interactive</td>
-<td>5</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">51</td>
-<td>Capcom</td>
-<td>5</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">320</td>
-<td>Ubisoft Montreal</td>
-<td>4</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">155</td>
-<td>Infinity Ward</td>
-<td>4</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">357</td>
-<td>id Software</td>
-<td>4</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">251</td>
-<td>Relic Entertainment</td>
-<td>4</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">131</td>
-<td>Gearbox Software</td>
-<td>4</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">257</td>
-<td>Robot Entertainment</td>
-<td>4</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">347</td>
-<td>Wargaming Group Limited</td>
-<td>3</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">199</td>
-<td>Moon Studios GmbH</td>
-<td>3</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">294</td>
-<td>Supergiant Games</td>
-<td>3</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">247</td>
-<td>Rebellion</td>
-<td>3</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">223</td>
-<td>Obsidian Entertainment</td>
-<td>3</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">67</td>
-<td>Crytek</td>
-<td>3</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">255</td>
-<td>Respawn Entertainment</td>
-<td>3</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">18</td>
-<td>Arkane Studios</td>
-<td>3</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">303</td>
-<td>Techland</td>
-<td>3</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">209</td>
-<td>New World Interactive</td>
-<td>3</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">311</td>
-<td>Treyarch</td>
-<td>3</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">11</td>
-<td>4A Games</td>
-<td>3</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">314</td>
-<td>Tripwire Interactive</td>
-<td>3</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">265</td>
-<td>Rocksteady Studios</td>
-<td>3</td>
-</tr>
-</tbody>
-</table>
-
-</div>
-</div>
-</div>
-<div class="cell" data-execution_count="132">
-<div class="cell-output cell-output-display" data-execution_count="132">
-<div>
-<style scoped="">
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-
-<table class="dataframe" data-quarto-postprocess="true" data-border="1">
-<thead>
-<tr class="header" style="text-align: right;">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">developer</th>
-<th data-quarto-table-cell-role="th">num_games</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">335</td>
-<td>Valve</td>
-<td>24</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">45</td>
-<td>CAPCOM Co., Ltd.</td>
-<td>11</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">71</td>
-<td>DICE</td>
-<td>6</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">24</td>
-<td>Avalanche Studios</td>
-<td>5</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">259</td>
-<td>Rockstar Games</td>
-<td>5</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">...</td>
-<td>...</td>
-<td>...</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">132</td>
-<td>Gearbox Software, Aspyr (Mac), Aspyr (Linux)</td>
-<td>1</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">130</td>
-<td>Gamepires</td>
-<td>1</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">129</td>
-<td>Gaijin Entertainment</td>
-<td>1</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">127</td>
-<td>Funcom</td>
-<td>1</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">364</td>
-<td>（Hong Kong）GKD</td>
-<td>1</td>
-</tr>
-</tbody>
-</table>
-
-<p>365 rows × 2 columns</p>
-</div>
-</div>
-</div>
-<h3 id="proportion-3">Proportion 3:</h3>
-<h3 id="how-many-developers-that-create-more-than-2-games-within-top-500-games">how many developers that create more than 2 games within top 500 games</h3>
-<div class="cell" data-execution_count="135">
-<div class="cell-output cell-output-display" data-execution_count="135">
-<pre><code>7.397260273972603</code></pre>
-</div>
-</div>
-<div class="cell" data-execution_count="136">
-<div class="cell-output cell-output-display">
-<p><img data-src="Index_files/figure-revealjs/cell-30-output-1.png"></p>
-</div>
-</div>
-<h3 id="visualisation-8">Visualisation 8:</h3>
-<h3 id="the-performance-of-developers-in-producing-top-100-games">the performance of developers in producing top 100 games</h3>
-<div class="cell" data-execution_count="137">
-<div class="cell-output cell-output-display" data-execution_count="137">
-<div>
-<style scoped="">
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-
-<table class="dataframe" data-quarto-postprocess="true" data-border="1">
-<thead>
-<tr class="header" style="text-align: right;">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">developer</th>
-<th data-quarto-table-cell-role="th">num_games_100</th>
-<th data-quarto-table-cell-role="th">num_games_all</th>
-<th data-quarto-table-cell-role="th">proportion</th>
-<th data-quarto-table-cell-role="th">classification</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">80</td>
-<td>guigu studio(transfered from Chinese characters)</td>
-<td>1</td>
-<td>1</td>
-<td>100.000000</td>
-<td>major</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">29</td>
-<td>VALOFE, NS STUDIO</td>
-<td>1</td>
-<td>1</td>
-<td>100.000000</td>
-<td>major</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">22</td>
-<td>Smartly Dressed Games</td>
-<td>1</td>
-<td>1</td>
-<td>100.000000</td>
-<td>major</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">59</td>
-<td>343 Industries, Splash Damage, Ruffian Games, ...</td>
-<td>1</td>
-<td>1</td>
-<td>100.000000</td>
-<td>major</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">58</td>
-<td>Amazon Games</td>
-<td>1</td>
-<td>1</td>
-<td>100.000000</td>
-<td>major</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">3</td>
-<td>Ubisoft Montreal</td>
-<td>2</td>
-<td>23</td>
-<td>8.695652</td>
-<td>minor</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">60</td>
-<td>DICE</td>
-<td>1</td>
-<td>12</td>
-<td>8.333333</td>
-<td>minor</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">63</td>
-<td>Gearbox Software</td>
-<td>1</td>
-<td>13</td>
-<td>7.692308</td>
-<td>minor</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">43</td>
-<td>Bohemia Interactive</td>
-<td>1</td>
-<td>18</td>
-<td>5.555556</td>
-<td>minor</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">49</td>
-<td>CAPCOM Co., Ltd.</td>
-<td>1</td>
-<td>27</td>
-<td>3.703704</td>
-<td>minor</td>
-</tr>
-</tbody>
-</table>
-
-<p>81 rows × 5 columns</p>
-</div>
-</div>
-</div>
-<h3 id="what-developers-have-the-best-ability-to-produce-top-100-games">what developers have the best ability to produce top 100 games</h3>
-<div class="cell" data-execution_count="138">
-<div class="cell-output cell-output-display" data-execution_count="138">
-<div>
-<style scoped="">
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-
-<table class="dataframe" data-quarto-postprocess="true" data-border="1">
-<thead>
-<tr class="header" style="text-align: right;">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">developer</th>
-<th data-quarto-table-cell-role="th">num_games_100</th>
-<th data-quarto-table-cell-role="th">num_games_all</th>
-<th data-quarto-table-cell-role="th">proportion</th>
-<th data-quarto-table-cell-role="th">classification</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">4</td>
-<td>Endnight Games Ltd</td>
-<td>2</td>
-<td>2</td>
-<td>100.000000</td>
-<td>major</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">0</td>
-<td>Valve</td>
-<td>16</td>
-<td>27</td>
-<td>59.259259</td>
-<td>major</td>
-</tr>
-</tbody>
-</table>
-
-</div>
-</div>
-</div>
-<h4 id="proportion_major-proportion-showing-how-many-developers-have-major-ability50-to-create-top-100-games">proportion_major: Proportion showing how many developers have major ability(&gt;=50%) to create top 100 games</h4>
-<div class="cell" data-execution_count="139">
-<div class="cell-output cell-output-display" data-execution_count="139">
-<pre><code>66.66666666666666</code></pre>
-</div>
-</div>
-<h4 id="proportion_100_developers-proportion-showing-how-many-developers-have-created-top-100-games">proportion_100_developers: Proportion showing how many developers have created top 100 games</h4>
-<div class="cell" data-execution_count="140">
-<div class="cell-output cell-output-display" data-execution_count="140">
-<pre><code>0.22146274777853728</code></pre>
-</div>
-</div>
-<p><strong>100 developers refer to developers that have created games whithin the top 100 games</strong></p>
-<div class="cell" data-execution_count="142">
-<div class="cell-output cell-output-display" data-execution_count="142">
-<div>
-<style scoped="">
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-
-<table class="dataframe" data-quarto-postprocess="true" data-border="1">
-<thead>
-<tr class="header" style="text-align: right;">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">appid</th>
-<th data-quarto-table-cell-role="th">name</th>
-<th data-quarto-table-cell-role="th">developer</th>
-<th data-quarto-table-cell-role="th">publisher</th>
-<th data-quarto-table-cell-role="th">score_rank</th>
-<th data-quarto-table-cell-role="th">positive</th>
-<th data-quarto-table-cell-role="th">negative</th>
-<th data-quarto-table-cell-role="th">userscore</th>
-<th data-quarto-table-cell-role="th">owners</th>
-<th data-quarto-table-cell-role="th">average_forever</th>
-<th data-quarto-table-cell-role="th">...</th>
-<th data-quarto-table-cell-role="th">median_forever</th>
-<th data-quarto-table-cell-role="th">median_2weeks</th>
-<th data-quarto-table-cell-role="th">price</th>
-<th data-quarto-table-cell-role="th">initialprice</th>
-<th data-quarto-table-cell-role="th">discount</th>
-<th data-quarto-table-cell-role="th">ccu</th>
-<th data-quarto-table-cell-role="th">spy_rank</th>
-<th data-quarto-table-cell-role="th">ranking</th>
-<th data-quarto-table-cell-role="th">developer_and_publisher_classification</th>
-<th data-quarto-table-cell-role="th">developer_classification</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">0</td>
-<td>730</td>
-<td>Counter-Strike: Global Offensive</td>
-<td>Valve, Hidden Path Entertainment</td>
-<td>Valve</td>
-<td>minus</td>
-<td>6207621</td>
-<td>811918</td>
-<td>0</td>
-<td>50,000,000 .. 100,000,000</td>
-<td>30347</td>
-<td>...</td>
-<td>5979</td>
-<td>331</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>1010721</td>
-<td>2</td>
-<td>1.0</td>
-<td>different</td>
-<td>major</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">1</td>
-<td>570</td>
-<td>Dota 2</td>
-<td>Valve</td>
-<td>Valve</td>
-<td>minus</td>
-<td>1611153</td>
-<td>338953</td>
-<td>0</td>
-<td>200,000,000 .. 500,000,000</td>
-<td>37228</td>
-<td>...</td>
-<td>853</td>
-<td>711</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>532699</td>
-<td>1</td>
-<td>2.0</td>
-<td>same</td>
-<td>major</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">2</td>
-<td>1172470</td>
-<td>Apex Legends</td>
-<td>Respawn Entertainment</td>
-<td>Electronic Arts</td>
-<td>minus</td>
-<td>513660</td>
-<td>105734</td>
-<td>0</td>
-<td>50,000,000 .. 100,000,000</td>
-<td>8491</td>
-<td>...</td>
-<td>834</td>
-<td>498</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>363786</td>
-<td>3</td>
-<td>3.0</td>
-<td>different</td>
-<td>minor</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">3</td>
-<td>578080</td>
-<td>PUBG: BATTLEGROUNDS</td>
-<td>KRAFTON, Inc.</td>
-<td>KRAFTON, Inc.</td>
-<td>minus</td>
-<td>1231039</td>
-<td>925364</td>
-<td>0</td>
-<td>50,000,000 .. 100,000,000</td>
-<td>22551</td>
-<td>...</td>
-<td>5940</td>
-<td>230</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>328139</td>
-<td>4</td>
-<td>4.0</td>
-<td>same</td>
-<td>minor</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">4</td>
-<td>1085660</td>
-<td>Destiny 2</td>
-<td>Bungie</td>
-<td>Bungie</td>
-<td>minus</td>
-<td>442135</td>
-<td>89132</td>
-<td>0</td>
-<td>20,000,000 .. 50,000,000</td>
-<td>8276</td>
-<td>...</td>
-<td>361</td>
-<td>1277</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>171726</td>
-<td>18</td>
-<td>5.0</td>
-<td>same</td>
-<td>major</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">58200</td>
-<td>1091260</td>
-<td>Crunch</td>
-<td>K7 Software</td>
-<td>K7 Software</td>
-<td>minus</td>
-<td>11</td>
-<td>1</td>
-<td>0</td>
-<td>0 .. 20,000</td>
-<td>0</td>
-<td>...</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>23520</td>
-<td>16942.0</td>
-<td>same</td>
-<td>minus</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">58201</td>
-<td>1061900</td>
-<td>ThunderGod</td>
-<td>Goodbye Kansas Game Invest</td>
-<td>Goodbye Kansas Game Invest</td>
-<td>minus</td>
-<td>11</td>
-<td>3</td>
-<td>0</td>
-<td>0 .. 20,000</td>
-<td>0</td>
-<td>...</td>
-<td>0</td>
-<td>0</td>
-<td>999</td>
-<td>999</td>
-<td>0</td>
-<td>0</td>
-<td>23521</td>
-<td>16942.0</td>
-<td>same</td>
-<td>minus</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">58202</td>
-<td>1069270</td>
-<td>Rotatex</td>
-<td>Dnovel</td>
-<td>My Way Games</td>
-<td>minus</td>
-<td>18</td>
-<td>7</td>
-<td>0</td>
-<td>0 .. 20,000</td>
-<td>0</td>
-<td>...</td>
-<td>0</td>
-<td>0</td>
-<td>119</td>
-<td>1199</td>
-<td>90</td>
-<td>0</td>
-<td>23522</td>
-<td>16942.0</td>
-<td>different</td>
-<td>minus</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">58203</td>
-<td>1027060</td>
-<td>CreatorCrate</td>
-<td>Jori Ryan</td>
-<td>CreatorCrate Games</td>
-<td>minus</td>
-<td>14</td>
-<td>1</td>
-<td>0</td>
-<td>0 .. 20,000</td>
-<td>0</td>
-<td>...</td>
-<td>0</td>
-<td>0</td>
-<td>499</td>
-<td>499</td>
-<td>0</td>
-<td>0</td>
-<td>23513</td>
-<td>16942.0</td>
-<td>different</td>
-<td>minus</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">58204</td>
-<td>678750</td>
-<td>Gravity Tunnel VR</td>
-<td>Qverty.com</td>
-<td>Qverty.com</td>
-<td>minus</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0 .. 20,000</td>
-<td>0</td>
-<td>...</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>58205</td>
-<td>16942.0</td>
-<td>same</td>
-<td>minus</td>
-</tr>
-</tbody>
-</table>
-
-<p>58205 rows × 21 columns</p>
-</div>
-</div>
-</div>
-<div class="cell" data-execution_count="144">
-<div class="cell-output cell-output-display">
-<p><img data-src="Index_files/figure-revealjs/cell-38-output-1.png"></p>
-</div>
-</div>
-</section>
-<section id="data-pre-processing-pivoting" class="slide level2">
-<h2>Data Pre-Processing : Pivoting</h2>
-<div class="cell" data-execution_count="145">
-<div class="cell-output cell-output-display" data-execution_count="145">
-<pre><code>1     Valve, Hidden Path Entertainment
-0                                Valve
-2                Respawn Entertainment
-3                        KRAFTON, Inc.
-17                              Bungie
-                    ...               
-76                               Valve
-65                               Valve
-70                               Valve
-46                 Crazy Rocks Studios
-22    Rockstar North, Rockstar Toronto
-Name: developer, Length: 100, dtype: object</code></pre>
-</div>
-</div>
-<div class="cell" data-execution_count="146">
-<div class="cell-output cell-output-display" data-execution_count="146">
-<pre><code>['Valve, Hidden Path Entertainment',
- 'Valve',
- 'Respawn Entertainment',
- 'KRAFTON, Inc.',
- 'Bungie',
- 'Rockstar North',
- 'Facepunch Studios',
- '24 Entertainment',
- 'Smilegate RPG',
- 'Infinity Ward, Raven Software, Beenox, Treyarch, High Moon Studios, Sledgehammer Games, Activision Shanghai, Demonware, Toys for Bob',
- 'Gaijin Entertainment',
- 'Ubisoft Montreal',
- 'Smartly Dressed Games',
- 'Avalanche Software',
- 'Studio Wildcard, Instinct Games, Efecto Studios, Virtual Basement LLC',
- 'OVERKILL - a Starbreeze Studio.',
- 'Digital Extremes',
- 'FromSoftware Inc.',
- 'Re-Logic',
- 'Psyonix LLC',
- 'Behaviour Interactive Inc.',
- 'CAPCOM Co., Ltd.',
- 'Iron Gate AB',
- 'Rockstar Games',
- 'Endnight Games Ltd',
- 'The Fun Pimps',
- 'Rare Ltd',
- 'Pearl Abyss',
- 'Grinding Gear Games',
- 'Nicalis, Inc., Edmund McMillen',
- 'Amazon Games',
- 'Bohemia Interactive',
- 'Wargaming Group Limited',
- 'DICE',
- 'Kinetic Games',
- 'Titan Forge Games',
- 'Blue Mammoth Games',
- 'FromSoftware',
- 'Treyarch, Aspyr (Mac)',
- 'Evil Mojo Games',
- 'Hopoo Games',
- 'Techland',
- 'RobTop Games',
- 'Hello Games',
- '鬼谷工作室',
- 'Crate Entertainment',
- 'Team Cherry',
- '343 Industries',
- 'Northwood Studios',
- 'CREATIVE ASSEMBLY, Feral Interactive (Mac), Feral Interactive (Linux)',
- 'FromSoftware, Inc.',
- '343 Industries, Splash Damage, Ruffian Games, Bungie, Saber Interactive',
- 'Gearbox Software, Aspyr (Mac), Aspyr (Linux)',
- 'Axolot Games',
- 'Mediatonic',
- 'TLM Partners',
- 'Rogue Planet Games',
- 'MY.GAMES',
- 'gamigo US Inc.',
- 'The Behemoth',
- 'Cryptic Studios',
- 'Expansive Worlds, Avalanche Studios',
- 'BetaDwarf',
- 'Crystal Dynamics, Eidos-Montréal, Feral Interactive (Mac), Nixxes',
- 'VALOFE, NS STUDIO',
- 'Massive Entertainment',
- 'World Makers',
- 'Heroic Leap Games',
- 'Infinity Ward',
- 'Valve, NEXON',
- 'No More Room in Hell Team',
- 'Aurora Studio',
- 'Daybreak Game Company',
- 'Freejam',
- 'DONTNOD Entertainment, Feral Interactive (Mac), Feral Interactive (Linux)',
- 'KOG',
- 'Splash Damage',
- 'Gearbox Software',
- 'Turtle Rock Studios',
- 'Crazy Rocks Studios',
- 'Rockstar North, Rockstar Toronto']</code></pre>
-</div>
-</div>
-<div class="cell" data-execution_count="147">
-<div class="cell-output cell-output-display" data-execution_count="147">
-<pre><code>['developer',
- 'Valve, Hidden Path Entertainment',
- 'Valve',
- 'Respawn Entertainment',
- 'KRAFTON, Inc.',
- 'Bungie',
- 'Rockstar North',
- 'Facepunch Studios',
- '24 Entertainment',
- 'Smilegate RPG',
- 'Infinity Ward, Raven Software, Beenox, Treyarch, High Moon Studios, Sledgehammer Games, Activision Shanghai, Demonware, Toys for Bob',
- 'Gaijin Entertainment',
- 'Ubisoft Montreal',
- 'Smartly Dressed Games',
- 'Avalanche Software',
- 'Studio Wildcard, Instinct Games, Efecto Studios, Virtual Basement LLC',
- 'OVERKILL - a Starbreeze Studio.',
- 'Digital Extremes',
- 'FromSoftware Inc.',
- 'Re-Logic',
- 'Psyonix LLC',
- 'Behaviour Interactive Inc.',
- 'CAPCOM Co., Ltd.',
- 'Iron Gate AB',
- 'Rockstar Games',
- 'Endnight Games Ltd',
- 'The Fun Pimps',
- 'Rare Ltd',
- 'Pearl Abyss',
- 'Grinding Gear Games',
- 'Nicalis, Inc., Edmund McMillen',
- 'Amazon Games',
- 'Bohemia Interactive',
- 'Wargaming Group Limited',
- 'DICE',
- 'Kinetic Games',
- 'Titan Forge Games',
- 'Blue Mammoth Games',
- 'FromSoftware',
- 'Treyarch, Aspyr (Mac)',
- 'Evil Mojo Games',
- 'Hopoo Games',
- 'Techland',
- 'RobTop Games',
- 'Hello Games',
- '鬼谷工作室',
- 'Crate Entertainment',
- 'Team Cherry',
- '343 Industries',
- 'Northwood Studios',
- 'CREATIVE ASSEMBLY, Feral Interactive (Mac), Feral Interactive (Linux)',
- 'FromSoftware, Inc.',
- '343 Industries, Splash Damage, Ruffian Games, Bungie, Saber Interactive',
- 'Gearbox Software, Aspyr (Mac), Aspyr (Linux)',
- 'Axolot Games',
- 'Mediatonic',
- 'TLM Partners',
- 'Rogue Planet Games',
- 'MY.GAMES',
- 'gamigo US Inc.',
- 'The Behemoth',
- 'Cryptic Studios',
- 'Expansive Worlds, Avalanche Studios',
- 'BetaDwarf',
- 'Crystal Dynamics, Eidos-Montréal, Feral Interactive (Mac), Nixxes',
- 'VALOFE, NS STUDIO',
- 'Massive Entertainment',
- 'World Makers',
- 'Heroic Leap Games',
- 'Infinity Ward',
- 'Valve, NEXON',
- 'No More Room in Hell Team',
- 'Aurora Studio',
- 'Daybreak Game Company',
- 'Freejam',
- 'DONTNOD Entertainment, Feral Interactive (Mac), Feral Interactive (Linux)',
- 'KOG',
- 'Splash Damage',
- 'Gearbox Software',
- 'Turtle Rock Studios',
- 'Crazy Rocks Studios',
- 'Rockstar North, Rockstar Toronto']</code></pre>
-</div>
-</div>
-<div class="cell" data-execution_count="148">
-<div class="cell-output cell-output-display" data-execution_count="148">
-<pre><code>82</code></pre>
-</div>
-</div>
-<div class="cell" data-execution_count="150">
-<div class="cell-output cell-output-display" data-execution_count="150">
-<pre><code>Index(['appid', 'name', 'developer', 'publisher', 'score_rank', 'positive',
-       'negative', 'userscore', 'owners', 'average_forever',
-       ...
-       'Aurora Studio', 'Daybreak Game Company', 'Freejam',
-       'DONTNOD Entertainment, Feral Interactive (Mac), Feral Interactive (Linux)',
-       'KOG', 'Splash Damage', 'Gearbox Software', 'Turtle Rock Studios',
-       'Crazy Rocks Studios', 'Rockstar North, Rockstar Toronto'],
-      dtype='object', length=101)</code></pre>
-</div>
-</div>
-<div class="cell" data-execution_count="161">
-<div class="cell-output cell-output-display" data-execution_count="161">
-<div>
-<style scoped="">
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead tr th {
-        text-align: left;
-    }
-</style>
-
-<table class="dataframe" data-quarto-postprocess="true" data-border="1">
-<thead>
-<tr class="header">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">spy_rank</th>
-<th data-quarto-table-cell-role="th">appid</th>
-<th colspan="19" data-quarto-table-cell-role="th" data-halign="left">present</th>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">developer</th>
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">24 Entertainment</th>
-<th data-quarto-table-cell-role="th">343 Industries</th>
-<th data-quarto-table-cell-role="th">343 Industries, Splash Damage, Ruffian Games, Bungie, Saber Interactive</th>
-<th data-quarto-table-cell-role="th">Amazon Games</th>
-<th data-quarto-table-cell-role="th">Aurora Studio</th>
-<th data-quarto-table-cell-role="th">Avalanche Software</th>
-<th data-quarto-table-cell-role="th">Axolot Games</th>
-<th data-quarto-table-cell-role="th">Behaviour Interactive Inc.</th>
-<th data-quarto-table-cell-role="th">...</th>
-<th data-quarto-table-cell-role="th">Turtle Rock Studios</th>
-<th data-quarto-table-cell-role="th">Ubisoft Montreal</th>
-<th data-quarto-table-cell-role="th">VALOFE, NS STUDIO</th>
-<th data-quarto-table-cell-role="th">Valve</th>
-<th data-quarto-table-cell-role="th">Valve, Hidden Path Entertainment</th>
-<th data-quarto-table-cell-role="th">Valve, NEXON</th>
-<th data-quarto-table-cell-role="th">Wargaming Group Limited</th>
-<th data-quarto-table-cell-role="th">World Makers</th>
-<th data-quarto-table-cell-role="th">gamigo US Inc.</th>
-<th data-quarto-table-cell-role="th">鬼谷工作室</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">0</td>
-<td>1</td>
-<td>570</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>...</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>1</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">1</td>
-<td>2</td>
-<td>730</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>...</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>1</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">2</td>
-<td>3</td>
-<td>1172470</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>...</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">3</td>
-<td>4</td>
-<td>578080</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>...</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">4</td>
-<td>5</td>
-<td>1063730</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>1</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>...</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">95</td>
-<td>96</td>
-<td>594570</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>...</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">96</td>
-<td>97</td>
-<td>319630</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>...</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">97</td>
-<td>98</td>
-<td>12120</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>...</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">98</td>
-<td>99</td>
-<td>109600</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>...</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">99</td>
-<td>100</td>
-<td>311210</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>...</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-</tr>
-</tbody>
-</table>
-
-<p>100 rows × 83 columns</p>
-</div>
-</div>
-</div>
-<div class="cell" data-execution_count="164">
-<div class="cell-output cell-output-display" data-execution_count="164">
-<div>
-<style scoped="">
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead tr th {
-        text-align: left;
-    }
-
-    .dataframe thead tr:last-of-type th {
-        text-align: right;
-    }
-</style>
-
-<table class="dataframe" data-quarto-postprocess="true" data-border="1">
-<thead>
-<tr class="header">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th"></th>
-<th colspan="10" data-quarto-table-cell-role="th" data-halign="left">24 Entertainment</th>
-<th data-quarto-table-cell-role="th">...</th>
-<th colspan="10" data-quarto-table-cell-role="th" data-halign="left">鬼谷工作室</th>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">developer</th>
-<th data-quarto-table-cell-role="th">24 Entertainment</th>
-<th data-quarto-table-cell-role="th">343 Industries</th>
-<th data-quarto-table-cell-role="th">343 Industries, Splash Damage, Ruffian Games, Bungie, Saber Interactive</th>
-<th data-quarto-table-cell-role="th">Amazon Games</th>
-<th data-quarto-table-cell-role="th">Aurora Studio</th>
-<th data-quarto-table-cell-role="th">Avalanche Software</th>
-<th data-quarto-table-cell-role="th">Axolot Games</th>
-<th data-quarto-table-cell-role="th">Behaviour Interactive Inc.</th>
-<th data-quarto-table-cell-role="th">BetaDwarf</th>
-<th data-quarto-table-cell-role="th">Blue Mammoth Games</th>
-<th data-quarto-table-cell-role="th">...</th>
-<th data-quarto-table-cell-role="th">Ubisoft Montreal</th>
-<th data-quarto-table-cell-role="th">VALOFE, NS STUDIO</th>
-<th data-quarto-table-cell-role="th">Valve</th>
-<th data-quarto-table-cell-role="th">Valve, Hidden Path Entertainment</th>
-<th data-quarto-table-cell-role="th">Valve, NEXON</th>
-<th data-quarto-table-cell-role="th">Wargaming Group Limited</th>
-<th data-quarto-table-cell-role="th">World Makers</th>
-<th data-quarto-table-cell-role="th">gamigo US Inc.</th>
-<th data-quarto-table-cell-role="th">鬼谷工作室</th>
-<th data-quarto-table-cell-role="th">All</th>
-</tr>
-<tr class="header">
-<th data-quarto-table-cell-role="th">spy_rank</th>
-<th data-quarto-table-cell-role="th">name</th>
-<th data-quarto-table-cell-role="th">appid</th>
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th"></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">1</td>
-<td data-quarto-table-cell-role="th">Dota 2</td>
-<td data-quarto-table-cell-role="th">570</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>...</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>NaN</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">2</td>
-<td data-quarto-table-cell-role="th">Counter-Strike: Global Offensive</td>
-<td data-quarto-table-cell-role="th">730</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>...</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>NaN</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">3</td>
-<td data-quarto-table-cell-role="th">Apex Legends</td>
-<td data-quarto-table-cell-role="th">1172470</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>...</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>NaN</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">4</td>
-<td data-quarto-table-cell-role="th">PUBG: BATTLEGROUNDS</td>
-<td data-quarto-table-cell-role="th">578080</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>...</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>NaN</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">5</td>
-<td data-quarto-table-cell-role="th">New World</td>
-<td data-quarto-table-cell-role="th">1063730</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>...</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>NaN</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">...</td>
-<td data-quarto-table-cell-role="th">...</td>
-<td data-quarto-table-cell-role="th">...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-<td>...</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">97</td>
-<td data-quarto-table-cell-role="th">Life is Strange - Episode 1</td>
-<td data-quarto-table-cell-role="th">319630</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>...</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>NaN</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">98</td>
-<td data-quarto-table-cell-role="th">Grand Theft Auto: San Andreas</td>
-<td data-quarto-table-cell-role="th">12120</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>...</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>NaN</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">99</td>
-<td data-quarto-table-cell-role="th">Neverwinter</td>
-<td data-quarto-table-cell-role="th">109600</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>...</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>NaN</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">100</td>
-<td data-quarto-table-cell-role="th">Call of Duty: Black Ops III</td>
-<td data-quarto-table-cell-role="th">311210</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>...</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>NaN</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th"></td>
-<td data-quarto-table-cell-role="th"></td>
-<td data-quarto-table-cell-role="th">All</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>...</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0.0</td>
-</tr>
-</tbody>
-</table>
-
-<p>101 rows × 7708 columns</p>
-</div>
-</div>
-</div>
-<h3 id="visualisation-8-heatmap">Visualisation 8: heatmap</h3>
-<div class="cell" data-execution_count="162">
-<div class="cell-output cell-output-display">
-<pre><code>&lt;Figure size 5000x5000 with 0 Axes&gt;</code></pre>
-</div>
-<div class="cell-output cell-output-display">
-<pre><code>&lt;Figure size 5000x5000 with 0 Axes&gt;</code></pre>
-</div>
-<div class="cell-output cell-output-display">
-<pre><code>&lt;Figure size 5000x5000 with 0 Axes&gt;</code></pre>
-</div>
-<div class="cell-output cell-output-display">
-<pre><code>&lt;Figure size 5000x5000 with 0 Axes&gt;</code></pre>
-</div>
-
-</div>
-<img data-src="Index_files/figure-revealjs/cell-48-output-5.png" class="r-stretch"></section>
-</div>
-<section id="h2" class="slide level2">
-<h2>H2:</h2>
+<section id="h2-developers-that-have-created-more-top-100-games-have-higher-ability-to-produce-more-top-100-games-in-the-future-individuals-who-would-like-to-produce-popular-games-could-go-to-these-developers" class="slide level2">
+<h2>H2: Developers that have created more top 100 games have higher ability to produce more top 100 games in the future (Individuals who would like to produce popular games could go to these developers)?</h2>
 <ul>
-<li>V1:</li>
-<li>V2:</li>
+<li>V1: What developers create the most games?</li>
+<li>V2: What developers create the most top 100 games</li>
 <li>V3:</li>
 </ul>
 </section>
@@ -3998,21 +544,21 @@ Name: developer, Length: 100, dtype: object</code></pre>
 <p>code to obtain the correlation matrix plot of the initial DF</p>
 <div class="columns">
 <div class="column" style="width:40%;">
-<div class="sourceCode" id="cb21"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb21-2"><a href="#cb21-2"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
-<span id="cb21-3"><a href="#cb21-3"></a></span>
-<span id="cb21-4"><a href="#cb21-4"></a><span class="co"># plot the correlation matrix</span></span>
-<span id="cb21-5"><a href="#cb21-5"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">12</span>,<span class="dv">10</span>), dpi<span class="op">=</span> <span class="dv">80</span>)</span>
-<span id="cb21-6"><a href="#cb21-6"></a>sns.heatmap(data.corr(), xticklabels<span class="op">=</span>data.corr().columns, </span>
-<span id="cb21-7"><a href="#cb21-7"></a>    yticklabels<span class="op">=</span>data.corr().columns, </span>
-<span id="cb21-8"><a href="#cb21-8"></a>    cmap<span class="op">=</span><span class="st">'RdYlGn'</span>, c</span>
-<span id="cb21-9"><a href="#cb21-9"></a>    enter<span class="op">=</span><span class="dv">0</span>, annot<span class="op">=</span><span class="va">True</span>, fmt<span class="op">=</span><span class="st">".2f"</span>)</span>
-<span id="cb21-10"><a href="#cb21-10"></a></span>
-<span id="cb21-11"><a href="#cb21-11"></a><span class="co"># decoration</span></span>
-<span id="cb21-12"><a href="#cb21-12"></a>plt.title(<span class="st">'Correlogram of Steam Games data'</span>, fontsize<span class="op">=</span><span class="dv">22</span>)</span>
-<span id="cb21-13"><a href="#cb21-13"></a>plt.xticks(fontsize<span class="op">=</span><span class="dv">12</span>)</span>
-<span id="cb21-14"><a href="#cb21-14"></a>plt.yticks(fontsize<span class="op">=</span><span class="dv">12</span>)</span>
-<span id="cb21-15"><a href="#cb21-15"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb2-3"><a href="#cb2-3"></a></span>
+<span id="cb2-4"><a href="#cb2-4"></a><span class="co"># plot the correlation matrix</span></span>
+<span id="cb2-5"><a href="#cb2-5"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">12</span>,<span class="dv">10</span>), dpi<span class="op">=</span> <span class="dv">80</span>)</span>
+<span id="cb2-6"><a href="#cb2-6"></a>sns.heatmap(data.corr(), xticklabels<span class="op">=</span>data.corr().columns, </span>
+<span id="cb2-7"><a href="#cb2-7"></a>    yticklabels<span class="op">=</span>data.corr().columns, </span>
+<span id="cb2-8"><a href="#cb2-8"></a>    cmap<span class="op">=</span><span class="st">'RdYlGn'</span>, c</span>
+<span id="cb2-9"><a href="#cb2-9"></a>    enter<span class="op">=</span><span class="dv">0</span>, annot<span class="op">=</span><span class="va">True</span>, fmt<span class="op">=</span><span class="st">".2f"</span>)</span>
+<span id="cb2-10"><a href="#cb2-10"></a></span>
+<span id="cb2-11"><a href="#cb2-11"></a><span class="co"># decoration</span></span>
+<span id="cb2-12"><a href="#cb2-12"></a>plt.title(<span class="st">'Correlogram of Steam Games data'</span>, fontsize<span class="op">=</span><span class="dv">22</span>)</span>
+<span id="cb2-13"><a href="#cb2-13"></a>plt.xticks(fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb2-14"><a href="#cb2-14"></a>plt.yticks(fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb2-15"><a href="#cb2-15"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column" style="width:60%;">
 <div data-notebook="Linear_regression.ipynb" data-notebook-title="Implement Linear Regression">
 <div class="cell" data-execution_count="64">
@@ -4290,23 +836,23 @@ Name: developer, Length: 100, dtype: object</code></pre>
 </section>
 <section id="tranforming-the-data" class="slide level2" data-transition="slide" data-auto-animate="true">
 <h2 data-id="quarto-animate-title">Tranforming the Data</h2>
-<div class="sourceCode" id="cb23"><pre class="sourceCode numberSource python number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode python hljs"><span id="cb23-1" class="hljs-ln-code"><a href="#cb23-1"></a><span class="co"># clean </span></span>
-<span id="cb23-2" class="hljs-ln-code"><a href="#cb23-2"></a>df_genres <span class="op">=</span> data.copy()</span>
-<span id="cb23-3" class="hljs-ln-code"><a href="#cb23-3"></a>df_genres <span class="op">=</span> df_genres.drop([<span class="st">'score_rank'</span>,<span class="st">'initialprice'</span>,<span class="st">'discount'</span>,<span class="st">'userscore'</span>],axis<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb23-4" class="hljs-ln-code"><a href="#cb23-4"></a>df_genres[<span class="st">'appid'</span>] <span class="op">=</span> df_genres[<span class="st">'appid'</span>].astype(<span class="bu">int</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode python hljs"><span id="cb4-1" class="hljs-ln-code"><a href="#cb4-1"></a><span class="co"># clean </span></span>
+<span id="cb4-2" class="hljs-ln-code"><a href="#cb4-2"></a>df_genres <span class="op">=</span> data.copy()</span>
+<span id="cb4-3" class="hljs-ln-code"><a href="#cb4-3"></a>df_genres <span class="op">=</span> df_genres.drop([<span class="st">'score_rank'</span>,<span class="st">'initialprice'</span>,<span class="st">'discount'</span>,<span class="st">'userscore'</span>],axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb4-4" class="hljs-ln-code"><a href="#cb4-4"></a>df_genres[<span class="st">'appid'</span>] <span class="op">=</span> df_genres[<span class="st">'appid'</span>].astype(<span class="bu">int</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="from-str-to-int-owners" class="slide level2" data-auto-animate="true">
 <h2 data-id="quarto-animate-title">From str to int : owners</h2>
-<div class="sourceCode" id="cb24"><pre class="sourceCode numberSource python number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode python hljs"><span id="cb24-1" class="hljs-ln-code"><a href="#cb24-1"></a><span class="co"># clean </span></span>
-<span id="cb24-2" class="hljs-ln-code"><a href="#cb24-2"></a>df_genres <span class="op">=</span> data.copy()</span>
-<span id="cb24-3" class="hljs-ln-code"><a href="#cb24-3"></a>df_genres <span class="op">=</span> df_genres.drop([<span class="st">'score_rank'</span>,<span class="st">'initialprice'</span>,<span class="st">'discount'</span>,<span class="st">'userscore'</span>],axis<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb24-4" class="hljs-ln-code"><a href="#cb24-4"></a>df_genres[<span class="st">'appid'</span>] <span class="op">=</span> df_genres[<span class="st">'appid'</span>].astype(<span class="bu">int</span>)</span>
-<span id="cb24-5" class="hljs-ln-code"><a href="#cb24-5"></a></span>
-<span id="cb24-6" class="hljs-ln-code"><a href="#cb24-6"></a><span class="co"># get the average of the owners</span></span>
-<span id="cb24-7" class="hljs-ln-code"><a href="#cb24-7"></a>owners <span class="op">=</span> pd.DataFrame(df_genres[<span class="st">'owners'</span>].<span class="bu">str</span>.replace(<span class="st">','</span>,<span class="st">''</span>).<span class="bu">str</span>.split(<span class="st">' .. '</span>).tolist(),columns <span class="op">=</span> [<span class="st">'min'</span>,<span class="st">'max'</span>])</span>
-<span id="cb24-8" class="hljs-ln-code"><a href="#cb24-8"></a>df_genres[<span class="st">'owners'</span>]<span class="op">=</span> owners.astype(<span class="bu">int</span>).<span class="bu">sum</span>(axis<span class="op">=</span><span class="dv">1</span>)<span class="op">/</span><span class="dv">2</span></span>
-<span id="cb24-9" class="hljs-ln-code"><a href="#cb24-9"></a>df_genres[<span class="st">'owners'</span>] <span class="op">=</span> df_genres[<span class="st">'owners'</span>].astype(<span class="bu">int</span>)</span>
-<span id="cb24-10" class="hljs-ln-code"><a href="#cb24-10"></a>df_genres.rename(columns<span class="op">=</span>{<span class="st">'owners'</span>:<span class="st">'avg_owners'</span>},inplace<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode python hljs"><span id="cb5-1" class="hljs-ln-code"><a href="#cb5-1"></a><span class="co"># clean </span></span>
+<span id="cb5-2" class="hljs-ln-code"><a href="#cb5-2"></a>df_genres <span class="op">=</span> data.copy()</span>
+<span id="cb5-3" class="hljs-ln-code"><a href="#cb5-3"></a>df_genres <span class="op">=</span> df_genres.drop([<span class="st">'score_rank'</span>,<span class="st">'initialprice'</span>,<span class="st">'discount'</span>,<span class="st">'userscore'</span>],axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb5-4" class="hljs-ln-code"><a href="#cb5-4"></a>df_genres[<span class="st">'appid'</span>] <span class="op">=</span> df_genres[<span class="st">'appid'</span>].astype(<span class="bu">int</span>)</span>
+<span id="cb5-5" class="hljs-ln-code"><a href="#cb5-5"></a></span>
+<span id="cb5-6" class="hljs-ln-code"><a href="#cb5-6"></a><span class="co"># get the average of the owners</span></span>
+<span id="cb5-7" class="hljs-ln-code"><a href="#cb5-7"></a>owners <span class="op">=</span> pd.DataFrame(df_genres[<span class="st">'owners'</span>].<span class="bu">str</span>.replace(<span class="st">','</span>,<span class="st">''</span>).<span class="bu">str</span>.split(<span class="st">' .. '</span>).tolist(),columns <span class="op">=</span> [<span class="st">'min'</span>,<span class="st">'max'</span>])</span>
+<span id="cb5-8" class="hljs-ln-code"><a href="#cb5-8"></a>df_genres[<span class="st">'owners'</span>]<span class="op">=</span> owners.astype(<span class="bu">int</span>).<span class="bu">sum</span>(axis<span class="op">=</span><span class="dv">1</span>)<span class="op">/</span><span class="dv">2</span></span>
+<span id="cb5-9" class="hljs-ln-code"><a href="#cb5-9"></a>df_genres[<span class="st">'owners'</span>] <span class="op">=</span> df_genres[<span class="st">'owners'</span>].astype(<span class="bu">int</span>)</span>
+<span id="cb5-10" class="hljs-ln-code"><a href="#cb5-10"></a>df_genres.rename(columns<span class="op">=</span>{<span class="st">'owners'</span>:<span class="st">'avg_owners'</span>},inplace<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="tweeking-and-made-usefull" class="slide level2" data-auto-animate="true">
 <h2 data-id="quarto-animate-title">Tweeking and Made Usefull</h2>
@@ -4334,11 +880,11 @@ Name: developer, Length: 100, dtype: object</code></pre>
 <dl class="code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-4" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-annotation="1" data-code-cell="annotated-cell-4" data-code-lines="3">drop the columns [‘score_rank’,‘initialprice’,‘discount’,‘userscore’]</span>
+<span data-code-cell="annotated-cell-4" data-code-annotation="1" data-code-lines="3">drop the columns [‘score_rank’,‘initialprice’,‘discount’,‘userscore’]</span>
 </dd>
 <dt data-target-cell="annotated-cell-4" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-annotation="2" data-code-cell="annotated-cell-4" data-code-lines="13">create new column, ‘positive_ratio’, that give the ratio of positive reviews over total reviews</span>
+<span data-code-cell="annotated-cell-4" data-code-annotation="2" data-code-lines="13">create new column, ‘positive_ratio’, that give the ratio of positive reviews over total reviews</span>
 </dd>
 </dl>
 </section>
@@ -4347,26 +893,26 @@ Name: developer, Length: 100, dtype: object</code></pre>
 <p>get the genres dummy variables from our data</p>
 <div class="columns">
 <div class="column" style="width:80%;">
-<div class="sourceCode" id="cb25" data-code-line-numbers="|4-13|15-20"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1"></a>genres <span class="op">=</span> [<span class="st">'Action'</span>,<span class="st">'Strategy'</span>,<span class="st">'RPG'</span>,<span class="st">'Indie'</span>,<span class="st">'Adventure'</span>,<span class="st">'Sports'</span>,<span class="st">'Simulation'</span></span>
-<span id="cb25-2"><a href="#cb25-2"></a>          ,<span class="st">'Early+Access'</span>,<span class="st">'Ex+Early+Access'</span>,<span class="st">'Massively'</span>,<span class="st">'Free'</span>]</span>
-<span id="cb25-3"><a href="#cb25-3"></a></span>
-<span id="cb25-4"><a href="#cb25-4"></a><span class="kw">def</span> get_games_by_genre(genre):</span>
-<span id="cb25-5"><a href="#cb25-5"></a>    <span class="co"># get the list of appids for games in genre</span></span>
-<span id="cb25-6"><a href="#cb25-6"></a>    url <span class="op">=</span> <span class="ss">f'https://steamspy.com/api.php?request=genre&amp;genre=</span><span class="sc">{</span>genre<span class="sc">}</span><span class="ss">'</span></span>
-<span id="cb25-7"><a href="#cb25-7"></a>    response <span class="op">=</span> requests.get(url)</span>
-<span id="cb25-8"><a href="#cb25-8"></a>    response <span class="op">=</span> json.loads(response.text)</span>
-<span id="cb25-9"><a href="#cb25-9"></a>    genre_df <span class="op">=</span> json_normalize(response,max_level<span class="op">=</span><span class="dv">0</span>)</span>
-<span id="cb25-10"><a href="#cb25-10"></a>    genre_df <span class="op">=</span> pd.DataFrame(response)</span>
-<span id="cb25-11"><a href="#cb25-11"></a>    genre_df <span class="op">=</span> genre_df.transpose()</span>
-<span id="cb25-12"><a href="#cb25-12"></a>    genre_df <span class="op">=</span> genre_df.reset_index(drop<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb25-13"><a href="#cb25-13"></a>    <span class="cf">return</span> genre_df</span>
-<span id="cb25-14"><a href="#cb25-14"></a></span>
-<span id="cb25-15"><a href="#cb25-15"></a><span class="co">#iterate trough games and obtain dummy variable columns for each genre</span></span>
-<span id="cb25-16"><a href="#cb25-16"></a>not_matched <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb25-17"><a href="#cb25-17"></a><span class="cf">for</span> genre <span class="kw">in</span> genres: </span>
-<span id="cb25-18"><a href="#cb25-18"></a>    df_genres[<span class="ss">f'genre_</span><span class="sc">{</span>genre<span class="sc">}</span><span class="ss">'</span>] <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb25-19"><a href="#cb25-19"></a>    df_genres[<span class="ss">f'genre_</span><span class="sc">{</span>genre<span class="sc">}</span><span class="ss">'</span>][df_genres[<span class="st">'appid'</span>].astype(<span class="bu">int</span>)</span>
-<span id="cb25-20"><a href="#cb25-20"></a>      .isin(get_games_by_genre(<span class="ss">f'</span><span class="sc">{</span>genre<span class="sc">}</span><span class="ss">'</span>)[<span class="st">'appid'</span>])] <span class="op">=</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb6" data-code-line-numbers="|4-13|15-20"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a>genres <span class="op">=</span> [<span class="st">'Action'</span>,<span class="st">'Strategy'</span>,<span class="st">'RPG'</span>,<span class="st">'Indie'</span>,<span class="st">'Adventure'</span>,<span class="st">'Sports'</span>,<span class="st">'Simulation'</span></span>
+<span id="cb6-2"><a href="#cb6-2"></a>          ,<span class="st">'Early+Access'</span>,<span class="st">'Ex+Early+Access'</span>,<span class="st">'Massively'</span>,<span class="st">'Free'</span>]</span>
+<span id="cb6-3"><a href="#cb6-3"></a></span>
+<span id="cb6-4"><a href="#cb6-4"></a><span class="kw">def</span> get_games_by_genre(genre):</span>
+<span id="cb6-5"><a href="#cb6-5"></a>    <span class="co"># get the list of appids for games in genre</span></span>
+<span id="cb6-6"><a href="#cb6-6"></a>    url <span class="op">=</span> <span class="ss">f'https://steamspy.com/api.php?request=genre&amp;genre=</span><span class="sc">{</span>genre<span class="sc">}</span><span class="ss">'</span></span>
+<span id="cb6-7"><a href="#cb6-7"></a>    response <span class="op">=</span> requests.get(url)</span>
+<span id="cb6-8"><a href="#cb6-8"></a>    response <span class="op">=</span> json.loads(response.text)</span>
+<span id="cb6-9"><a href="#cb6-9"></a>    genre_df <span class="op">=</span> json_normalize(response,max_level<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb6-10"><a href="#cb6-10"></a>    genre_df <span class="op">=</span> pd.DataFrame(response)</span>
+<span id="cb6-11"><a href="#cb6-11"></a>    genre_df <span class="op">=</span> genre_df.transpose()</span>
+<span id="cb6-12"><a href="#cb6-12"></a>    genre_df <span class="op">=</span> genre_df.reset_index(drop<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb6-13"><a href="#cb6-13"></a>    <span class="cf">return</span> genre_df</span>
+<span id="cb6-14"><a href="#cb6-14"></a></span>
+<span id="cb6-15"><a href="#cb6-15"></a><span class="co">#iterate trough games and obtain dummy variable columns for each genre</span></span>
+<span id="cb6-16"><a href="#cb6-16"></a>not_matched <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb6-17"><a href="#cb6-17"></a><span class="cf">for</span> genre <span class="kw">in</span> genres: </span>
+<span id="cb6-18"><a href="#cb6-18"></a>    df_genres[<span class="ss">f'genre_</span><span class="sc">{</span>genre<span class="sc">}</span><span class="ss">'</span>] <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb6-19"><a href="#cb6-19"></a>    df_genres[<span class="ss">f'genre_</span><span class="sc">{</span>genre<span class="sc">}</span><span class="ss">'</span>][df_genres[<span class="st">'appid'</span>].astype(<span class="bu">int</span>)</span>
+<span id="cb6-20"><a href="#cb6-20"></a>      .isin(get_games_by_genre(<span class="ss">f'</span><span class="sc">{</span>genre<span class="sc">}</span><span class="ss">'</span>)[<span class="st">'appid'</span>])] <span class="op">=</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column" style="width:20%;">
 <p>Current columns</p>
 <div data-notebook="Linear_regression.ipynb" data-notebook-title="Implement Linear Regression">
@@ -5336,6 +1882,604 @@ Name: developer, Length: 100, dtype: object</code></pre>
 </div>
 </div>
 </div>
+</section>
+<section id="data-pivoting-analysis-on-genre" class="slide level2">
+<h2>Data pivoting analysis on genre</h2>
+<p>content: - Data collection - from Steam API [endpoint: appdetails] - top 500 games ❕ - Data cleaning - Plots on gneres (the factor itself)</p>
+</section>
+<section id="genre-data-collection" class="slide level2">
+<h2>Genre Data Collection</h2>
+<div class="panel-tabset">
+<ul id="tabset-2" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-2-1">Code</a></li><li><a href="#tabset-2-2">Data</a></li></ul>
+<div class="tab-content">
+<div id="tabset-2-1">
+<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1"></a><span class="kw">def</span> get_genre(app_id):</span>
+<span id="cb8-2"><a href="#cb8-2"></a>    <span class="co">"""</span></span>
+<span id="cb8-3"><a href="#cb8-3"></a><span class="co">    A fucntion to obtain the corresponding genres to each game</span></span>
+<span id="cb8-4"><a href="#cb8-4"></a><span class="co">    Argu: app_id: the unique id number of each game</span></span>
+<span id="cb8-5"><a href="#cb8-5"></a><span class="co">    Return: a list of genres</span></span>
+<span id="cb8-6"><a href="#cb8-6"></a><span class="co">    """</span></span>
+<span id="cb8-7"><a href="#cb8-7"></a>    url <span class="op">=</span> <span class="st">'https://store.steampowered.com/api/appdetails'</span></span>
+<span id="cb8-8"><a href="#cb8-8"></a>    parameters <span class="op">=</span> {<span class="st">'appids'</span>: app_id, <span class="st">'filters'</span>: <span class="st">'genres'</span>}</span>
+<span id="cb8-9"><a href="#cb8-9"></a>    response <span class="op">=</span> requests.get(url, params<span class="op">=</span>parameters)</span>
+<span id="cb8-10"><a href="#cb8-10"></a>    response <span class="op">=</span> json.loads(response.text)</span>
+<span id="cb8-11"><a href="#cb8-11"></a>    <span class="cf">if</span> response <span class="op">!=</span> <span class="va">None</span> <span class="kw">and</span> response[<span class="bu">str</span>(app_id)][<span class="st">'success'</span>] <span class="op">==</span> <span class="va">True</span> <span class="kw">and</span> <span class="bu">isinstance</span>(response[<span class="bu">str</span>(app_id)][<span class="st">'data'</span>], <span class="bu">dict</span>) <span class="op">==</span> <span class="va">True</span>:</span>
+<span id="cb8-12"><a href="#cb8-12"></a>        genre_dict <span class="op">=</span> response[<span class="bu">str</span>(app_id)][<span class="st">'data'</span>][<span class="st">'genres'</span>]</span>
+<span id="cb8-13"><a href="#cb8-13"></a>        genre_list <span class="op">=</span> [genre[<span class="st">'description'</span>] <span class="cf">for</span> genre <span class="kw">in</span> genre_dict]</span>
+<span id="cb8-14"><a href="#cb8-14"></a>        <span class="cf">return</span> genre_list</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="tabset-2-2">
+<table>
+<colgroup>
+<col style="width: 5%">
+<col style="width: 48%">
+<col style="width: 12%">
+<col style="width: 32%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: right;"></th>
+<th style="text-align: left;">name</th>
+<th style="text-align: right;">appid</th>
+<th style="text-align: left;">genre</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">Dota 2</td>
+<td style="text-align: right;">570</td>
+<td style="text-align: left;">Action</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">Dota 2</td>
+<td style="text-align: right;">570</td>
+<td style="text-align: left;">Free to Play</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">Dota 2</td>
+<td style="text-align: right;">570</td>
+<td style="text-align: left;">Strategy</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">3</td>
+<td style="text-align: left;">Counter-Strike: Global Offensive</td>
+<td style="text-align: right;">730</td>
+<td style="text-align: left;">Action</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">4</td>
+<td style="text-align: left;">Counter-Strike: Global Offensive</td>
+<td style="text-align: right;">730</td>
+<td style="text-align: left;">Free to Play</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">5</td>
+<td style="text-align: left;">Apex Legends</td>
+<td style="text-align: right;">1172470</td>
+<td style="text-align: left;">Action</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">6</td>
+<td style="text-align: left;">Apex Legends</td>
+<td style="text-align: right;">1172470</td>
+<td style="text-align: left;">Adventure</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">7</td>
+<td style="text-align: left;">Apex Legends</td>
+<td style="text-align: right;">1172470</td>
+<td style="text-align: left;">Free to Play</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">8</td>
+<td style="text-align: left;">PUBG: BATTLEGROUNDS</td>
+<td style="text-align: right;">578080</td>
+<td style="text-align: left;">Action</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">9</td>
+<td style="text-align: left;">PUBG: BATTLEGROUNDS</td>
+<td style="text-align: right;">578080</td>
+<td style="text-align: left;">Adventure</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">10</td>
+<td style="text-align: left;">PUBG: BATTLEGROUNDS</td>
+<td style="text-align: right;">578080</td>
+<td style="text-align: left;">Free to Play</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">11</td>
+<td style="text-align: left;">PUBG: BATTLEGROUNDS</td>
+<td style="text-align: right;">578080</td>
+<td style="text-align: left;">Massively Multiplayer</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">12</td>
+<td style="text-align: left;">New World</td>
+<td style="text-align: right;">1063730</td>
+<td style="text-align: left;">Action</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">13</td>
+<td style="text-align: left;">New World</td>
+<td style="text-align: right;">1063730</td>
+<td style="text-align: left;">Adventure</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">14</td>
+<td style="text-align: left;">New World</td>
+<td style="text-align: right;">1063730</td>
+<td style="text-align: left;">Massively Multiplayer</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+<section id="data-pivoting" class="slide level2">
+<h2>Data pivoting</h2>
+<p>6 main genres including <code>'Action','Strategy','RPG','Indie','Adventure','Sports','Simulation'</code></p>
+<div class="panel-tabset">
+<ul id="tabset-3" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-3-1">Code</a></li><li><a href="#tabset-3-2">Table</a></li></ul>
+<div class="tab-content">
+<div id="tabset-3-1">
+<div class="sourceCode" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1"></a>index_cols      <span class="op">=</span> [<span class="st">'name'</span>, <span class="st">'appid'</span>]</span>
+<span id="cb9-2"><a href="#cb9-2"></a>col_aggregators <span class="op">=</span> [<span class="st">'genre'</span>]</span>
+<span id="cb9-3"><a href="#cb9-3"></a>value_col       <span class="op">=</span> [<span class="st">'present'</span>]</span>
+<span id="cb9-4"><a href="#cb9-4"></a></span>
+<span id="cb9-5"><a href="#cb9-5"></a>selected_cols <span class="op">=</span> index_cols <span class="op">+</span> col_aggregators <span class="op">+</span> value_col</span>
+<span id="cb9-6"><a href="#cb9-6"></a></span>
+<span id="cb9-7"><a href="#cb9-7"></a>df_pivotted <span class="op">=</span> df.drop_duplicates()<span class="op">\</span></span>
+<span id="cb9-8"><a href="#cb9-8"></a>        .assign(present<span class="op">=</span><span class="dv">1</span>)[selected_cols]<span class="op">\</span></span>
+<span id="cb9-9"><a href="#cb9-9"></a>        .pivot_table(index<span class="op">=</span>index_cols, columns<span class="op">=</span>col_aggregators, fill_value<span class="op">=</span><span class="dv">0</span>, margins<span class="op">=</span><span class="va">True</span>, aggfunc<span class="op">=</span>np.<span class="bu">sum</span>)<span class="op">\</span></span>
+<span id="cb9-10"><a href="#cb9-10"></a>        .sort_values((<span class="st">'present'</span>,                  <span class="st">'All'</span>), ascending<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="tabset-3-2">
+<div data-notebook="genre_data_pivoting.ipynb" data-notebook-title="Genre Data Analysis:">
+<div class="cell" data-execution_count="21">
+<div id="data-pivoting-table" class="cell-output cell-output-display">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead tr th {
+        text-align: left;
+    }
+
+    .dataframe thead tr:last-of-type th {
+        text-align: right;
+    }
+</style>
+
+<table class="dataframe" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th colspan="8" data-quarto-table-cell-role="th" data-halign="left">present</th>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">genre</th>
+<th data-quarto-table-cell-role="th">Action</th>
+<th data-quarto-table-cell-role="th">Adventure</th>
+<th data-quarto-table-cell-role="th">Indie</th>
+<th data-quarto-table-cell-role="th">RPG</th>
+<th data-quarto-table-cell-role="th">Simulation</th>
+<th data-quarto-table-cell-role="th">Sports</th>
+<th data-quarto-table-cell-role="th">Strategy</th>
+<th data-quarto-table-cell-role="th">All</th>
+</tr>
+<tr class="header">
+<th data-quarto-table-cell-role="th">name</th>
+<th data-quarto-table-cell-role="th">appid</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">All</td>
+<td data-quarto-table-cell-role="th"></td>
+<td>497</td>
+<td>196</td>
+<td>165</td>
+<td>119</td>
+<td>49</td>
+<td>11</td>
+<td>61</td>
+<td>1098</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">7 Days to Die</td>
+<td data-quarto-table-cell-role="th">251570</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>6</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Mount &amp; Blade II: Bannerlord</td>
+<td data-quarto-table-cell-role="th">261550</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>5</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">Warface</td>
+<td data-quarto-table-cell-role="th">291480</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>5</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Noita</td>
+<td data-quarto-table-cell-role="th">881100</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>5</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">...</td>
+<td data-quarto-table-cell-role="th">...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Day of Defeat: Source</td>
+<td data-quarto-table-cell-role="th">300</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">Day of Defeat</td>
+<td data-quarto-table-cell-role="th">30</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Halo: The Master Chief Collection</td>
+<td data-quarto-table-cell-role="th">976730</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">Hitman: Absolution</td>
+<td data-quarto-table-cell-role="th">203140</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">Saints Row: The Third</td>
+<td data-quarto-table-cell-role="th">55230</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+
+<p>498 rows × 8 columns</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="plots" class="slide level2">
+<h2>Plots</h2>
+<p>plot-1: bar chart about the number of games per genre</p>
+<div class="panel-tabset">
+<ul id="tabset-4" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-4-1">table</a></li><li><a href="#tabset-4-2">bar chart</a></li></ul>
+<div class="tab-content">
+<div id="tabset-4-1">
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: right;"></th>
+<th style="text-align: left;">genre</th>
+<th style="text-align: right;">num_game</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">Action</td>
+<td style="text-align: right;">497</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">Adventure</td>
+<td style="text-align: right;">196</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">Indie</td>
+<td style="text-align: right;">165</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">3</td>
+<td style="text-align: left;">RPG</td>
+<td style="text-align: right;">119</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">4</td>
+<td style="text-align: left;">Simulation</td>
+<td style="text-align: right;">49</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">5</td>
+<td style="text-align: left;">Sports</td>
+<td style="text-align: right;">11</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">6</td>
+<td style="text-align: left;">Strategy</td>
+<td style="text-align: right;">61</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="tabset-4-2">
+<div class="columns">
+<div class="column" style="width:40%;">
+<div class="sourceCode" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1"></a><span class="im">from</span> plotnine <span class="im">import</span> <span class="op">*</span></span>
+<span id="cb10-2"><a href="#cb10-2"></a></span>
+<span id="cb10-3"><a href="#cb10-3"></a>order_categories <span class="op">=</span> genre_df.sort_values(<span class="st">"num_game"</span>, ascending<span class="op">=</span><span class="va">False</span>)[<span class="st">"genre"</span>].unique()</span>
+<span id="cb10-4"><a href="#cb10-4"></a>genre_df[<span class="st">"genre"</span>] <span class="op">=</span> pd.Categorical(genre_df[<span class="st">"genre"</span>], categories<span class="op">=</span>order_categories, ordered<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb10-5"><a href="#cb10-5"></a></span>
+<span id="cb10-6"><a href="#cb10-6"></a>g <span class="op">=</span> (ggplot(genre_df, aes(x<span class="op">=</span><span class="st">"genre"</span>, y<span class="op">=</span><span class="st">"num_game"</span>, fill<span class="op">=</span><span class="st">"num_game"</span>)) <span class="op">+</span></span>
+<span id="cb10-7"><a href="#cb10-7"></a>        geom_col() <span class="op">+</span>    <span class="co"># Bar chart</span></span>
+<span id="cb10-8"><a href="#cb10-8"></a>        theme_minimal() <span class="op">+</span>   <span class="co"># Minimal theme</span></span>
+<span id="cb10-9"><a href="#cb10-9"></a>        coord_flip() <span class="op">+</span></span>
+<span id="cb10-10"><a href="#cb10-10"></a>        scale_y_continuous(breaks<span class="op">=</span><span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">500</span>, <span class="dv">100</span>)) <span class="op">+</span>   <span class="co"># Set the x-axis ticks</span></span>
+<span id="cb10-11"><a href="#cb10-11"></a>        scale_x_discrete(limits<span class="op">=</span>order_categories) <span class="op">+</span>   <span class="co"># Set the x-axis limits</span></span>
+<span id="cb10-12"><a href="#cb10-12"></a>        guides(fill<span class="op">=</span><span class="va">False</span>) <span class="op">+</span>    <span class="co"># Remove the legend</span></span>
+<span id="cb10-13"><a href="#cb10-13"></a>        theme(figure_size<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">5</span>),</span>
+<span id="cb10-14"><a href="#cb10-14"></a>              axis_text <span class="op">=</span> element_text(size<span class="op">=</span><span class="dv">10</span>),</span>
+<span id="cb10-15"><a href="#cb10-15"></a>              text <span class="op">=</span> element_text(size<span class="op">=</span><span class="dv">10</span>),</span>
+<span id="cb10-16"><a href="#cb10-16"></a>              title<span class="op">=</span> element_text(size<span class="op">=</span><span class="dv">15</span>),</span>
+<span id="cb10-17"><a href="#cb10-17"></a>              plot_caption<span class="op">=</span>element_text(margin<span class="op">=</span>{<span class="st">"t"</span>: <span class="dv">20</span>})) <span class="op">+</span>   <span class="co"># Rotate the x-axis labels</span></span>
+<span id="cb10-18"><a href="#cb10-18"></a>        labs(title<span class="op">=</span><span class="st">"Number of games in each category"</span>,</span>
+<span id="cb10-19"><a href="#cb10-19"></a>             x<span class="op">=</span><span class="st">"Genre names"</span>, y<span class="op">=</span><span class="st">"Number of games"</span>)</span>
+<span id="cb10-20"><a href="#cb10-20"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div><div class="column" style="width:60%;">
+<div data-notebook="genre_data_pivoting.ipynb" data-notebook-title="Genre Data Analysis:">
+<div class="cell" data-execution_count="19">
+<div class="cell-output cell-output-display">
+<div id="fig-bar-chart" class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="Index_files/figure-revealjs/fig-bar-chart-output-1.png"></p>
+<p></p><figcaption>Figure&nbsp;32: Bar chart of number of games per genre</figcaption><p></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code></code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="more-plots" class="slide level2">
+<h2>More plots</h2>
+<p>Question: does the number of genres affect the performance of games Plot-2: scatter plot about correlation between number of genres and game ranking</p>
+<div class="panel-tabset">
+<ul id="tabset-5" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-5-1">code</a></li><li><a href="#tabset-5-2">table</a></li></ul>
+<div class="tab-content">
+<div id="tabset-5-1">
+<div class="sourceCode" id="cb12" data-code-line-numbers="4, 9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1"></a>num_genre_df <span class="op">=</span> df_pivotted.reset_index() <span class="co"># change the pivot table to dataframe</span></span>
+<span id="cb12-2"><a href="#cb12-2"></a>num_genre_df.columns <span class="op">=</span> num_genre_df.columns.droplevel(level<span class="op">=</span><span class="dv">0</span>) <span class="co"># drrop the firt level of column names</span></span>
+<span id="cb12-3"><a href="#cb12-3"></a>num_genre_df <span class="op">=</span> num_genre_df.drop(columns<span class="op">=</span>genres) <span class="co"># remove unnecessary columns</span></span>
+<span id="cb12-4"><a href="#cb12-4"></a>num_genre_df.columns <span class="op">=</span> [<span class="st">'name'</span>, <span class="st">'appid'</span>, <span class="st">'num_genres'</span>] <span class="co"># rename the remaining columns</span></span>
+<span id="cb12-5"><a href="#cb12-5"></a></span>
+<span id="cb12-6"><a href="#cb12-6"></a>df_ranking <span class="op">=</span> df.drop_duplicates(subset<span class="op">=</span><span class="st">'appid'</span>)<span class="op">\</span></span>
+<span id="cb12-7"><a href="#cb12-7"></a>            .drop(columns<span class="op">=</span>[<span class="st">'genre'</span>, <span class="st">'isin_genres'</span>])<span class="op">\</span></span>
+<span id="cb12-8"><a href="#cb12-8"></a>            .reset_index().drop(columns<span class="op">=</span><span class="st">'index'</span>)</span>
+<span id="cb12-9"><a href="#cb12-9"></a>df_ranking[<span class="st">'ranking'</span>] <span class="op">=</span> df_ranking.reset_index().index <span class="op">+</span> <span class="dv">1</span> <span class="co"># create a df with ranking</span></span>
+<span id="cb12-10"><a href="#cb12-10"></a></span>
+<span id="cb12-11"><a href="#cb12-11"></a>df_genre_ranking <span class="op">=</span> pd.merge(num_genre_df, df_ranking, on<span class="op">=</span><span class="st">'appid'</span>, how<span class="op">=</span><span class="st">'left'</span>)<span class="op">\</span></span>
+<span id="cb12-12"><a href="#cb12-12"></a>                    .drop(columns<span class="op">=</span><span class="st">'name_y'</span>)<span class="op">\</span></span>
+<span id="cb12-13"><a href="#cb12-13"></a>                    .sort_values(by<span class="op">=</span><span class="st">'ranking'</span>).reset_index().drop(columns<span class="op">=</span><span class="st">'index'</span>) <span class="co"># combine the two dfs</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="tabset-5-2">
+<table>
+<colgroup>
+<col style="width: 5%">
+<col style="width: 47%">
+<col style="width: 12%">
+<col style="width: 19%">
+<col style="width: 15%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: right;"></th>
+<th style="text-align: left;">name_x</th>
+<th style="text-align: right;">appid</th>
+<th style="text-align: right;">num_genres</th>
+<th style="text-align: right;">ranking</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">Dota 2</td>
+<td style="text-align: right;">570</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">Counter-Strike: Global Offensive</td>
+<td style="text-align: right;">730</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">Apex Legends</td>
+<td style="text-align: right;">1172470</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">3</td>
+<td style="text-align: left;">PUBG: BATTLEGROUNDS</td>
+<td style="text-align: right;">578080</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">4</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">4</td>
+<td style="text-align: left;">New World</td>
+<td style="text-align: right;">1063730</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">5</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">5</td>
+<td style="text-align: left;">Team Fortress 2</td>
+<td style="text-align: right;">440</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">6</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">6</td>
+<td style="text-align: left;">Grand Theft Auto V</td>
+<td style="text-align: right;">271590</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">7</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">7</td>
+<td style="text-align: left;">Lost Ark</td>
+<td style="text-align: right;">1599340</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">8</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">8</td>
+<td style="text-align: left;">Left 4 Dead 2</td>
+<td style="text-align: right;">550</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">9</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">9</td>
+<td style="text-align: left;">Unturned</td>
+<td style="text-align: right;">304930</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">10</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+<section id="more-plots-cont." class="slide level2">
+<h2>More plots (cont.)</h2>
+<div data-notebook="genre_data_pivoting.ipynb" data-notebook-title="Genre Data Analysis:">
+<div class="cell" data-execution_count="72">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1"></a><span class="kw">def</span> plot_scatter(x, y, title<span class="op">=</span><span class="st">''</span>, xlabel<span class="op">=</span><span class="st">''</span>, ylabel<span class="op">=</span><span class="st">''</span>, figsize<span class="op">=</span>(<span class="dv">15</span>,<span class="dv">7</span>)):</span>
+<span id="cb13-2"><a href="#cb13-2"></a>    plt.figure(figsize<span class="op">=</span>figsize)</span>
+<span id="cb13-3"><a href="#cb13-3"></a>    plt.title(title)</span>
+<span id="cb13-4"><a href="#cb13-4"></a>    plt.xlabel(xlabel)</span>
+<span id="cb13-5"><a href="#cb13-5"></a>    plt.ylabel(ylabel)</span>
+<span id="cb13-6"><a href="#cb13-6"></a>    plt.scatter(x, y)</span>
+<span id="cb13-7"><a href="#cb13-7"></a>    plt.show()</span>
+<span id="cb13-8"><a href="#cb13-8"></a></span>
+<span id="cb13-9"><a href="#cb13-9"></a>plot_scatter(df_genre_ranking[<span class="st">'ranking'</span>], df_genre_ranking[<span class="st">'num_genres'</span>], </span>
+<span id="cb13-10"><a href="#cb13-10"></a>             title<span class="op">=</span><span class="st">'Scatter Plot of Ranking and Number of genres'</span>, </span>
+<span id="cb13-11"><a href="#cb13-11"></a>             xlabel<span class="op">=</span><span class="st">'Ranking'</span>, ylabel<span class="op">=</span><span class="st">'Number of Genres'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div id="fig-scatter" class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="Index_files/figure-revealjs/fig-scatter-output-1.png"></p>
+<p></p><figcaption>Figure&nbsp;33: Scatter plot between number of genres and ranking</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<p>conslusion: no correlation between the two factors</p>
 <div class="footer footer-default">
 <p><a href="https://github.com/simondesh/DS105SuperStar" class="uri">https://github.com/simondesh/DS105SuperStar</a></p>
 </div>
