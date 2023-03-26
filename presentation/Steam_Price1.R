@@ -8,6 +8,7 @@ library(leaps)
 library(sandwich)
 library(MASS)
 library(visdat)
+library(corrplot)
 
 
 Steam<-read.csv("df_all_games.csv",header = TRUE)
@@ -24,7 +25,6 @@ Steam<-Steam[,-3]
 
 #check missing vales
 sum(is.na(Steam))
-str(Steam)
 
 #create a new coloum num_reviews that is postive+negative
 Steam$num_reviews=Steam$positive+Steam$negative
@@ -43,25 +43,39 @@ levels(Steam2$owners)[levels(Steam2$owners) %in% c("100,000 .. 200,000","200,000
 levels(Steam2$owners)[levels(Steam2$owners) %in% c("5,000,000 .. 10,000,000","2,000,000 .. 5,000,000","1,000,000 .. 2,000,000")] <- "High"
 levels(Steam2$owners)[levels(Steam2$owners) %in% c("200,000,000 .. 500,000,000","50,000,000 .. 100,000,000","20,000,000 .. 50,000,000","10,000,000 .. 20,000,000")] <- "Very High"
 summary(Steam2)
+str(Steam2)
 
 
 #plot the Dependent Continuous variable-price
-hist(Steam2$price,nclass=100)
-
-Steam1<-Steam2
-Steam1$price[Steam1$price == 0] <- 1
-hist(log(Steam1$price),nclass=100)
-
-hist(sqrt(Steam2$price),nclass=100)
-
 qqnorm(Steam2$price)
 qqline(Steam2$price)
 
+Steam1<-Steam2
+Steam1$price[Steam1$price == 0] <- 1
 qqnorm(log(Steam1$price))
 qqline(log(Steam1$price))
 
 qqnorm(sqrt(Steam2$price))
 qqline(sqrt(Steam2$price))
+
+#EDA price histogram
+hist(Steam2$price,breaks=100,col='blue',xlab='Price',main=
+       'Price histogram')
+
+#corrplot EDA
+Steam_games<- Steam2[,c(1,2,4,5,6,7,8,9,10,11,12)]
+r <- cor(Steam_games)
+r
+
+corrplot.mixed(cor(Steam_games),
+               upper = "square",
+               lower = "number",
+               addgrid.col = "black",
+               tl.col = "grey")
+
+#EDA boxplot for owners
+EDA_boxplot<-ggplot(data=Steam2,aes(x=owners, y=price))+geom_boxplot()#+scale_y_continuous(limits=c(0,2000000))
+EDA_boxplot
 
 #sqrt version model 
 Games_lm=lm(sqrt(price)~.,data = Steam2) #Full
