@@ -384,6 +384,10 @@
       margin-right: 0; 
     }
   </style>
+  <meta name="mermaid-theme" content="default">
+  <script src="Index_files/libs/quarto-diagram/mermaid.min.js"></script>
+  <script src="Index_files/libs/quarto-diagram/mermaid-init.js"></script>
+  <link href="Index_files/libs/quarto-diagram/mermaid.css" rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
   <script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
@@ -414,6 +418,43 @@
 <li>Sijia He</li>
 <li>Yinyue Wang</li>
 </ul>
+</div>
+</div>
+</section>
+<section id="project-flow-chart" class="slide level2">
+<h2>Project flow chart</h2>
+<p><br> how we envision our futur project structure</p>
+<div class="cell" data-reveal="true" data-fig-width="25">
+<div class="cell-output-display">
+<div>
+<div>
+<pre class="mermaid mermaid-js">flowchart LR
+  subgraph data Gathering
+  B[endpoint: ALL] --- A[SpySteam API]
+  C[endpoint: Genre] --- A
+  D(Python Script-Heroku) --&gt;|query 1|B
+  B --&gt;|json 1| D
+  D --&gt;|query2|C
+  C --&gt;|json 2| D
+  end
+  subgraph Futur Data ?
+  D -.-&gt; I[ML API]
+  end
+  
+  D --&gt;|push| E[(SQL DB)]
+  
+  F(((User)))--&gt;G[FrontEnd]
+  subgraph web
+  H(Flask BackEnd) --&gt; G
+  G--&gt;H
+  end
+  H --&gt;E
+  E--&gt;H
+  
+ 
+</pre>
+</div>
+</div>
 </div>
 </div>
 </section>

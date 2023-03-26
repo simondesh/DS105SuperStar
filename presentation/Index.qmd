@@ -3,6 +3,8 @@ title: "DS105 SuperStars"
 subtitle: "Presentation Numero 2"
 format:
   revealjs: 
+    mermaid:
+      theme: default
     width: 1920
     height: 1080
     theme: default
@@ -11,7 +13,6 @@ format:
     css: styles.css
     footer: <https://github.com/simondesh/DS105SuperStar>
 ---
-
 ## Our Team {.bigger}
 
 <br/>DS105 SuperStars
@@ -26,6 +27,39 @@ format:
 - Yinyue Wang
 :::
 :::
+
+## Project flow chart
+
+<br/> how we envision our futur project structure
+
+```{mermaid}
+%%| fig-width: 25
+flowchart LR
+  subgraph data Gathering
+  B[endpoint: ALL] --- A[SpySteam API]
+  C[endpoint: Genre] --- A
+  D(Python Script-Heroku) -->|query 1|B
+  B -->|json 1| D
+  D -->|query2|C
+  C -->|json 2| D
+  end
+  subgraph Futur Data ?
+  D -.-> I[ML API]
+  end
+  
+  D -->|push| E[(SQL DB)]
+  
+  F(((User)))-->G[FrontEnd]
+  subgraph web
+  H(Flask BackEnd) --> G
+  G-->H
+  end
+  H -->E
+  E-->H
+  
+ 
+```
+
 
 ## Linear Regression Content
 
