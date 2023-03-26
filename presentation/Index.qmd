@@ -61,7 +61,7 @@ flowchart LR
 ```
 
 
-## Linear Regression Content
+## Linear Regression for Genre
 
 Linear Regression
 
@@ -73,6 +73,26 @@ Ill show you how I gathered our current model :
 -   General linear Reg 
 -   Best OLS so far
 
+## Flowchart of Dataprocessing for OLS Genres
+```{mermaid}
+flowchart TD
+  subgraph API
+  A[SpySteam 'all' endpoint] -->|return page i of all games data|B(initial DF) 
+  B --- C(DF with genres as dummies)
+  D[SpySteam 'all' endpoint] -->|gameIDs of all games in genre|C 
+  end
+  subgraph Python Manipulation
+  C-->E[avg_owners to int]
+  E-->F[create positive ratio column]
+  F-->|form more than 30K to 12K rows|G[drop unuseful rows& columns]
+  end
+  G-->H[OLS]
+  subgraph futur steps 
+  F-->|query with appid|F1[steam api]
+  F1-->|gives more prescise data for each games|F2[time data added]
+  end
+
+```
 
 
 ## Initial Data Correlation{.smaller transition="slide"}

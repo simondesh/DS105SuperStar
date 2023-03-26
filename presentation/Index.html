@@ -458,8 +458,8 @@
 </div>
 </div>
 </section>
-<section id="linear-regression-content" class="slide level2">
-<h2>Linear Regression Content</h2>
+<section id="linear-regression-for-genre" class="slide level2">
+<h2>Linear Regression for Genre</h2>
 <p>Linear Regression</p>
 <p>Ill show you how I gathered our current model :</p>
 <ul>
@@ -469,6 +469,35 @@
 <li>General linear Reg</li>
 <li>Best OLS so far</li>
 </ul>
+</section>
+<section id="flowchart-of-dataprocessing-for-ols-genres" class="slide level2">
+<h2>Flowchart of Dataprocessing for OLS Genres</h2>
+<div class="cell" data-reveal="true">
+<div class="cell-output-display">
+<div>
+<div>
+<pre class="mermaid mermaid-js">flowchart TD
+  subgraph API
+  A[SpySteam 'all' endpoint] --&gt;|return page i of all games data|B(initial DF) 
+  B --- C(DF with genres as dummies)
+  D[SpySteam 'all' endpoint] --&gt;|gameIDs of all games in genre|C 
+  end
+  subgraph Python Manipulation
+  C--&gt;E[avg_owners to int]
+  E--&gt;F[create positive ratio column]
+  F--&gt;|form more than 30K to 12K rows|G[drop unuseful rows&amp; columns]
+  end
+  G--&gt;H[OLS]
+  subgraph futur steps 
+  F--&gt;|query with appid|F1[steam api]
+  F1--&gt;|gives more prescise data for each games|F2[time data added]
+  end
+
+</pre>
+</div>
+</div>
+</div>
+</div>
 </section>
 <section id="initial-data-correlation" class="slide level2 smaller" data-transition="slide">
 <h2>Initial Data Correlation</h2>
@@ -815,11 +844,11 @@
 <dl class="code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-3" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-3" data-code-annotation="1" data-code-lines="3">drop the columns [‘score_rank’,‘initialprice’,‘discount’,‘userscore’]</span>
+<span data-code-lines="3" data-code-cell="annotated-cell-3" data-code-annotation="1">drop the columns [‘score_rank’,‘initialprice’,‘discount’,‘userscore’]</span>
 </dd>
 <dt data-target-cell="annotated-cell-3" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-cell="annotated-cell-3" data-code-annotation="2" data-code-lines="13">create new column, ‘positive_ratio’, that give the ratio of positive reviews over total reviews</span>
+<span data-code-lines="13" data-code-cell="annotated-cell-3" data-code-annotation="2">create new column, ‘positive_ratio’, that give the ratio of positive reviews over total reviews</span>
 </dd>
 </dl>
 </section>
