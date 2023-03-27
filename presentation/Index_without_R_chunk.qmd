@@ -31,6 +31,7 @@ format:
 ## Presentation content { transition="slide"}
 
 <br/> Table of content:
+
   - **Project flow chart**
   - **Distribution Analysis**
   - **Linear regression analysis 1**
@@ -171,7 +172,8 @@ g_8
 
 {{< embed Pivoting.ipynb#H2/proportion >}}
 
-## H2/V3: What are the proportions for developers to have higher ability to create popular games?
+## H2/V3: What are the super developers?
+### i.e. who have created more than 2 top 100 games and also have more than 50% of ability to create popular games
 
 ```{.python}
 
@@ -190,7 +192,7 @@ df_100_developers_super
 
 - Valve is tooo outstanding than others no matter in number of games or ability to create popular games, while the second is Endnight Games Ltd in the ability but their range is very big.
 
-- There is no evidence to show that same or different until now.
+- There is no evidence to show that same or different developers and publishers have influence over popularity of games until now.
 
 - A future study on the logistic regression on two classifications will be taken into account: 
 1. same or different developers and publishers
@@ -486,11 +488,65 @@ Steam price - linear regression
 * Modeling
 * Final plots
 
-## Exploratory Data Analysis
+## Exploratory Data Analysis {auto-animate="true"}
 
-## Variable Selection
-![figure1. price histogram](figure1. price histogram.png){fig-align="left" width = 20%}
+::: {layout="[1,1]"}
 
+![figure1. price histogram](Price%20histogram.png "Title:figure1. price histogram")
+
+![figure2. correlation matrix](Correlation%20matrix.png "Title: figure2. correlation matrix")
+
+:::
+## Exploratory Data Analysis {auto-animate="true"}
+
+
+![figure3. owners v.s. price_boxplot](ownervsprice.png "Title: figure3. owners v.s. price_boxplot")
+
+
+## Q-Q plot of dependent variable price
+
+![figure4. Q-Q plot of dependent variable price](Normal%20Q-Q%20Plot.png "Title: figure4. Q-Q plot of dependent variable price")
+
+## Variable Selection { transition="slide" auto-animate="true"}
+
+### Outlier and Influential points analysis 
+
+![figure5. outliers(absolute value of Standardised residuals > 3)](PointAnalysis.png "Title: figure5. outliers(absolute value of Standardised residuals > 3)")
+
+## Variable Selection { transition="slide" auto-animate="true"}
+
+### Outlier and Influential points analysis 
+::: {layout="[1,1]"}
+
+![figure6. high_leverage_threshold = k*p/n](Treshold1.png "Title: figure6. high_leverage_threshold = k*p/n")
+
+![figure7. influential points (threshold of 4/n)](threshold2.png "Title: figure7. influential points (threshold of 4/n)")
+
+:::
+
+## Final Model Interpretation {.smaller}
+
+<br/>
+
+sqrt(Price) = 5.374e+00 + 1.093e-02initialprice - 1.142e-01discount - 6.172e+00ownersHigh - 2.254e+00ownersVery High - 2.489e+00ownersNormal + 9.256e+00postive - 5.113e-05ccu
+
+### model performance after removing influential points 
+
+::: {layout="[40,-20,40]"}
+
+![with Influential](with.jpeg "Title: with Influential)")
+
+![without Influential](without.jpeg "Title: without Influential")
+
+:::
+
+## Final Model Interpretation {transition="slide"}
+
+![figure8. added_variable plot](Added-Variable%20Plots.png "Title: figure8. added_variable plot)")
+
+## Final Model Interpretation {transition="slide"}
+
+![figure9. Checking model assumptions ](Residuals%20vs%20Fitted.png "Title: figure9. Checking model assumptions ")
 
 ## Data pivoting analysis on genre { transition="slide"}
 content:
