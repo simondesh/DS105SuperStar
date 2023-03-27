@@ -156,7 +156,7 @@ plot(GamesSqrt_sub,scale="bic")
 ```{r}
 #check  outliers
 plot(rstandard(Games_lm3))
-options(max.print=22000)
+options(max.print=100)
 max(rstandard(Games_lm3))
 sort(rstandard(Games_lm3))
 
