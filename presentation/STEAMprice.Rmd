@@ -61,7 +61,7 @@ str(Steam2)
 
 ```
 
-### plot1
+## plot1
 ```{r}
 
 #EDA price histogram
