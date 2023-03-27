@@ -210,6 +210,7 @@ vif(Games_lm5)
 ```
 
 ## final model after removing influential points
+### sqrt(Price) = 5.374e+00 + 1.093e-02initialprice - 1.142e-01discount - 6.172e+00ownersHigh - 2.254e+00ownersVery High - 2.489e+00ownersNormal + 9.256e+00postive - 5.113e-05ccu
 ```{r}
 #infuential points
 thresh <- 4/nrow(Steam2) # Using the 4/n threshold
