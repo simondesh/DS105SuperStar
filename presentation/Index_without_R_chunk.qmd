@@ -31,9 +31,10 @@ format:
 ## Presentation content { transition="slide"}
 
 <br/> Table of content:
-
-  - **project flow chart**
-  - **Linear regression analysis**
+  - **Project flow chart**
+  - **Distribution Analysis**
+  - **Linear regression analysis 1**
+  - **Linear regression analysis 2**
   - **Data pivoting analysis**
 
 
@@ -477,9 +478,18 @@ fitted vs test Ys (max dependable) var
 
 
 
+## Linear Regression Content 2
+Steam price - linear regression
 
+* Exploratory Data Analysis
+* Initial plots 
+* Modeling
+* Final plots
 
+## Exploratory Data Analysis
 
+## Variable Selection
+![figure1. price histogram](figure1. price histogram.png){fig-align="left" width = 20%}
 
 
 ## Data pivoting analysis on genre { transition="slide"}
@@ -649,15 +659,5 @@ df_genre_ranking = pd.merge(num_genre_df, df_ranking, on='appid', how='left')\
 conslusion: no correlation between the two factors
 
 
-## Linear Regression Content 2
-Steam price - linear regression
-
-* Exploratory Data Analysis
-* Initial plots 
-* Modeling
-* Final plots
-
-## Exploratory Data Analysis
-::: panel-tabse
 
 # Thank You
