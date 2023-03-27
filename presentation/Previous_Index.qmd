@@ -1,0 +1,898 @@
+---
+title: "DS105 SuperStars"
+subtitle: "Presentation Numero 2"
+format:
+  revealjs: 
+    mermaid:
+      theme: default
+    width: 1920
+    height: 1080
+    theme: default
+    slide-number: true
+    preview-links: auto
+    css: styles.css
+    footer: <https://github.com/simondesh/DS105SuperStar>
+---
+## Our Team {.bigger}
+
+<br/>DS105 SuperStars
+
+::: columns
+::: {.column width="50%"}
+- Simon Deshayes
+- Shuyu Cao
+:::
+:::{.column width="50%"}
+- Sijia He
+- Yinyue Wang
+:::
+:::
+
+## Presentation content { transition="slide"}
+
+<br/> Table of content:
+
+  - **project flow chart**
+  - **Linear regression analysis**
+  - **Data pivoting analysis**
+
+
+
+## Project flow chart
+
+<br/> how we envision our futur project structure
+
+```{mermaid}
+%%| fig-width: 25
+flowchart LR
+  subgraph data Gathering
+  B[endpoint: ALL] --- A[SpySteam API]
+  C[endpoint: Genre] --- A
+  D(Python Script-Heroku) -->|query 1|B
+  B -->|json 1| D
+  D -->|query2|C
+  C -->|json 2| D
+  J[endpoint: appdetails] --- K[Steam API]
+  J ---|compare| C
+  end
+  subgraph Futur Data ?
+  D -.-> I[ML API]
+  end
+  
+  D -->|push| E[(SQL DB)]
+  
+  F(((User)))-->G[FrontEnd]
+  subgraph web
+  H(Flask BackEnd) --> G
+  G-->H
+  end
+  H -->E
+  E-->H
+  
+ 
+```
+
+## Introduction of data frame
+<br/> 
+
+### df_all_games_with_rank(produced from the df_all_games)
+
+<br/>
+
+:::: {.columns}
+
+::: {.column width="50%"}
+Column name(study related)
+:::
+::: {.column width="50%"}
+appid
+<br/>name
+<br/>developer
+<br/>publisher
+<br/>spy_rank
+<br/>ranking
+:::
+::::
+
+## Distribution Analysis
+
+Hypothesis waiting to be proved in the analysis
+
+- H1: Games with same publishers and developers could be more popular?
+- H2: Developers that have created more top 100 games have higher ability to produce more top 100 games in the future (Individuals who would like to produce popular games could go to these developers)?
+
+## H1:Games with same publishers and developers could be more popular?
+
+- V1: More games are produced with same developers and publishers
+- V2: Proportion of top 100 games which are produced by same and different developers and publishers
+- V3: How does the different developer and publisher affect the number of games produced?
+- V4: How does the same developer and publisher affect the number of games produced?
+
+## H1/V1: More games are produced with same developers and publishers
+
+``` {.python}
+
+g_1 = ggplot(df_all_games, aes(x='classification')) +\
+      geom_bar(fill='blue') +\
+      labs(title='Proportion of all games which are produced by same and different developers and publishers', x='classification', y='count') +\
+      theme_classic()
+
+g_1
+```
+{{< embed Pivoting.ipynb#H1/V1 >}}
+
+## H1/V2: Proportion of top 100 games which are produced by same and different developers and publishers
+
+``` {.python}
+g_2 = ggplot(df_games_100, aes(x='classification')) +\
+      geom_bar(fill='blue') +\
+      labs(title='Proportion of top 100 games which are produced by same and different developers and publishers', x='classification', y='count') +\
+      theme_classic()
+      
+g_2
+```
+{{< embed Pivoting.ipynb#H1/V2 >}}
+
+## H2: Developers that have created more top 100 games have higher ability to produce more top 100 games in the future (Individuals who would like to produce popular games could go to these developers)?
+
+- V1: What developers create the most top 100 games?
+- V2: What are the proportions for developers to have higher ability to create popular games?
+- V3: What are the super developers that have produced more than 50% percent of top 100 games among all games they produce, and more than 2 top 100 games.
+
+## H2/V1: What developers create the most top 100 games?
+
+```{.python}
+g_6 = ggplot(df_tmp_100_games, aes(x='developer', y='num_games')) +\
+      geom_bar(stat='identity', fill='blue') +\
+      labs(title='Number of top 100 games games produced by developers', x='developer', y='num_games') +\
+      theme_classic() +\
+      theme(axis_text_x=element_text(angle=90, hjust=1), figure_size=(30, 50)) +\
+      coord_flip() +\
+      scale_x_discrete(limits=df_tmp_100_games['developer'].tolist())+\
+      geom_text(aes(label='num_games'), size=20, color='red')+\
+      scale_y_continuous(breaks=range(0, 10, 2)) +\
+      geom_hline(yintercept=1.2345685, linetype='dashed', color='red', size =3) +\
+      theme(axis_text_y=element_text(size=28)) +\
+      theme(axis_text_x=element_text(size = 30))
+           
+g_6
+
+```
+{{< embed Pivoting.ipynb#H2/V2 >}}
+
+## H2/V2: What are the proportions for developers to have higher ability to create popular games?
+
+```{.python}
+
+g_8
+
+```
+
+{{< embed Pivoting.ipynb#H2/proportion >}}
+
+## H2/V3: What are the proportions for developers to have higher ability to create popular games?
+
+```{.python}
+
+df_100_developers_super = (
+    df_100_developers
+    .query('num_games_all >= 2 and proportion > 50')
+    .sort_values(by='proportion', ascending=True)
+)
+
+df_100_developers_super
+
+```
+{{< embed Pivoting.ipynb#H2/super >}}
+
+## Result for H1 and H2:
+
+- Valve is tooo outstanding than others no matter in number of games or ability to create popular games, while the second is Endnight Games Ltd in the ability but their range is very big.
+
+- There is no evidence to show that same or different until now.
+
+- A future study on the logistic regression on two classifications will be taken into account: 
+1. same or different developers and publishers
+2. minus, minor, major, super ability of creating popular games for developers
+
+
+## Linear Regression Content 1
+
+Linear Regression
+
+I'll show you how I gathered our current model :
+
+-   Initial Data Correlation
+-   Genre dummies
+-   Plots on Genres
+-   General linear Reg 
+-   Best OLS so far
+
+## Flowchart of Dataprocessing for OLS Genres {transition="slide"}
+```{mermaid}
+flowchart TD
+  subgraph API
+  A[SpySteam 'all' endpoint] -->|return page i of all games data|B(initial DF) 
+  B --- C(DF with genres as dummies)
+  D[SpySteam 'all' endpoint] -->|gameIDs of all games in genre|C 
+  end
+  subgraph Python Manipulation
+  C-->E[avg_owners to int]
+  E-->F[create positive ratio column]
+  F-->|form more than 30K to 12K rows|G[drop unuseful rows& columns]
+  end
+  G-->H[OLS]
+  subgraph futur steps 
+  F-->|query with appid|F1[steam api]
+  F1-->|gives more prescise data for each games|F2[time data added]
+  end
+
+```
+
+
+## Initial Data Correlation{.smaller transition="slide"}
+
+::: panel-tabset
+### Plot 
+
+code to obtain the correlation matrix plot of the initial DF
+
+::: columns
+
+::: {.column width="40%"}
+``` python 
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# plot the correlation matrix
+plt.figure(figsize=(12,10), dpi= 80)
+sns.heatmap(data.corr(), xticklabels=data.corr().columns, 
+    yticklabels=data.corr().columns, 
+    cmap='RdYlGn', c
+    enter=0, annot=True, fmt=".2f")
+
+# decoration
+plt.title('Correlogram of Steam Games data', fontsize=22)
+plt.xticks(fontsize=12)
+plt.yticks(fontsize=12)
+plt.show()
+```
+:::
+
+::: {.column width="60%"}
+{{< embed Linear_regression.ipynb#fig-correlation-matrix  >}}
+:::
+
+:::
+
+
+
+### Data
+|    |   appid | name                             | developer                        | publisher             |   score_rank |   positive |   negative |   userscore | owners                     |   average_forever |   average_2weeks |   median_forever |   median_2weeks |   price |   initialprice |   discount |     ccu |
+|---:|--------:|:---------------------------------|:---------------------------------|:----------------------|-------------:|-----------:|-----------:|------------:|:---------------------------|------------------:|-----------------:|-----------------:|----------------:|--------:|---------------:|-----------:|--------:|
+|  0 |     570 | Dota 2                           | Valve                            | Valve                 |          nan |    1611153 |     338953 |           0 | 200,000,000 .. 500,000,000 |             37228 |             1393 |              853 |             711 |       0 |              0 |          0 |  532699 |
+|  1 |     730 | Counter-Strike: Global Offensive | Valve, Hidden Path Entertainment | Valve                 |          nan |    6207621 |     811918 |           0 | 50,000,000 .. 100,000,000  |             30347 |              822 |             5979 |             331 |       0 |              0 |          0 | 1010721 |
+|  2 | 1172470 | Apex Legends                     | Respawn Entertainment            | Electronic Arts       |          nan |     513660 |     105734 |           0 | 50,000,000 .. 100,000,000  |              8491 |              917 |              834 |             498 |       0 |              0 |          0 |  363786 |
+|  3 |  578080 | PUBG: BATTLEGROUNDS              | KRAFTON, Inc.                    | KRAFTON, Inc.         |          nan |    1231039 |     925364 |           0 | 50,000,000 .. 100,000,000  |             22551 |              734 |             5940 |             230 |       0 |              0 |          0 |  328139 |
+|  4 | 1063730 | New World                        | Amazon Games                     | Amazon Games          |          nan |     176376 |      75957 |           0 | 50,000,000 .. 100,000,000  |              9175 |              723 |             3226 |             454 |    1999 |           3999 |         50 |   17498 |
+|  5 |     440 | Team Fortress 2                  | Valve                            | Valve                 |          nan |     883078 |      58714 |           0 | 50,000,000 .. 100,000,000  |              8909 |             1214 |              421 |             113 |       0 |              0 |          0 |  100175 |
+|  6 |  271590 | Grand Theft Auto V               | Rockstar North                   | Rockstar Games        |          nan |    1301322 |     218427 |           0 | 50,000,000 .. 100,000,000  |             13540 |              589 |             6105 |             143 |    2998 |           2998 |          0 |  109847 |
+|  7 | 1599340 | Lost Ark                         | Smilegate RPG                    | Amazon Games          |          nan |     136970 |      53607 |           0 | 20,000,000 .. 50,000,000   |              3768 |             1303 |              744 |             836 |       0 |              0 |          0 |   85067 |
+|  8 |     550 | Left 4 Dead 2                    | Valve                            | Valve                 |          nan |     702272 |      17857 |           0 | 20,000,000 .. 50,000,000   |              2309 |              320 |              520 |             113 |      99 |            999 |         90 |   44785 |
+|  9 |  304930 | Unturned                         | Smartly Dressed Games            | Smartly Dressed Games |          nan |     464351 |      43104 |           0 | 20,000,000 .. 50,000,000   |              6654 |             5845 |              293 |            2420 |       0 |              0 |          0 |   51599 |
+
+so the columns are : 
+{{< embed Linear_regression.ipynb#initial-column-list >}}
+:::
+
+
+## Tranforming the Data {transition="slide" auto-animate="true"}
+``` python
+# clean 
+df_genres = data.copy()
+df_genres = df_genres.drop(['score_rank','initialprice','discount','userscore'],axis=1)
+df_genres['appid'] = df_genres['appid'].astype(int)
+
+```
+## From str to int : owners {auto-animate="true"}
+``` python
+# clean 
+df_genres = data.copy()
+df_genres = df_genres.drop(['score_rank','initialprice','discount','userscore'],axis=1)
+df_genres['appid'] = df_genres['appid'].astype(int)
+
+# get the average of the owners
+owners = pd.DataFrame(df_genres['owners'].str.replace(',','').str.split(' .. ').tolist(),columns = ['min','max'])
+df_genres['owners']= owners.astype(int).sum(axis=1)/2
+df_genres['owners'] = df_genres['owners'].astype(int)
+df_genres.rename(columns={'owners':'avg_owners'},inplace=True)
+```
+## Tweeking and Made Usefull {auto-animate="true" }
+``` python
+# clean 
+df_genres = data.copy()
+df_genres = df_genres.drop(['score_rank','initialprice','discount','userscore'],axis=1)              # <1>
+df_genres['appid'] = df_genres['appid'].astype(int)
+
+# get the average of the owners
+owners = pd.DataFrame(df_genres['owners'].str.replace(',','').str.split(' .. ').tolist(),columns = ['min','max'])
+df_genres['owners']= owners.astype(int).sum(axis=1)/2
+df_genres['owners'] = df_genres['owners'].astype(int)
+df_genres.rename(columns={'owners':'avg_owners'},inplace=True)
+
+# ratio of positive reviews over total reviews
+df_genres['positive_ratio'] = df_genres['positive']/(df_genres['positive']+df_genres['negative'])    # <2>
+
+'''
+REMARK: this ratio is severely skewed when the number of reviews is low.
+'''
+
+# lets drop the rows with less than 100 reviews and 0 average concurent players 
+df_genres = df_genres[((df_genres['positive']+df_genres['negative'])>100) & (df_genres['average_forever']>0)]
+# only 12k rows left
+```
+1. drop the columns ['score_rank','initialprice','discount','userscore']
+2. create new column, 'positive_ratio', that give the ratio of positive reviews over total reviews
+
+## Adding Genre Dummies { transition="slide"}
+
+get the genres dummy variables from our data 
+
+::: columns
+::: {.column width="80%"}
+``` {.python code-line-numbers="|4-13|15-20"}
+genres = ['Action','Strategy','RPG','Indie','Adventure','Sports','Simulation'
+          ,'Early+Access','Ex+Early+Access','Massively','Free']
+
+def get_games_by_genre(genre):
+    # get the list of appids for games in genre
+    url = f'https://steamspy.com/api.php?request=genre&genre={genre}'
+    response = requests.get(url)
+    response = json.loads(response.text)
+    genre_df = json_normalize(response,max_level=0)
+    genre_df = pd.DataFrame(response)
+    genre_df = genre_df.transpose()
+    genre_df = genre_df.reset_index(drop=True)
+    return genre_df
+
+#iterate trough games and obtain dummy variable columns for each genre
+not_matched = 0
+for genre in genres: 
+    df_genres[f'genre_{genre}'] = 0
+    df_genres[f'genre_{genre}'][df_genres['appid'].astype(int)
+      .isin(get_games_by_genre(f'{genre}')['appid'])] = 1
+```
+:::
+::: {.column width="20%"}
+Current columns
+{{< embed Linear_regression.ipynb#modified-initial-data  >}}
+:::
+:::
+
+
+## More on Genres {transition="slide" auto-animate="true" }
+::: { layout="[[30,-10,60], [-10,80,-10]]" }
+{{< embed Linear_regression.ipynb#fig-Top-20-developers-of-action-games  >}}
+
+{{< embed Linear_regression.ipynb#fig-Pivot-tables-Dev-Action  >}}
+
+{{< embed Linear_regression.ipynb#fig-Pivot-tables-Dev-Rating  >}}
+:::
+
+## More on Genres {auto-animate="true" }
+
+{{< embed Linear_regression.ipynb#fig-Top-20-developers-of-action-games  >}}
+
+## More on Genres { auto-animate="true" }
+::: { layout="[[30,-10,60], [-10,80,-10]]" }
+{{< embed Linear_regression.ipynb#fig-Top-20-developers-of-action-games  >}}
+
+{{< embed Linear_regression.ipynb#fig-Pivot-tables-Dev-Action  >}}
+
+{{< embed Linear_regression.ipynb#fig-Pivot-tables-Dev-Rating  >}}
+:::
+
+## More on Genres {auto-animate="true" }
+
+{{< embed Linear_regression.ipynb#fig-Pivot-tables-Dev-Action  >}}
+
+the action genre seems to be prefered by developers
+
+## More on Genres { auto-animate="true" }
+::: { layout="[[30,-10,60], [-10,80,-10]]" }
+{{< embed Linear_regression.ipynb#fig-Top-20-developers-of-action-games  >}}
+
+{{< embed Linear_regression.ipynb#fig-Pivot-tables-Dev-Action  >}}
+
+{{< embed Linear_regression.ipynb#fig-Pivot-tables-Dev-Rating  >}}
+:::
+
+## More on Genres {auto-animate="true" }
+
+{{< embed Linear_regression.ipynb#fig-Pivot-tables-Dev-Rating  >}}
+
+doesn't seem like there is much difference in ratings
+
+## More on Genres { auto-animate="true" }
+::: { layout="[[30,-10,60], [-10,80,-10]]" }
+{{< embed Linear_regression.ipynb#fig-Top-20-developers-of-action-games  >}}
+
+{{< embed Linear_regression.ipynb#fig-Pivot-tables-Dev-Action  >}}
+
+{{< embed Linear_regression.ipynb#fig-Pivot-tables-Dev-Rating  >}}
+:::
+
+## Linear Regression
+
+
+
+::: columns
+::: {.column width="60%"}
+<br/> In python using the [sklearn](https://scikit-learn.org/) and [statsmodels](https://www.statsmodels.org/) library 
+
+<br/>Linear Regression methodology: 
+
+::: incremental
+-   import lib
+-   select dependent and independent variables & create DFs for each
+-   split them into train and test datasets
+-   create the model 
+-   then fit it 
+-   predict the dependent var for the test dataset
+-   evaluate our result
+:::
+<br/> [view code](https://scikit-learn.org/)
+
+:::
+:::{.column width="40%"}
+{{< embed Linear_regression.ipynb#tbl-ols-regression  >}}
+
+:::
+:::
+
+## OLS Plots { transition="slide"}
+fitted vs test Ys (max dependable) var
+
+::: {layout='[45,-10,45]'}
+{{< embed Linear_regression.ipynb#fig-Ols-gen-avg-owners  >}}
+{{< embed Linear_regression.ipynb#fig-Ols-gen-ccu  >}}
+:::
+
+## Our Fav Current Model { transition="slide"}
+
+::: columns
+::: {.column width="40%"}
+<br/> avg_owners ~ average_forever + positive_ratio*positive
+
+{{< embed Linear_regression.ipynb#tbl-ols-best >}}
+:::
+:::{.column width="60%"}
+:::{layout="[[-30,40,-30],[50,50]]"}
+{{< embed Linear_regression.ipynb#fig-Ols-best-1 >}}
+{{< embed Linear_regression.ipynb#fig-Ols-best-2 >}}
+{{< embed Linear_regression.ipynb#fig-Ols-best-3 >}}
+:::
+:::
+:::
+
+
+
+
+
+
+
+
+## Data pivoting analysis on genre { transition="slide"}
+content:
+
+* Data collection
+    * from Steam API [endpoint: appdetails]
+    * top 500 games ❕
+
+* Data cleaning
+
+* Plots on gneres (the factor itself)
+
+
+## Genre Data Collection { transition="slide"}
+
+::: panel-tabset
+### Code
+
+``` python 
+def get_genre(app_id):
+    """
+    A fucntion to obtain the corresponding genres to each game
+    Argu: app_id: the unique id number of each game
+    Return: a list of genres
+    """
+    url = 'https://store.steampowered.com/api/appdetails'
+    parameters = {'appids': app_id, 'filters': 'genres'}
+    response = requests.get(url, params=parameters)
+    response = json.loads(response.text)
+    if response != None and response[str(app_id)]['success'] == True and isinstance(response[str(app_id)]['data'], dict) == True:
+        genre_dict = response[str(app_id)]['data']['genres']
+        genre_list = [genre['description'] for genre in genre_dict]
+        return genre_list
+```
+
+### Data
+|    | name                             |   appid | genre                 |
+|---:|:---------------------------------|--------:|:----------------------|
+|  0 | Dota 2                           |     570 | Action                |
+|  1 | Dota 2                           |     570 | Free to Play          |
+|  2 | Dota 2                           |     570 | Strategy              |
+|  3 | Counter-Strike: Global Offensive |     730 | Action                |
+|  4 | Counter-Strike: Global Offensive |     730 | Free to Play          |
+|  5 | Apex Legends                     | 1172470 | Action                |
+|  6 | Apex Legends                     | 1172470 | Adventure             |
+|  7 | Apex Legends                     | 1172470 | Free to Play          |
+|  8 | PUBG: BATTLEGROUNDS              |  578080 | Action                |
+|  9 | PUBG: BATTLEGROUNDS              |  578080 | Adventure             |
+| 10 | PUBG: BATTLEGROUNDS              |  578080 | Free to Play          |
+| 11 | PUBG: BATTLEGROUNDS              |  578080 | Massively Multiplayer |
+
+:::
+
+
+## Data pivoting { transition="slide"}
+6 main genres including `'Action','Strategy','RPG','Indie','Adventure','Sports','Simulation'`
+
+::: panel-tabset
+### Code
+``` python
+index_cols      = ['name', 'appid']
+col_aggregators = ['genre']
+value_col       = ['present']
+
+selected_cols = index_cols + col_aggregators + value_col
+
+df_pivotted = df.drop_duplicates()\
+        .assign(present=1)[selected_cols]\
+        .pivot_table(index=index_cols, columns=col_aggregators, fill_value=0, margins=True, aggfunc=np.sum)\
+        .sort_values(('present',                  'All'), ascending=False)
+```
+### Table
+{{< embed genre_data_pivoting.ipynb#data-pivoting-table  >}}
+:::
+
+## Plots { transition="slide"}
+plot-1: bar chart about the number of games per genre
+
+::: panel-tabset
+### table
+|    | genre      |   num_game |
+|---:|:-----------|-----------:|
+|  0 | Action     |        497 |
+|  1 | Adventure  |        196 |
+|  2 | Indie      |        165 |
+|  3 | RPG        |        119 |
+|  4 | Simulation |         49 |
+|  5 | Sports     |         11 |
+|  6 | Strategy   |         61 |
+
+
+### bar chart
+::: columns
+
+::: {.column width="40%"}
+``` python 
+from plotnine import *
+
+order_categories = genre_df.sort_values("num_game", ascending=False)["genre"].unique()
+genre_df["genre"] = pd.Categorical(genre_df["genre"], categories=order_categories, ordered=True)
+
+g = (ggplot(genre_df, aes(x="genre", y="num_game", fill="num_game")) +
+        geom_col() +    # Bar chart
+        theme_minimal() +   # Minimal theme
+        coord_flip() +
+        scale_y_continuous(breaks=range(0, 500, 100)) +   # Set the x-axis ticks
+        scale_x_discrete(limits=order_categories) +   # Set the x-axis limits
+        guides(fill=False) +    # Remove the legend
+        theme(figure_size=(10, 5),
+              axis_text = element_text(size=10),
+              text = element_text(size=10),
+              title= element_text(size=15),
+              plot_caption=element_text(margin={"t": 20})) +   # Rotate the x-axis labels
+        labs(title="Number of games in each category",
+             x="Genre names", y="Number of games")
+    )
+```
+:::
+
+::: {.column width="60%"}
+{{< embed genre_data_pivoting.ipynb#fig-bar-chart  >}}
+:::
+:::
+:::
+
+
+## More plots { transition="slide"}
+Question: does the number of genres affect the performance of games
+Plot-2: scatter plot about correlation between number of genres and game ranking
+
+::: panel-tabset
+### code
+```{.python code-line-numbers="4, 9"}
+num_genre_df = df_pivotted.reset_index() # change the pivot table to dataframe
+num_genre_df.columns = num_genre_df.columns.droplevel(level=0) # drrop the firt level of column names
+num_genre_df = num_genre_df.drop(columns=genres) # remove unnecessary columns
+num_genre_df.columns = ['name', 'appid', 'num_genres'] # rename the remaining columns
+
+df_ranking = df.drop_duplicates(subset='appid')\
+            .drop(columns=['genre', 'isin_genres'])\
+            .reset_index().drop(columns='index')
+df_ranking['ranking'] = df_ranking.reset_index().index + 1 # create a df with ranking
+
+df_genre_ranking = pd.merge(num_genre_df, df_ranking, on='appid', how='left')\
+                    .drop(columns='name_y')\
+                    .sort_values(by='ranking').reset_index().drop(columns='index') # combine the two dfs
+```
+### table
+|    | name_x                           |   appid |   num_genres |   ranking |
+|---:|:---------------------------------|--------:|-------------:|----------:|
+|  0 | Dota 2                           |     570 |            2 |         1 |
+|  1 | Counter-Strike: Global Offensive |     730 |            1 |         2 |
+|  2 | Apex Legends                     | 1172470 |            2 |         3 |
+|  3 | PUBG: BATTLEGROUNDS              |  578080 |            2 |         4 |
+|  4 | New World                        | 1063730 |            3 |         5 |
+|  5 | Team Fortress 2                  |     440 |            1 |         6 |
+|  6 | Grand Theft Auto V               |  271590 |            2 |         7 |
+|  7 | Lost Ark                         | 1599340 |            3 |         8 |
+|  8 | Left 4 Dead 2                    |     550 |            1 |         9 |
+|  9 | Unturned                         |  304930 |            3 |        10 |
+:::
+
+## More plots (cont.) { transition="slide"}
+{{< embed genre_data_pivoting.ipynb#fig-scatter  >}}
+
+conslusion: no correlation between the two factors
+
+
+## Linear Regression Content 2
+Steam price - linear regression
+
+* Exploratory Data Analysis
+* Initial plots 
+* Modeling
+* Final plots
+
+## Exploratory Data Analysis
+::: panel-tabset
+### lib
+```{r}
+library(arm)
+library(ggplot2)
+library(tidyr)
+library(car)
+library(dplyr) 
+library(broom) #install this lib first
+library(leaps) 
+library(sandwich)
+library(MASS)
+library(visdat)
+library(corrplot)
+```
+
+### EDA
+```{r, EDA, echo = FALSE, eval = TRUE}
+Steam<-read.csv("df_all_games.csv",header = TRUE)
+head(Steam)
+
+# Remove the first four columns
+Steam<-Steam[,-c(1:4)]
+
+#Also remove score_rank as NA >50%
+Steam<-Steam[,-1]
+
+#Also remove userscore as NA >50%
+Steam<-Steam[,-3]
+
+#check missing vales
+sum(is.na(Steam))
+
+#create a new coloum num_reviews that is postive+negative
+Steam$num_reviews=Steam$positive+Steam$negative
+
+#change postive&negative to percentage
+Steam$positive=Steam$positive/Steam$num_reviews
+Steam$negative=Steam$negative/Steam$num_reviews
+
+#remove the num_reviews <=200
+Steam2<-Steam[Steam$num_reviews >= 200,]
+
+#merg owners
+Steam2$owners=as.factor(Steam2$owners)
+levels(Steam2$owners)[levels(Steam2$owners) %in% c("0 .. 20,000","20,000 .. 50,000","50,000 .. 100,000")] <- "Low"
+levels(Steam2$owners)[levels(Steam2$owners) %in% c("100,000 .. 200,000","200,000 .. 500,000","500,000 .. 1,000,000")] <- "Normal"
+levels(Steam2$owners)[levels(Steam2$owners) %in% c("5,000,000 .. 10,000,000","2,000,000 .. 5,000,000","1,000,000 .. 2,000,000")] <- "High"
+levels(Steam2$owners)[levels(Steam2$owners) %in% c("200,000,000 .. 500,000,000","50,000,000 .. 100,000,000","20,000,000 .. 50,000,000","10,000,000 .. 20,000,000")] <- "Very High"
+summary(Steam2)
+str(Steam2)
+
+```
+:::
+
+## initial plots
+::: { layout="[[30,-10,60], [-10,80,-10]]" }
+```{r, plot1, echo = FALSE, eval = TRUE}
+
+#EDA price histogram
+hist(Steam2$price,breaks=100,col='blue',xlab='Price',main=
+       'Price histogram')
+
+#corrplot EDA
+Steam_games<- Steam2[,c(1,2,4,5,6,7,8,9,10,11,12)]
+r <- cor(Steam_games)
+
+corrplot.mixed(cor(Steam_games),
+               upper = "square",
+               lower = "number",
+               addgrid.col = "black",
+               tl.col = "grey")
+
+#EDA boxplot for owners
+EDA_boxplot<-ggplot(data=Steam2,aes(x=owners, y=price))+geom_boxplot()#+scale_y_continuous(limits=c(0,2000000))
+EDA_boxplot
+```
+:::
+
+## plot2 for why use sqrt(price)
+::: { layout="[[30,-10,60], [-10,80,-10]]" }
+```{r, plot2, echo = FALSE, eval = TRUE}
+#plot the Dependent Continuous variable-price
+qqnorm(Steam2$price)
+qqline(Steam2$price)
+
+Steam1<-Steam2
+Steam1$price[Steam1$price == 0] <- 1
+qqnorm(log(Steam1$price))
+qqline(log(Steam1$price))
+
+qqnorm(sqrt(Steam2$price))
+qqline(sqrt(Steam2$price))
+
+```
+:::
+
+## Modeling
+```{r, modeling, echo = FALSE, eval = TRUE}
+#sqrt version model 
+Games_lm=lm(sqrt(price)~.,data = Steam2) #Full
+Games_lm0=lm(sqrt(price)~1,data = Steam2) #Null 
+GamesSqrt_st<- step(Games_lm0, scope=list(lower=Games_lm0, upper=Games_lm),direction="both")
+summary(GamesSqrt_st)
+Anova(GamesSqrt_st)
+
+#remove num_reviews
+Games_lm1=lm(sqrt(price)~initialprice 
+             +discount
+             +owners
+             +positive
+             +ccu
+             +median_2weeks 
+             +average_2weeks,data = Steam2) 
+summary(Games_lm1)
+Anova(Games_lm1)
+vif(Games_lm1)
+
+#remove average_2weeks as vif >10
+Games_lm2=lm(sqrt(price)~initialprice 
+             +discount
+             +owners
+             +positive
+             +ccu
+             +median_2weeks ,data = Steam2) 
+summary(Games_lm2)
+Anova(Games_lm2)
+
+#remove median_2weeks as p=0.12510
+Games_lm3=lm(sqrt(price)~initialprice 
+             +discount
+             +owners
+             +positive
+             +ccu,data = Steam2) 
+summary(Games_lm3)
+Anova(Games_lm3)
+vif(Games_lm3)
+```
+
+## reprove the factors selection
+```{r, factor-selection, echo = FALSE, eval = TRUE}
+#best subset
+GamesSqrt_sub<- regsubsets(sqrt(price)~.,data = Steam2, nbest=1)
+par(mfrow = c(1,2))
+plot(GamesSqrt_sub,scale="adjr2")
+plot(GamesSqrt_sub,scale="bic")
+```
+
+## keep outliers
+```{r, keep-outliers, echo = TRUE, eval = TRUE, collapse = TRUE, code_folding=TRUE}
+#check  outliers
+plot(rstandard(Games_lm3))
+options(max.print=22000)
+max(rstandard(Games_lm3))
+sort(rstandard(Games_lm3))
+
+outlier<-sort(abs(rstandard(Games_lm3))>3)
+list(outlier)
+out<-which(outlier == TRUE)
+glimpse(out)
+Steam3 <- Steam2[-out,]
+#There exists 93 points that has absolute >3
+Games_lm4=lm(sqrt(price)~initialprice 
+             +discount
+             +owners
+             +positive
+             +ccu,data = Steam3) 
+summary(Games_lm4)
+vif(Games_lm4)
+#romoved the Outliers doesn't help to improve R square, and it even decreases
+#keep Games_lm3
+```
+
+## keep high leverage points
+```{r, leverage-points, echo = FALSE, eval = TRUE}
+#Check high leverage points
+plot(hatvalues(Games_lm3))
+#k chosen to be 3
+#(p/n) * k = (11/12662) * 3 ≈ 0.00260622
+hatvalues(Games_lm3) 
+sort(hatvalues(Games_lm3))
+max(hatvalues(Games_lm3)) 
+
+high_leverage_threshold = (11/12662) * 3
+ggplot(aes(seq_along(hatvalues(Games_lm3)), 
+           hatvalues(Games_lm3)), data=Steam2) + geom_point() +
+  geom_hline(yintercept = high_leverage_threshold, linetype='dashed' , 
+             color='red')+ xlab("Observation number")+
+  ylab("Hat Values")
+
+High_lever<-sort(abs(hatvalues(Games_lm3))>0.00260622)
+HL<-which(High_lever == TRUE)
+glimpse(HL)
+SteamH <- Steam2[-HL,]
+
+Games_lm5=lm(sqrt(price)~initialprice 
+             +discount
+             +owners
+             +positive
+             +ccu,data = SteamH) 
+summary(Games_lm5)
+vif(Games_lm5)
+#romoved the high-leverage point doesn't help to improve R square, and it even decreases
+#keep Games_lm3
+```
+
+## final model after removing influential points
+`sqrt(Price) = 5.374e+00 + 1.093e-02initialprice - 1.142e-01discount - 6.172e+00ownersHigh - 2.254e+00ownersVery High - 2.489e+00ownersNormal + 9.256e+00postive - 5.113e-05ccu`
+```{r, final-model, echo = FALSE, eval = TRUE}
+#infuential points
+thresh <- 4/nrow(Steam2) # Using the 4/n threshold
+ggplot(Games_lm3, aes(seq_along(.cooksd), .cooksd)) + 
+  geom_col()+ 
+  geom_hline(yintercept = thresh , linetype='dashed' , color='red')+ 
+  xlab("Observation number")+ 
+  ylab("Cook's D")
+
+cooksdis <- cooks.distance(Games_lm3) 
+infuential <- as.numeric(names(cooksdis)[cooksdis > thresh]) 
+SteamI <- Steam2[-infuential,] 
+
+Games_lm6=lm(sqrt(price)~initialprice 
+             +discount
+             +owners
+             +positive
+             +ccu,data = SteamI) 
+summary(Games_lm6)
+vif(Games_lm6)
+
+car::avPlots(Games_lm6)
+
+plot(Games_lm6, which=c(1,2))
+hist(rstandard(Games_lm6), freq = FALSE , 
+     main="Histogram of standardised residuals", 
+     cex.main=0.8, xlab="Standardised residuals")
+```
+
+# Thank You
