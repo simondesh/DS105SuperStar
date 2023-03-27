@@ -86,6 +86,7 @@ EDA_boxplot
 
 ## plot2 for why use sqrt(price)
 ```{r}
+par(mfrow=c(2,2))
 #plot the Dependent Continuous variable-price
 qqnorm(Steam2$price)
 qqline(Steam2$price)
