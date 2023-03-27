@@ -84,7 +84,7 @@ EDA_boxplot<-ggplot(data=Steam2,aes(x=owners, y=price))+geom_boxplot()#+scale_y_
 EDA_boxplot
 ```
 
-#plot2 for why use sqrt(price)
+## plot2 for why use sqrt(price)
 ```{r}
 #plot the Dependent Continuous variable-price
 qqnorm(Steam2$price)
