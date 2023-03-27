@@ -150,7 +150,7 @@ plot(GamesSqrt_sub,scale="adjr2")
 plot(GamesSqrt_sub,scale="bic")
 ```
 
-## keep outliers
+## outliers
 ```{r}
 #check  outliers
 plot(rstandard(Games_lm3))
@@ -162,8 +162,11 @@ outlier<-sort(abs(rstandard(Games_lm3))>3)
 list(outlier)
 out<-which(outlier == TRUE)
 glimpse(out)
-Steam3 <- Steam2[-out,]
 #There exists 93 points that has absolute >3
+```
+### model without outliers
+```{r}
+Steam3 <- Steam2[-out,]
 Games_lm4=lm(sqrt(price)~initialprice 
              +discount
              +owners
@@ -175,7 +178,7 @@ vif(Games_lm4)
 #keep Games_lm3
 ```
 
-## keep high leverage points
+## high leverage points
 ```{r}
 #Check high leverage points
 plot(hatvalues(Games_lm3))
@@ -195,6 +198,10 @@ ggplot(aes(seq_along(hatvalues(Games_lm3)),
 High_lever<-sort(abs(hatvalues(Games_lm3))>0.00260622)
 HL<-which(High_lever == TRUE)
 glimpse(HL)
+```
+
+### model without high leverage points
+```{r}
 SteamH <- Steam2[-HL,]
 
 Games_lm5=lm(sqrt(price)~initialprice 
@@ -208,8 +215,7 @@ vif(Games_lm5)
 #keep Games_lm3
 ```
 
-## final model after removing influential points
-### sqrt(Price) = 5.374e+00 + 1.093e-02initialprice - 1.142e-01discount - 6.172e+00ownersHigh - 2.254e+00ownersVery High - 2.489e+00ownersNormal + 9.256e+00postive - 5.113e-05ccu
+## removing influential points
 ```{r}
 #infuential points
 thresh <- 4/nrow(Steam2) # Using the 4/n threshold
@@ -221,6 +227,10 @@ ggplot(Games_lm3, aes(seq_along(.cooksd), .cooksd)) +
 
 cooksdis <- cooks.distance(Games_lm3) 
 infuential <- as.numeric(names(cooksdis)[cooksdis > thresh]) 
+```
+
+### Final model: sqrt(Price) = 5.374e+00 + 1.093e-02initialprice - 1.142e-01discount - 6.172e+00ownersHigh - 2.254e+00ownersVery High - 2.489e+00ownersNormal + 9.256e+00postive - 5.113e-05ccu
+```{r}
 SteamI <- Steam2[-infuential,] 
 
 Games_lm6=lm(sqrt(price)~initialprice 
