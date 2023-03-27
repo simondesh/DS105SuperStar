@@ -107,8 +107,6 @@ Hypothesis waiting to be proved in the analysis
 
 - V1: More games are produced with same developers and publishers
 - V2: Proportion of top 100 games which are produced by same and different developers and publishers
-- V3: How does the different developer and publisher affect the number of games produced?
-- V4: How does the same developer and publisher affect the number of games produced?
 
 ## H1/V1: More games are produced with same developers and publishers
 
@@ -172,8 +170,7 @@ g_8
 
 {{< embed Pivoting.ipynb#H2/proportion >}}
 
-## H2/V3: What are the super developers?
-### i.e. who have created more than 2 top 100 games and also have more than 50% of ability to create popular games
+## H2/V3: What are the super developers(who have created more than 2 top 100 games and also have more than 50% of ability to create popular games)
 
 ```{.python}
 
