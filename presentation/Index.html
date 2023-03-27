@@ -617,6 +617,8 @@
 </section>
 <section id="h2v1what-developers-create-the-most-games" class="slide level2">
 <h2>H2/V1:What developers create the most games?</h2>
+<div class="columns">
+<div class="column" style="width:60%;">
 <div class="sourceCode" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a></span>
 <span id="cb5-2"><a href="#cb5-2"></a>g_5 <span class="op">=</span> ggplot(df_tmp_selected_games, aes(x<span class="op">=</span><span class="st">'developer'</span>, y<span class="op">=</span><span class="st">'num_games'</span>)) <span class="op">+\</span></span>
 <span id="cb5-3"><a href="#cb5-3"></a>        geom_bar(stat<span class="op">=</span><span class="st">'identity'</span>, fill<span class="op">=</span><span class="st">'blue'</span>) <span class="op">+\</span></span>
@@ -629,6 +631,7 @@
 <span id="cb5-10"><a href="#cb5-10"></a>        geom_hline(yintercept<span class="op">=</span><span class="fl">26.544041</span>, linetype<span class="op">=</span><span class="st">'dashed'</span>, color<span class="op">=</span><span class="st">'red'</span>) <span class="op">+\</span></span>
 <span id="cb5-11"><a href="#cb5-11"></a>        theme(axis_text_x<span class="op">=</span>element_text(size<span class="op">=</span><span class="dv">20</span>))</span>
 <span id="cb5-12"><a href="#cb5-12"></a>g_5</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div><div class="column" style="width:40%;">
 <div data-notebook="Pivoting.ipynb" data-notebook-title="Pivoting &amp; Visualisations">
 <div class="cell" data-execution_count="74">
 <div class="cell-output cell-output-display">
@@ -637,6 +640,8 @@
 <p><img data-src="Index_files/figure-revealjs/h2v1plot-output-1.png"></p>
 <p></p><figcaption>Which producer produce the most games</figcaption><p></p>
 </figure>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -1161,35 +1166,35 @@
 </section>
 <section id="tweeking-and-made-usefull" class="slide level2" data-auto-animate="true">
 <h2 data-id="quarto-animate-title">Tweeking and Made Usefull</h2>
-<div class="sourceCode" id="annotated-cell-9"><pre class="sourceCode numberSource python code-annotation-code number-lines code-with-copy code-annotated" data-id="quarto-animate-code"><code class="sourceCode python hljs"><span id="annotated-cell-9-1" class="hljs-ln-code"><a href="#annotated-cell-9-1"></a><span class="co"># clean </span></span>
-<span id="annotated-cell-9-2" class="hljs-ln-code"><a href="#annotated-cell-9-2"></a>df_genres <span class="op">=</span> data.copy()</span>
-<a class="code-annotation-anchor hljs-ln-code" data-target-cell="annotated-cell-9" data-target-annotation="1" onclick="event.preventDefault();" href="">1</a><span id="annotated-cell-9-3" class="code-annotation-target hljs-ln-code"><a href="#annotated-cell-9-3"></a>df_genres <span class="op">=</span> df_genres.drop([<span class="st">'score_rank'</span>,<span class="st">'initialprice'</span>,<span class="st">'discount'</span>,<span class="st">'userscore'</span>],axis<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="annotated-cell-9-4" class="hljs-ln-code"><a href="#annotated-cell-9-4"></a>df_genres[<span class="st">'appid'</span>] <span class="op">=</span> df_genres[<span class="st">'appid'</span>].astype(<span class="bu">int</span>)</span>
-<span id="annotated-cell-9-5" class="hljs-ln-code"><a href="#annotated-cell-9-5"></a></span>
-<span id="annotated-cell-9-6" class="hljs-ln-code"><a href="#annotated-cell-9-6"></a><span class="co"># get the average of the owners</span></span>
-<span id="annotated-cell-9-7" class="hljs-ln-code"><a href="#annotated-cell-9-7"></a>owners <span class="op">=</span> pd.DataFrame(df_genres[<span class="st">'owners'</span>].<span class="bu">str</span>.replace(<span class="st">','</span>,<span class="st">''</span>).<span class="bu">str</span>.split(<span class="st">' .. '</span>).tolist(),columns <span class="op">=</span> [<span class="st">'min'</span>,<span class="st">'max'</span>])</span>
-<span id="annotated-cell-9-8" class="hljs-ln-code"><a href="#annotated-cell-9-8"></a>df_genres[<span class="st">'owners'</span>]<span class="op">=</span> owners.astype(<span class="bu">int</span>).<span class="bu">sum</span>(axis<span class="op">=</span><span class="dv">1</span>)<span class="op">/</span><span class="dv">2</span></span>
-<span id="annotated-cell-9-9" class="hljs-ln-code"><a href="#annotated-cell-9-9"></a>df_genres[<span class="st">'owners'</span>] <span class="op">=</span> df_genres[<span class="st">'owners'</span>].astype(<span class="bu">int</span>)</span>
-<span id="annotated-cell-9-10" class="hljs-ln-code"><a href="#annotated-cell-9-10"></a>df_genres.rename(columns<span class="op">=</span>{<span class="st">'owners'</span>:<span class="st">'avg_owners'</span>},inplace<span class="op">=</span><span class="va">True</span>)</span>
-<span id="annotated-cell-9-11" class="hljs-ln-code"><a href="#annotated-cell-9-11"></a></span>
-<span id="annotated-cell-9-12" class="hljs-ln-code"><a href="#annotated-cell-9-12"></a><span class="co"># ratio of positive reviews over total reviews</span></span>
-<a class="code-annotation-anchor hljs-ln-code" data-target-cell="annotated-cell-9" data-target-annotation="2" onclick="event.preventDefault();" href="">2</a><span id="annotated-cell-9-13" class="code-annotation-target hljs-ln-code"><a href="#annotated-cell-9-13"></a>df_genres[<span class="st">'positive_ratio'</span>] <span class="op">=</span> df_genres[<span class="st">'positive'</span>]<span class="op">/</span>(df_genres[<span class="st">'positive'</span>]<span class="op">+</span>df_genres[<span class="st">'negative'</span>])</span>
-<span id="annotated-cell-9-14" class="hljs-ln-code"><a href="#annotated-cell-9-14"></a></span>
-<span id="annotated-cell-9-15" class="hljs-ln-code"><a href="#annotated-cell-9-15"></a><span class="co">'''</span></span>
-<span id="annotated-cell-9-16" class="hljs-ln-code"><a href="#annotated-cell-9-16"></a><span class="co">REMARK: this ratio is severely skewed when the number of reviews is low.</span></span>
-<span id="annotated-cell-9-17" class="hljs-ln-code"><a href="#annotated-cell-9-17"></a><span class="co">'''</span></span>
-<span id="annotated-cell-9-18" class="hljs-ln-code"><a href="#annotated-cell-9-18"></a></span>
-<span id="annotated-cell-9-19" class="hljs-ln-code"><a href="#annotated-cell-9-19"></a><span class="co"># lets drop the rows with less than 100 reviews and 0 average concurent players </span></span>
-<span id="annotated-cell-9-20" class="hljs-ln-code"><a href="#annotated-cell-9-20"></a>df_genres <span class="op">=</span> df_genres[((df_genres[<span class="st">'positive'</span>]<span class="op">+</span>df_genres[<span class="st">'negative'</span>])<span class="op">&gt;</span><span class="dv">100</span>) <span class="op">&amp;</span> (df_genres[<span class="st">'average_forever'</span>]<span class="op">&gt;</span><span class="dv">0</span>)]</span>
-<span id="annotated-cell-9-21" class="hljs-ln-code"><a href="#annotated-cell-9-21"></a><span class="co"># only 12k rows left</span></span><div class="code-annotation-gutter-bg hljs-ln-code"></div><div class="code-annotation-gutter hljs-ln-code"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="annotated-cell-8"><pre class="sourceCode numberSource python code-annotation-code number-lines code-with-copy code-annotated" data-id="quarto-animate-code"><code class="sourceCode python hljs"><span id="annotated-cell-8-1" class="hljs-ln-code"><a href="#annotated-cell-8-1"></a><span class="co"># clean </span></span>
+<span id="annotated-cell-8-2" class="hljs-ln-code"><a href="#annotated-cell-8-2"></a>df_genres <span class="op">=</span> data.copy()</span>
+<a class="code-annotation-anchor hljs-ln-code" data-target-cell="annotated-cell-8" data-target-annotation="1" onclick="event.preventDefault();" href="">1</a><span id="annotated-cell-8-3" class="code-annotation-target hljs-ln-code"><a href="#annotated-cell-8-3"></a>df_genres <span class="op">=</span> df_genres.drop([<span class="st">'score_rank'</span>,<span class="st">'initialprice'</span>,<span class="st">'discount'</span>,<span class="st">'userscore'</span>],axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="annotated-cell-8-4" class="hljs-ln-code"><a href="#annotated-cell-8-4"></a>df_genres[<span class="st">'appid'</span>] <span class="op">=</span> df_genres[<span class="st">'appid'</span>].astype(<span class="bu">int</span>)</span>
+<span id="annotated-cell-8-5" class="hljs-ln-code"><a href="#annotated-cell-8-5"></a></span>
+<span id="annotated-cell-8-6" class="hljs-ln-code"><a href="#annotated-cell-8-6"></a><span class="co"># get the average of the owners</span></span>
+<span id="annotated-cell-8-7" class="hljs-ln-code"><a href="#annotated-cell-8-7"></a>owners <span class="op">=</span> pd.DataFrame(df_genres[<span class="st">'owners'</span>].<span class="bu">str</span>.replace(<span class="st">','</span>,<span class="st">''</span>).<span class="bu">str</span>.split(<span class="st">' .. '</span>).tolist(),columns <span class="op">=</span> [<span class="st">'min'</span>,<span class="st">'max'</span>])</span>
+<span id="annotated-cell-8-8" class="hljs-ln-code"><a href="#annotated-cell-8-8"></a>df_genres[<span class="st">'owners'</span>]<span class="op">=</span> owners.astype(<span class="bu">int</span>).<span class="bu">sum</span>(axis<span class="op">=</span><span class="dv">1</span>)<span class="op">/</span><span class="dv">2</span></span>
+<span id="annotated-cell-8-9" class="hljs-ln-code"><a href="#annotated-cell-8-9"></a>df_genres[<span class="st">'owners'</span>] <span class="op">=</span> df_genres[<span class="st">'owners'</span>].astype(<span class="bu">int</span>)</span>
+<span id="annotated-cell-8-10" class="hljs-ln-code"><a href="#annotated-cell-8-10"></a>df_genres.rename(columns<span class="op">=</span>{<span class="st">'owners'</span>:<span class="st">'avg_owners'</span>},inplace<span class="op">=</span><span class="va">True</span>)</span>
+<span id="annotated-cell-8-11" class="hljs-ln-code"><a href="#annotated-cell-8-11"></a></span>
+<span id="annotated-cell-8-12" class="hljs-ln-code"><a href="#annotated-cell-8-12"></a><span class="co"># ratio of positive reviews over total reviews</span></span>
+<a class="code-annotation-anchor hljs-ln-code" data-target-cell="annotated-cell-8" data-target-annotation="2" onclick="event.preventDefault();" href="">2</a><span id="annotated-cell-8-13" class="code-annotation-target hljs-ln-code"><a href="#annotated-cell-8-13"></a>df_genres[<span class="st">'positive_ratio'</span>] <span class="op">=</span> df_genres[<span class="st">'positive'</span>]<span class="op">/</span>(df_genres[<span class="st">'positive'</span>]<span class="op">+</span>df_genres[<span class="st">'negative'</span>])</span>
+<span id="annotated-cell-8-14" class="hljs-ln-code"><a href="#annotated-cell-8-14"></a></span>
+<span id="annotated-cell-8-15" class="hljs-ln-code"><a href="#annotated-cell-8-15"></a><span class="co">'''</span></span>
+<span id="annotated-cell-8-16" class="hljs-ln-code"><a href="#annotated-cell-8-16"></a><span class="co">REMARK: this ratio is severely skewed when the number of reviews is low.</span></span>
+<span id="annotated-cell-8-17" class="hljs-ln-code"><a href="#annotated-cell-8-17"></a><span class="co">'''</span></span>
+<span id="annotated-cell-8-18" class="hljs-ln-code"><a href="#annotated-cell-8-18"></a></span>
+<span id="annotated-cell-8-19" class="hljs-ln-code"><a href="#annotated-cell-8-19"></a><span class="co"># lets drop the rows with less than 100 reviews and 0 average concurent players </span></span>
+<span id="annotated-cell-8-20" class="hljs-ln-code"><a href="#annotated-cell-8-20"></a>df_genres <span class="op">=</span> df_genres[((df_genres[<span class="st">'positive'</span>]<span class="op">+</span>df_genres[<span class="st">'negative'</span>])<span class="op">&gt;</span><span class="dv">100</span>) <span class="op">&amp;</span> (df_genres[<span class="st">'average_forever'</span>]<span class="op">&gt;</span><span class="dv">0</span>)]</span>
+<span id="annotated-cell-8-21" class="hljs-ln-code"><a href="#annotated-cell-8-21"></a><span class="co"># only 12k rows left</span></span><div class="code-annotation-gutter-bg hljs-ln-code"></div><div class="code-annotation-gutter hljs-ln-code"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <dl class="code-annotation-container-grid">
-<dt data-target-cell="annotated-cell-9" data-target-annotation="1">1</dt>
+<dt data-target-cell="annotated-cell-8" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-lines="3" data-code-cell="annotated-cell-9" data-code-annotation="1">drop the columns [‘score_rank’,‘initialprice’,‘discount’,‘userscore’]</span>
+<span data-code-lines="3" data-code-annotation="1" data-code-cell="annotated-cell-8">drop the columns [‘score_rank’,‘initialprice’,‘discount’,‘userscore’]</span>
 </dd>
-<dt data-target-cell="annotated-cell-9" data-target-annotation="2">2</dt>
+<dt data-target-cell="annotated-cell-8" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-lines="13" data-code-cell="annotated-cell-9" data-code-annotation="2">create new column, ‘positive_ratio’, that give the ratio of positive reviews over total reviews</span>
+<span data-code-lines="13" data-code-annotation="2" data-code-cell="annotated-cell-8">create new column, ‘positive_ratio’, that give the ratio of positive reviews over total reviews</span>
 </dd>
 </dl>
 </section>
