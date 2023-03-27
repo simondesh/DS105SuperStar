@@ -913,7 +913,7 @@ plot(GamesSqrt_sub,scale="bic")
 ```
 
 ## keep outliers
-```{r, keep-outliers, echo = TRUE, eval = TRUE, collapse = TRUE, code_folding=true}
+```{r, keep-outliers, echo = TRUE, eval = TRUE, collapse = TRUE, code_folding=TRUE}
 #check  outliers
 plot(rstandard(Games_lm3))
 options(max.print=22000)
