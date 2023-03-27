@@ -754,7 +754,7 @@ conslusion: no correlation between the two factors
 knitr::opts_chunk$set(echo = TRUE)
 ```
 ## Read
-```{r setup, include=FALSE}
+```r 
 london_ward_shp <- read_sf("data/raw/boundaries/2018/London_Ward.shp")
 
 ```
