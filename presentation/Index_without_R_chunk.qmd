@@ -31,6 +31,7 @@ format:
 ## Presentation content { transition="slide"}
 
 <br/> Table of content:
+
   - **Project flow chart**
   - **Distribution Analysis**
   - **Linear regression analysis 1**
@@ -106,8 +107,6 @@ Hypothesis waiting to be proved in the analysis
 
 - V1: More games are produced with same developers and publishers
 - V2: Proportion of top 100 games which are produced by same and different developers and publishers
-- V3: How does the different developer and publisher affect the number of games produced?
-- V4: How does the same developer and publisher affect the number of games produced?
 
 ## H1/V1: More games are produced with same developers and publishers
 
@@ -171,7 +170,7 @@ g_8
 
 {{< embed Pivoting.ipynb#H2/proportion >}}
 
-## H2/V3: What are the proportions for developers to have higher ability to create popular games?
+## H2/V3: What are the super developers(who have created more than 2 top 100 games and also have more than 50% of ability to create popular games)
 
 ```{.python}
 
@@ -190,7 +189,7 @@ df_100_developers_super
 
 - Valve is tooo outstanding than others no matter in number of games or ability to create popular games, while the second is Endnight Games Ltd in the ability but their range is very big.
 
-- There is no evidence to show that same or different until now.
+- There is no evidence to show that same or different developers and publishers have influence over popularity of games until now.
 
 - A future study on the logistic regression on two classifications will be taken into account: 
 1. same or different developers and publishers
@@ -489,7 +488,7 @@ Steam price - linear regression
 ## Exploratory Data Analysis
 
 ## Variable Selection
-![figure1. price histogram](figure1. price histogram.png){fig-align="left" width = 20%}
+![figure1. price histogram](figure1. price histogram.png){fig-align="left" }
 
 
 ## Data pivoting analysis on genre { transition="slide"}
