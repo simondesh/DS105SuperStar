@@ -32,3 +32,7 @@ dl.code-annotation-container-grid {
 #tbl-ols-best {
   font-size: 16px;
 }
+
+code.sourceCode.python.hljs{
+  font-size: 16px;
+}

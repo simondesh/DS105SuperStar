@@ -28,10 +28,13 @@ format:
 :::
 :::
 
-## Presentation content
-- project flow chart
-- Linear regression analysis
-- Data pivoting analysis
+## Presentation content { transition="slide"}
+
+<br/> Table of content:
+
+  - **project flow chart**
+  - **Linear regression analysis**
+  - **Data pivoting analysis**
 
 
 
@@ -69,20 +72,26 @@ flowchart LR
  
 ```
 
-## Introduction of data frame-df_all_games_with_rank(produced from the df_all_games)
+## Introduction of data frame
+<br/> 
+
+### df_all_games_with_rank(produced from the df_all_games)
+
+<br/>
 
 :::: {.columns}
 
 ::: {.column width="50%"}
 Column name(study related)
 :::
+::: {.column width="50%"}
 appid
-name
-developer
-publisher
-spy_rank
-ranking
-
+<br/>name
+<br/>developer
+<br/>publisher
+<br/>spy_rank
+<br/>ranking
+:::
 ::::
 
 
@@ -126,37 +135,57 @@ g_2
 {{< embed Pivoting.ipynb#H1/V2 >}}
 
 
-## H1/V3: How does the different developer and publisher affect the number of games produced?
+## H1/V3: How does the different developer and publisher affect the number of games produced?{auto-animate="true"}
 
+:::: {.columns}
+::: {.column width="60%"}
+{{< embed Pivoting.ipynb#H1/V3 >}}
+:::
+
+::: {.column width="40%"}
 ``` {.python}
-g_3 = ggplot(df_tmp_100_games_different, aes(x='developer', y='num_games')) +\
+g_3 = ggplot(df_tmp_100_games_different, aes(x='developer',
+ y='num_games')) +\
         geom_bar(stat='identity', fill='blue') +\
-        labs(title='Number of games produced by different developers and publishers', x='developer', y='num_games') +\
+        labs(title='Number of games produced by different developers and publishers'
+        , x='developer', y='num_games') +\
         theme_classic() +\
-        theme(axis_text_x=element_text(angle=90, hjust=1), figure_size=(12, 10)) +\
+        theme(axis_text_x=element_text(angle=90, hjust=1),
+         figure_size=(12, 10)) +\
         coord_flip() +\
         scale_x_discrete(limits=df_tmp_100_games_different['developer'].tolist()) +\
         scale_y_continuous(breaks=range(0, 10, 2))
 g_3
 ```
+:::
 
-{{< embed Pivoting.ipynb#H1/V3 >}}
+:::
+## H1/V3: How does the different developer and publisher affect the number of games produced?{auto-animate="true"}
+:::: {.columns}
 
-
+::: {.column width="60%"}
+{{< embed Pivoting.ipynb#H1/V4 >}}
+:::
+::: {.column width="40%"}
 ``` {.python}
 g_4 = ggplot(df_tmp_100_games_same, aes(x='developer', y='num_games')) +\
         geom_bar(stat='identity', fill='blue') +\
-        labs(title='Number of games produced by same developers and publishers', x='developer', y='num_games') +\
+        labs(title='Number of games produced by same developers and publishers',
+         x='developer', y='num_games') +\
         theme_classic() +\
-        theme(axis_text_x=element_text(angle=90, hjust=1), figure_size=(12, 10)) +\
+        theme(axis_text_x=element_text(angle=90, hjust=1), 
+        figure_size=(12, 10)) +\
         coord_flip() +\
-        scale_x_discrete(limits=df_tmp_100_games_same['developer'].tolist()) +\
+        scale_x_discrete(limits=df_tmp_100_games_same['developer']
+        .tolist()) +\
         scale_y_continuous(breaks=range(0, 10, 2))
 
 g_4
 ```
+:::
+:::
 
-{{< embed Pivoting.ipynb#H1/V4 >}}
+
 
 ## H2: Developers that have created more top 100 games have higher ability to produce more top 100 games in the future (Individuals who would like to produce popular games could go to these developers)?
 
@@ -188,9 +217,11 @@ g_5
 ```{.python}
 g_6 = ggplot(df_tmp_100_games, aes(x='developer', y='num_games')) +\
       geom_bar(stat='identity', fill='blue') +\
-      labs(title='Number of top 100 games games produced by developers', x='developer', y='num_games') +\
+      labs(title='Number of top 100 games games produced by developers'
+      , x='developer', y='num_games') +\
       theme_classic() +\
-      theme(axis_text_x=element_text(angle=90, hjust=1), figure_size=(30, 50)) +\
+      theme(axis_text_x=element_text(angle=90, hjust=1), 
+      figure_size=(30, 50)) +\
       coord_flip() +\
       scale_x_discrete(limits=df_tmp_100_games['developer'].tolist())+\
       geom_text(aes(label='num_games'), size=20, color='red')+\
@@ -204,7 +235,7 @@ g_6
 ```
 {{< embed Pivoting.ipynb#H2/V2/plot >}}
 
-## H2/V3: 
+## H2/V3:
 
 ```{.python}
 g_7 = (ggplot(df_tmp_selected_500_games, aes(x='developer', y='num_games')) +\
@@ -276,7 +307,7 @@ I'll show you how I gathered our current model :
 -   General linear Reg 
 -   Best OLS so far
 
-## Flowchart of Dataprocessing for OLS Genres
+## Flowchart of Dataprocessing for OLS Genres {transition="slide"}
 ```{mermaid}
 flowchart TD
   subgraph API
