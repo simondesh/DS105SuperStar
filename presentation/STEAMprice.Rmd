@@ -8,8 +8,7 @@ if (requireNamespace("thematic"))
   thematic::thematic_rmd(font = "auto")
 ```
 
-## EDA data frame
-
+## lib
 ```{r}
 library(arm)
 library(ggplot2)
@@ -22,8 +21,10 @@ library(sandwich)
 library(MASS)
 library(visdat)
 library(corrplot)
+```
 
-
+## EDA 
+```{r}
 Steam<-read.csv("df_all_games.csv",header = TRUE)
 head(Steam)
 
@@ -60,20 +61,8 @@ str(Steam2)
 
 ```
 
-### plot
-
+### plot1
 ```{r}
-#plot the Dependent Continuous variable-price
-qqnorm(Steam2$price)
-qqline(Steam2$price)
-
-Steam1<-Steam2
-Steam1$price[Steam1$price == 0] <- 1
-qqnorm(log(Steam1$price))
-qqline(log(Steam1$price))
-
-qqnorm(sqrt(Steam2$price))
-qqline(sqrt(Steam2$price))
 
 #EDA price histogram
 hist(Steam2$price,breaks=100,col='blue',xlab='Price',main=
@@ -93,11 +82,25 @@ corrplot.mixed(cor(Steam_games),
 #EDA boxplot for owners
 EDA_boxplot<-ggplot(data=Steam2,aes(x=owners, y=price))+geom_boxplot()#+scale_y_continuous(limits=c(0,2000000))
 EDA_boxplot
+```
+
+#plot2 for why use sqrt(price)
+```{r}
+#plot the Dependent Continuous variable-price
+qqnorm(Steam2$price)
+qqline(Steam2$price)
+
+Steam1<-Steam2
+Steam1$price[Steam1$price == 0] <- 1
+qqnorm(log(Steam1$price))
+qqline(log(Steam1$price))
+
+qqnorm(sqrt(Steam2$price))
+qqline(sqrt(Steam2$price))
 
 ```
 
 ## modeling
-
 ```{r}
 #sqrt version model 
 Games_lm=lm(sqrt(price)~.,data = Steam2) #Full
@@ -137,13 +140,19 @@ Games_lm3=lm(sqrt(price)~initialprice
 summary(Games_lm3)
 Anova(Games_lm3)
 vif(Games_lm3)
+```
 
+## reprove the factors selection
+```{r}
 #best subset
 GamesSqrt_sub<- regsubsets(sqrt(price)~.,data = Steam2, nbest=1)
 par(mfrow = c(1,2))
 plot(GamesSqrt_sub,scale="adjr2")
 plot(GamesSqrt_sub,scale="bic")
+```
 
+## keep outliers
+```{r}
 #check  outliers
 plot(rstandard(Games_lm3))
 options(max.print=22000)
@@ -165,7 +174,10 @@ summary(Games_lm4)
 vif(Games_lm4)
 #romoved the Outliers doesn't help to improve R square, and it even decreases
 #keep Games_lm3
+```
 
+## keep high leverage points
+```{r}
 #Check high leverage points
 plot(hatvalues(Games_lm3))
 #k chosen to be 3
@@ -195,7 +207,10 @@ summary(Games_lm5)
 vif(Games_lm5)
 #romoved the high-leverage point doesn't help to improve R square, and it even decreases
 #keep Games_lm3
+```
 
+## final model after removing influential points
+```{r}
 #infuential points
 thresh <- 4/nrow(Steam2) # Using the 4/n threshold
 ggplot(Games_lm3, aes(seq_along(.cooksd), .cooksd)) + 
