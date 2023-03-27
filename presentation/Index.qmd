@@ -702,6 +702,13 @@ conslusion: no correlation between the two factors
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+## Read
+```{r setup, include=FALSE}
+london_ward_shp <- read_sf("data/raw/boundaries/2018/London_Ward.shp")
+
+```
+
+{{< embed genre_data_pivoting.ipynb#fig-scatter  >}}
 
 ## Exploratory data analysis
 
