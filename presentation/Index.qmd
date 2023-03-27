@@ -160,7 +160,7 @@ g_8
 
 ```
 
-{{< embed Pivoting.ipynb#H2/V4 >}}
+{{< embed Pivoting.ipynb#H2/proportion >}}
 
 ## H2/V3: What are the proportions for developers to have higher ability to create popular games?
 
