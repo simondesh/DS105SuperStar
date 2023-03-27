@@ -161,8 +161,8 @@ g_4
 ## H2: Developers that have created more top 100 games have higher ability to produce more top 100 games in the future (Individuals who would like to produce popular games could go to these developers)?
 
 - V1: What developers create the most games?
-- V2: What developers create the most top 100 games
-- V3: 
+- V2: What developers create the most top 100 games?
+- 
 
 ## H2/V1:What developers create the most games?
 
@@ -183,7 +183,7 @@ g_5
 ```
 {{< embed Pivoting.ipynb#H2/V1/plot >}}
 
-## H2/V2:
+## H2/V2: What developers create the most top 100 games?
 
 ```{.python}
 g_6 = ggplot(df_tmp_100_games, aes(x='developer', y='num_games')) +\
@@ -202,9 +202,9 @@ g_6 = ggplot(df_tmp_100_games, aes(x='developer', y='num_games')) +\
 g_6
 
 ```
-{{< embed Pivoting.ipynb#H2/V2/plot >}}
+{{< embed Pivoting.ipynb#H2/V2 >}}
 
-## H2/V3: 
+## H2/V3: What developers create the most top 500 games? 
 
 ```{.python}
 g_7 = (ggplot(df_tmp_selected_500_games, aes(x='developer', y='num_games')) +\
@@ -226,7 +226,32 @@ g_7 = (ggplot(df_tmp_selected_500_games, aes(x='developer', y='num_games')) +\
 g_7
 
 ```
-{{< embed Pivoting.ipynb#H2/V3/plot >}}
+{{< embed Pivoting.ipynb#H2/V3 >}}
+
+## H2/V4: What are the proportions for developers to have higher ability toi create popular games?
+
+```{.python}
+
+g_8
+
+```
+
+{{< embed Pivoting.ipynb#H2/V4 >}}
+
+## Get super developers 
+
+```{.python}
+
+df_100_developers_super = (
+    df_100_developers
+    .query('num_games_all >= 2 and proportion > 50')
+    .sort_values(by='proportion', ascending=True)
+)
+
+df_100_developers_super
+
+```
+{{< embed Pivoting.ipynb#H2/super >}}
 
 ## Result for H1 and H2:
 
@@ -237,32 +262,6 @@ g_7
 - A future study on the logistic regression on two classifications will be taken into account: 
 1. same or different developers and publishers
 2. minus, minor, major, super ability of creating popular games for developers
-
-## Pivoting Heatmap
-
-```{.python}
-# Create a custom color map for the binary values
-cmap = sns.color_palette(["#FFFFFF", "#000000"])
-
-# Set the plot size
-plt.figure(figsize=(50, 50))
-
-# Plot the heatmap with binary color map
-sns.heatmap(pivot_table, cmap=cmap, center=0, linewidths=.20, annot=True, fmt='.0f', cbar=False)
-
-# Rotate the x-axis labels
-plt.xticks(rotation=90)
-
-# Set the plot title and axis labels
-plt.title('Binary Matrix Heatmap')
-plt.xlabel('Column')
-plt.ylabel('Row')
-
-# Show the plot
-plt.show()
-```
-{{< embed Pivoting.ipynb#Heatmap/heatmap >}}
-
 
 ## Linear Regression Content 1
 
